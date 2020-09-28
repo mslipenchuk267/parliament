@@ -1,11 +1,16 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { UserNavigator } from './ParliamentNavigators';
+import StartupScreen from '../screens/StartupScreen';
+import { useSelector } from 'react-redux';
 
 const AppNavigator = (props) => {
+    const didTryAutoLogin = useSelector(state => state.user.didTryAutoLogin);
+
     return (
         <NavigationContainer>
-            <UserNavigator />
+            { didTryAutoLogin === false && <StartupScreen /> }
+            { didTryAutoLogin === true && <UserNavigator /> }
         </NavigationContainer>
     )
 }
