@@ -12,7 +12,7 @@ import ReduxThunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import userReducer from './store/reducers/user';
-
+import AppNavigator from './navigation/AppNavigator';
 
 const rootReducer = combineReducers({
   user: userReducer
@@ -23,14 +23,7 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(Redux
 const App = () => {
   return (
     <Provider store={store}>
-      <View>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <View>
-            <Text>HomeScreen</Text>
-          </View>
-        </SafeAreaView>
-      </View>
+      <AppNavigator />
     </Provider>
   );
 };
