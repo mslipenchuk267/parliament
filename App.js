@@ -27,7 +27,7 @@ const App = () => {
         <StatusBar barStyle="dark-content" />
         <SafeAreaView>
           <View>
-            <Text>HomeScreen</Text>
+            <Text>Is this working</Text>
           </View>
         </SafeAreaView>
       </View>
