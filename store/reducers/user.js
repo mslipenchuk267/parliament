@@ -1,3 +1,7 @@
+import {
+    UPDATE_ACCESS_TOKEN
+} from '../../constants/ActionTypes';
+
 const initialState = {
     accessToken: "",
     accessTokenExpiration: "",
@@ -12,8 +16,12 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch(action.type) {
-        // case
-
+        case UPDATE_ACCESS_TOKEN:
+            return {
+                ...state,
+                accessToken: newAccessToken,
+                accessTokenExpiration: newAccessTokenExpiration
+            }
         default:
             return state;
     }
