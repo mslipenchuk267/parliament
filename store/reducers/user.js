@@ -1,5 +1,6 @@
 import {
-    UPDATE_ACCESS_TOKEN
+    UPDATE_ACCESS_TOKEN,
+    SET_DID_TRY_AUTO_LOGIN
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -11,11 +12,17 @@ const initialState = {
     deviceToken: "",
     userID: "",
     notificationHistory: [],
-    tempIDs: []
+    tempIDs: [],
+    didTryAutoLogin: false
 }
 
 export default (state = initialState, action) => {
     switch(action.type) {
+        case SET_DID_TRY_AUTO_LOGIN:
+            return {
+                ...state,
+                didTryAutoLogin: true
+            }
         case UPDATE_ACCESS_TOKEN:
             return {
                 ...state,
