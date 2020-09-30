@@ -8,6 +8,8 @@ target 'parliament' do
 
   use_react_native!(:path => config["reactNativePath"])
 
+  pod 'react-native-ble-plx', :path => '../node_modules/react-native-ble-plx'
+
   target 'parliamentTests' do
     inherit! :complete
     # Pods for testing
