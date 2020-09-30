@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, View, Button, StyleSheet, SafeAreaView } from 'react-native'
+import React, { useEffect } from 'react'
+import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView } from 'react-native'
 import { BleManager } from 'react-native-ble-plx'
 
 const bleManager = new BleManager();
@@ -19,6 +19,22 @@ const HomeScreen = () => {
     const handleStopContactTracing = () => {
         bleManager.stopDeviceScan();
     }
+
+    useEffect(() => {
+        if (Platform.OS === 'android') {
+            // (TODO) lets use require variable to be true for device scanning or advertising to execute
+            const granted = PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                {
+                    title: 'Permission Localisation Bluetooth',
+                    message: 'Requirement for Bluetooth',
+                    buttonNeutral: 'Later',
+                    buttonNegative: 'Cancel',
+                    buttonPositive: 'OK',
+                }
+            );
+        }
+    }, []);
 
     return (
         <SafeAreaView style={styles.container} >
