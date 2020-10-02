@@ -4,6 +4,14 @@ import { useDispatch } from 'react-redux';
 
 import * as userActions from '../store/actions/user';
 
+/**
+ * StartupScreen Component.
+ *
+ * @example
+ * return (
+ *   <StartupScreen />
+ * )
+ */
 const StartupScreen = () => {
     const dispatch = useDispatch();
 

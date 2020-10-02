@@ -16,6 +16,14 @@ const DiagnosisStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
 
+/**
+ * HomeNavigator Component.
+ *
+ * @example
+ * return (
+ *   <HomeNavigator />
+ * )
+ */
 export const HomeNavigator = () => {
     return (
         <HomeStackNavigator.Navigator>
@@ -27,6 +35,14 @@ export const HomeNavigator = () => {
     )
 }
 
+/**
+ * DiagnosisNavigator Component.
+ *
+ * @example
+ * return (
+ *   <DiagnosisNavigator />
+ * )
+ */
 export const DiagnosisNavigator = () => {
     return (
         <DiagnosisStackNavigator.Navigator>
@@ -38,6 +54,14 @@ export const DiagnosisNavigator = () => {
     )
 }
 
+/**
+ * NotificationsNavigator Component.
+ *
+ * @example
+ * return (
+ *   <NotificationsNavigator />
+ * )
+ */
 export const NotificationsNavigator = () => {
     return (
         <NotificationStackNavigator.Navigator>
@@ -49,6 +73,14 @@ export const NotificationsNavigator = () => {
     )
 }
 
+/**
+ * SettingsNavigator Component.
+ *
+ * @example
+ * return (
+ *   <SettingsNavigator />
+ * )
+ */
 export const SettingsNavigator = () => {
     return (
         <SettingsStackNavigator.Navigator>
@@ -60,6 +92,14 @@ export const SettingsNavigator = () => {
     )
 }
 
+/**
+ * UserNavigator Component.
+ *
+ * @example
+ * return (
+ *   <UserNavigator />
+ * )
+ */
 export const UserNavigator = () => {
     return (
         <UserTabNavigator.Navigator >

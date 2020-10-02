@@ -20,6 +20,14 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 
+/**
+ * App Component.
+ *
+ * @example
+ * return (
+ *   <App />
+ * )
+ */
 const App = () => {
   return (
     <Provider store={store}>

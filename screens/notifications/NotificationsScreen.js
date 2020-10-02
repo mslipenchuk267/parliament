@@ -1,6 +1,14 @@
 import React from 'react'
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
 
+/**
+ * NotificationsScreen Component.
+ *
+ * @example
+ * return (
+ *   <NotificationsScreen />
+ * )
+ */
 const NotificationsScreen = () => {
     return (
         <SafeAreaView>

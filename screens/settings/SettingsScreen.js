@@ -1,6 +1,14 @@
 import React from 'react'
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
 
+/**
+ * SettingsScreen Component.
+ *
+ * @example
+ * return (
+ *   <SettingsScreen />
+ * )
+ */
 const SettingsScreen = () => {
     return (
         <SafeAreaView>
