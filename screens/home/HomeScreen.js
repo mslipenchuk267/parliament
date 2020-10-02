@@ -49,6 +49,13 @@ const HomeScreen = () => {
                             let characteristics = await device.characteristicsForService('00001200-0000-1000-8000-00805f9b34fb')
                             console.log("Characteristics:", characteristics)
                         } catch {
+                            console.log("Could not get Discover services")
+                        }
+                        try {
+                            device = await device.discoverAllServicesAndCharacteristics()
+                            let characteristics = await device.characteristicsForService('00001200-0000-1000-8000-00805f9b34fb')
+                            console.log("Characteristics:", characteristics)
+                        } catch {
                             console.log("Could not get characteristics")
                         }
 
@@ -100,7 +107,7 @@ const HomeScreen = () => {
             }
 
             const ch = new Characteristic({
-                uuid: '00001100-0000-1000-8000-00505f8b34fa',
+                uuid: '00001100-0000-1000-8000-00505f8b34fc',
                 value: '', // Base64-encoded string
                 properties: ['read'],
                 permissions: ['readable'],
@@ -117,7 +124,7 @@ const HomeScreen = () => {
             // the contactTracingServiceUUID is only visible for other iOS devices and not for Android devices
             await Peripheral.startAdvertising({
                 name: 'PiOS',
-                serviceUuids: ['00001200-0000-1000-8000-00805f9b34fb', '00001100-0000-1000-8000-00505f8b34fa'],
+                serviceUuids: ['00001200-0000-1000-8000-00805f9b34fb', '00001100-0000-1000-8000-00505f8b34fc'],
             })
 
         }
