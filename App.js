@@ -23,6 +23,13 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(Redux
 /**
  * App Component.
  *
+ * The entry point of the application
+ * 
+ * This component is loaded first on startup
+ * All functionality of App is wrapping in Provider
+ * so that all nested componenet may access the 
+ * Redux store.
+ * 
  * @example
  * return (
  *   <App />
