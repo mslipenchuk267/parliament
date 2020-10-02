@@ -3,7 +3,8 @@
         "allowUnknownTags": true
     },
     "source": {
-        "include": ["./screens", "./navigation", "./App.js"]
+        "include": ["./screens", "./navigation", "./App.js", "./node_modules/react-native-ble-plx", 
+            "./node_modules/react-native-ble-peripheral", ".node_modules/react-native-ble-manager"]
     },
     "plugins": [
         "plugins/markdown",
