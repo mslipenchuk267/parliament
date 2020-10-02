@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 
 /**
  * AppNavigator Component.
+ *
  * Adds routing and navigation to the entire React-Native app
  * 
  * This is called by the main app function and wraps the entire
