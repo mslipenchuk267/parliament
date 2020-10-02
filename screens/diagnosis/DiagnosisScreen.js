@@ -3,7 +3,8 @@ import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
 
 /**
  * DiagnosisScreen Component.
- *
+ * returns a SafeAreaView allowing the user to see an explanation of Diagnosis
+ * This will also contain the QR Scanner and the testing site linking component
  * @example
  * return (
  *   <DiagnosisScreen />
