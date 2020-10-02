@@ -24,6 +24,8 @@ const SettingsStackNavigator = createStackNavigator();
  * Switches the screen to the HomeScreen when
  * selected from the UserNavigator component
  *
+ * @property {string} name - The name that displays in the components tab 
+ * 
  * @example
  * return (
  *   <HomeNavigator />
@@ -47,6 +49,8 @@ export const HomeNavigator = () => {
  * 
  * Switches the screen to the DiagnosisScreen when
  * selected from the UserNavigator component
+ * 
+ * @property {string} name - The name that displays in the components tab 
  * 
  * @example
  * return (
@@ -72,6 +76,8 @@ export const DiagnosisNavigator = () => {
  * Switches the screen to the NotificationsScreen 
  * when selected from the UserNavigator component
  * 
+ * @property {string} name - The name that displays in the components tab 
+ * 
  * @example
  * return (
  *   <NotificationsNavigator />
@@ -95,6 +101,8 @@ export const NotificationsNavigator = () => {
  * 
  * Switches the screen to the SettingsScreen when
  * selected from the UserNavigator component
+ * 
+ * @property {string} name - The name that displays in the components tab 
  * 
  * @example
  * return (
