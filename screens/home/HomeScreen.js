@@ -29,13 +29,13 @@ const HomeScreen = () => {
         try {
             bleManager.startDeviceScan(
                 null, //['00001200-0000-1000-8000-00805f9b34fb']
-                { allowDuplicates: true },
+                { allowDuplicates: false },
                 async (error, device) => {
                     // get services
                     let services = device.serviceUUIDs
                     // check if there are services being advertised
                     if (services && services.includes('00001200-0000-1000-8000-00805f9b34fb')) {
-                        console.log("Scanned a device with name: " + device.name + " | " + device.rssi)
+                        console.log("Scanned a device with name: " + device.name + " | " + device.id + " | " + device.rssi)
                         console.log("Services:", services)
                         try {
                             device = await device.connect({ autoConnect: false, timeout: 1000 * 3 })
@@ -88,6 +88,10 @@ const HomeScreen = () => {
      */
     const handleStartAdvertising = async () => {
         if (Platform.OS === 'android') {
+            if (BLEPeripheral.isAdvertising()) {
+                BLEPeripheral.stop()
+            }
+
             BLEPeripheral.setName('');
             // The contact tracing service UUID
             BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fb', true);
@@ -126,6 +130,7 @@ const HomeScreen = () => {
                 name: 'PiOS',
                 serviceUuids: ['00001200-0000-1000-8000-00805f9b34fb', '00001100-0000-1000-8000-00505f8b34fc'],
             })
+            console.log("Started Advertising on iOS")
 
         }
     }
@@ -139,7 +144,7 @@ const HomeScreen = () => {
             await BLEPeripheral.stop()
         } else {
             if (Peripheral.isAdvertising()) {
-                await Peripheral.stopAdvertising();
+                return await Peripheral.stopAdvertising();
             }
         }
     }
