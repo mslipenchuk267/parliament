@@ -18,6 +18,11 @@ const SettingsStackNavigator = createStackNavigator();
 
 /**
  * HomeNavigator Component.
+ * 
+ * @memberof UserNavigator
+ * 
+ * Switches the screen to the HomeScreen when
+ * selected from the UserNavigator component
  *
  * @example
  * return (
@@ -38,6 +43,11 @@ export const HomeNavigator = () => {
 /**
  * DiagnosisNavigator Component.
  *
+ * @memberof UserNavigator
+ * 
+ * Switches the screen to the DiagnosisScreen when
+ * selected from the UserNavigator component
+ * 
  * @example
  * return (
  *   <DiagnosisNavigator />
@@ -57,6 +67,11 @@ export const DiagnosisNavigator = () => {
 /**
  * NotificationsNavigator Component.
  *
+ * @memberof UserNavigator
+ * 
+ * Switches the screen to the NotificationsScreen 
+ * when selected from the UserNavigator component
+ * 
  * @example
  * return (
  *   <NotificationsNavigator />
@@ -76,6 +91,11 @@ export const NotificationsNavigator = () => {
 /**
  * SettingsNavigator Component.
  *
+ * @memberof UserNavigator
+ * 
+ * Switches the screen to the SettingsScreen when
+ * selected from the UserNavigator component
+ * 
  * @example
  * return (
  *   <SettingsNavigator />
@@ -94,7 +114,13 @@ export const SettingsNavigator = () => {
 
 /**
  * UserNavigator Component.
- *
+ * 
+ * Displays bottom tab navigation for the app
+ * 
+ * Combines the previous 4 navigator components into
+ * one larger navigation element that allows the user
+ * to switch between screens within the application
+ * 
  * @example
  * return (
  *   <UserNavigator />
