@@ -41,22 +41,17 @@ const HomeScreen = () => {
                             device = await device.connect({ autoConnect: false, timeout: 1000 * 3 })
                         } catch {
                             console.log("Could not connect")
+                            return;
                         }
 
                         console.log("Connected to device: ", device.name)
                         try {
                             device = await device.discoverAllServicesAndCharacteristics()
                             let characteristics = await device.characteristicsForService('00001200-0000-1000-8000-00805f9b34fb')
-                            console.log("Characteristics:", characteristics)
+                            console.log("************************Characteristics:", characteristics[0].uuid)
                         } catch {
                             console.log("Could not get Discover services")
-                        }
-                        try {
-                            device = await device.discoverAllServicesAndCharacteristics()
-                            let characteristics = await device.characteristicsForService('00001200-0000-1000-8000-00805f9b34fb')
-                            console.log("Characteristics:", characteristics)
-                        } catch {
-                            console.log("Could not get characteristics")
+                            return;
                         }
 
                         try {
