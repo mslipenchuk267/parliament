@@ -1,8 +1,11 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
+
+import * as userActions from '../../store/actions/user';
 
 const bleManager = new BleManager();
 
@@ -15,6 +18,8 @@ const bleManager = new BleManager();
  * )
  */
 const HomeScreen = () => {
+
+    const dispatch = useDispatch();
 
     /**
      * Begin scanning for devices and handle each device
@@ -38,7 +43,7 @@ const HomeScreen = () => {
                         console.log("Scanned a device with name: " + device.name + " | " + device.id + " | " + device.rssi)
                         console.log("Services:", services)
                         try {
-                            device = await device.connect({ autoConnect: false, timeout: 1000 * 3 })
+                            device = await device.connect({ timeout: 1000 * 3 })
                         } catch {
                             console.log("Could not connect")
                             return;
@@ -48,7 +53,9 @@ const HomeScreen = () => {
                         try {
                             device = await device.discoverAllServicesAndCharacteristics()
                             let characteristics = await device.characteristicsForService('00001200-0000-1000-8000-00805f9b34fb')
-                            console.log("************************Characteristics:", characteristics[0].uuid)
+                            console.log("************************Characteristic:", characteristics[0].uuid)
+                            // Save or update the contacted device in the redux 
+                            await dispatch(userActions.addOrUpdateContact(characteristics[0].uuid, device.rssi, new Date()))
                         } catch {
                             console.log("Could not get Discover services")
                             return;
@@ -101,9 +108,9 @@ const HomeScreen = () => {
                     console.log(error)
                 })
         } else {
-            if (Peripheral.isAdvertising()) {
-                await Peripheral.stopAdvertising()
-            }
+            //if (Peripheral.isAdvertising()) {
+            //    await Peripheral.stopAdvertising()
+            //}
 
             const ch = new Characteristic({
                 uuid: '00001100-0000-1000-8000-00505f8b34fc',
