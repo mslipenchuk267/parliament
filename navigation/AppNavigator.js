@@ -5,15 +5,11 @@ import StartupScreen from '../screens/StartupScreen';
 import { useSelector } from 'react-redux';
 
 /**
- * AppNavigator Component.
- *
- * Adds routing and navigation to the entire React-Native app
- * 
- * This is called by the main app function and wraps the entire
- * app within the NavigationContainer
- * 
- * Allows us to easily move between screens of the application
- * 
+ * The AppNavigator is the root navigation component. 
+ * The AppNavigator wraps the startup screen component
+ * and user navigatior in a navigation container.
+ * It also ensures that the startup screen is the first 
+ * component to render. 
  * @example
  * return (
  *   <AppNavigator />

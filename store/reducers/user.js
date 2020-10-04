@@ -53,7 +53,6 @@ export default (state = initialState, action) => {
                     contactedIDs: state.contactedIDs.concat(newContact)
                 }
             }
-
         case SET_DID_TRY_AUTO_LOGIN:
             return {
                 ...state,

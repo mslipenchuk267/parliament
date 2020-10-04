@@ -10,8 +10,9 @@ import * as userActions from '../../store/actions/user';
 const bleManager = new BleManager();
 
 /**
- * HomeScreen Component.
- *
+ * The HomeScreen component houses the UI components 
+ * and handler functions for starting and stopping
+ * contact tracing.
  * @example
  * return (
  *   <HomeScreen />
@@ -23,10 +24,7 @@ const HomeScreen = () => {
 
     /**
      * Begin scanning for devices and handle each device
-     * 
-     * @function
      * @return  {Promise<void>}  
-     * 
      * @example
      * await handleStartContactTracing()     
      */
@@ -76,17 +74,17 @@ const HomeScreen = () => {
     }
 
     /**
-     * stop scanning for devices
-     * 
-     * @return  {void}            
+     * Stops the BLE Manager from scanning for devices.
+     * @return {void} calls the stopDeviceScan() function on bleManager     
      */
     const handleStopContactTracing = () => {
         bleManager.stopDeviceScan();
     }
 
     /**
-     * start advertising parliament contact tracing service UUID & device key 
-     * @return  {Promise<void>}            
+     * Start advertising the contact tracing bluetooth service uuid and 
+     * the user temporary id characteristic uuid.
+     * @return {Promise<void>} starts bluetooth advertising with peripheral component
      */
     const handleStartAdvertising = async () => {
         if (Platform.OS === 'android') {
@@ -138,8 +136,8 @@ const HomeScreen = () => {
     }
 
     /**
-     * stop advertising parliament contact tracing service UUID & device key 
-     * @return  {Promise<void>}            
+     * Stops advertising device.
+     * @return  {Promise<void>} Stops the peripheral component from advertising        
      */
     const handleStopAdvertising = async () => {
         if (Platform.OS === 'android') {

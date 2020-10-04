@@ -27,16 +27,20 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
 
+import * as userActions from '../../store/actions/user';
+
 const bleManager = new BleManager();
 
 /**
- * HomeScreen Component.
- *
+ * The HomeScreen component houses the UI components 
+ * and handler functions for starting and stopping
+ * contact tracing.
  * @example
  * return (
  *   &lt;HomeScreen />
@@ -44,12 +48,11 @@ const bleManager = new BleManager();
  */
 const HomeScreen = () => {
 
+    const dispatch = useDispatch();
+
     /**
      * Begin scanning for devices and handle each device
-     * 
-     * @function
      * @return  {Promise&lt;void>}  
-     * 
      * @example
      * await handleStartContactTracing()     
      */
@@ -57,27 +60,31 @@ const HomeScreen = () => {
         try {
             bleManager.startDeviceScan(
                 null, //['00001200-0000-1000-8000-00805f9b34fb']
-                { allowDuplicates: true },
+                { allowDuplicates: false },
                 async (error, device) => {
                     // get services
                     let services = device.serviceUUIDs
                     // check if there are services being advertised
                     if (services &amp;&amp; services.includes('00001200-0000-1000-8000-00805f9b34fb')) {
-                        console.log("Scanned a device with name: " + device.name + " | " + device.rssi)
+                        console.log("Scanned a device with name: " + device.name + " | " + device.id + " | " + device.rssi)
                         console.log("Services:", services)
                         try {
-                            device = await device.connect({ autoConnect: false, timeout: 1000 * 3 })
+                            device = await device.connect({ timeout: 1000 * 3 })
                         } catch {
                             console.log("Could not connect")
+                            return;
                         }
 
                         console.log("Connected to device: ", device.name)
                         try {
                             device = await device.discoverAllServicesAndCharacteristics()
                             let characteristics = await device.characteristicsForService('00001200-0000-1000-8000-00805f9b34fb')
-                            console.log("Characteristics:", characteristics)
+                            console.log("************************Characteristic:", characteristics[0].uuid)
+                            // Save or update the contacted device in the redux 
+                            await dispatch(userActions.addOrUpdateContact(characteristics[0].uuid, device.rssi, new Date()))
                         } catch {
-                            console.log("Could not get characteristics")
+                            console.log("Could not get Discover services")
+                            return;
                         }
 
                         try {
@@ -95,20 +102,24 @@ const HomeScreen = () => {
     }
 
     /**
-     * stop scanning for devices
-     * 
-     * @return  {void}            
+     * Stops the BLE Manager from scanning for devices.
+     * @return {void} calls the stopDeviceScan() function on bleManager     
      */
     const handleStopContactTracing = () => {
         bleManager.stopDeviceScan();
     }
 
     /**
-     * start advertising parliament contact tracing service UUID &amp; device key 
-     * @return  {Promise&lt;void>}            
+     * Start advertising the contact tracing bluetooth service uuid and 
+     * the user temporary id characteristic uuid.
+     * @return {Promise&lt;void>} starts bluetooth advertising with peripheral component
      */
     const handleStartAdvertising = async () => {
         if (Platform.OS === 'android') {
+            if (BLEPeripheral.isAdvertising()) {
+                BLEPeripheral.stop()
+            }
+
             BLEPeripheral.setName('');
             // The contact tracing service UUID
             BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fb', true);
@@ -123,12 +134,12 @@ const HomeScreen = () => {
                     console.log(error)
                 })
         } else {
-            if (Peripheral.isAdvertising()) {
-                await Peripheral.stopAdvertising()
-            }
+            //if (Peripheral.isAdvertising()) {
+            //    await Peripheral.stopAdvertising()
+            //}
 
             const ch = new Characteristic({
-                uuid: '00001100-0000-1000-8000-00505f8b34fa',
+                uuid: '00001100-0000-1000-8000-00505f8b34fc',
                 value: '', // Base64-encoded string
                 properties: ['read'],
                 permissions: ['readable'],
@@ -145,22 +156,23 @@ const HomeScreen = () => {
             // the contactTracingServiceUUID is only visible for other iOS devices and not for Android devices
             await Peripheral.startAdvertising({
                 name: 'PiOS',
-                serviceUuids: ['00001200-0000-1000-8000-00805f9b34fb', '00001100-0000-1000-8000-00505f8b34fa'],
+                serviceUuids: ['00001200-0000-1000-8000-00805f9b34fb', '00001100-0000-1000-8000-00505f8b34fc'],
             })
+            console.log("Started Advertising on iOS")
 
         }
     }
 
     /**
-     * stop advertising parliament contact tracing service UUID &amp; device key 
-     * @return  {Promise&lt;void>}            
+     * Stops advertising device.
+     * @return  {Promise&lt;void>} Stops the peripheral component from advertising        
      */
     const handleStopAdvertising = async () => {
         if (Platform.OS === 'android') {
             await BLEPeripheral.stop()
         } else {
             if (Peripheral.isAdvertising()) {
-                await Peripheral.stopAdvertising();
+                return await Peripheral.stopAdvertising();
             }
         }
     }
@@ -231,13 +243,13 @@ export default HomeScreen;
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppNavigator">AppNavigator</a></li><li><a href="global.html#DiagnosisNavigator">DiagnosisNavigator</a></li><li><a href="global.html#DiagnosisScreen">DiagnosisScreen</a></li><li><a href="global.html#HomeNavigator">HomeNavigator</a></li><li><a href="global.html#HomeScreen">HomeScreen</a></li><li><a href="global.html#NotificationsNavigator">NotificationsNavigator</a></li><li><a href="global.html#NotificationsScreen">NotificationsScreen</a></li><li><a href="global.html#SettingsNavigator">SettingsNavigator</a></li><li><a href="global.html#SettingsScreen">SettingsScreen</a></li><li><a href="global.html#StartupScreen">StartupScreen</a></li><li><a href="global.html#UserNavigator">UserNavigator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Contact.html">Contact</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addOrUpdateContact">addOrUpdateContact</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppNavigator">AppNavigator</a></li><li><a href="global.html#DiagnosisNavigator">DiagnosisNavigator</a></li><li><a href="global.html#DiagnosisScreen">DiagnosisScreen</a></li><li><a href="global.html#HomeNavigator">HomeNavigator</a></li><li><a href="global.html#HomeScreen">HomeScreen</a></li><li><a href="global.html#NotificationsNavigator">NotificationsNavigator</a></li><li><a href="global.html#NotificationsScreen">NotificationsScreen</a></li><li><a href="global.html#setDidTryAutoLogin">setDidTryAutoLogin</a></li><li><a href="global.html#SettingsNavigator">SettingsNavigator</a></li><li><a href="global.html#SettingsScreen">SettingsScreen</a></li><li><a href="global.html#StartupScreen">StartupScreen</a></li><li><a href="global.html#updateAccessToken">updateAccessToken</a></li><li><a href="global.html#UserNavigator">UserNavigator</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 02 2020 05:07:43 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 02 2020 23:23:34 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

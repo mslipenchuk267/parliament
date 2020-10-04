@@ -21,14 +21,11 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 
 /**
- * App Component.
- *
- * The entry point of the application
- * 
- * This component is loaded first on startup
- * All functionality of App is wrapping in Provider
- * so that all nested componenet may access the 
- * Redux store.
+ * This is the first component called at 
+ * application start and is the parent 
+ * component of the app.
+ * This component wraps the parent navigator
+ * with a Redux Provider.
  * 
  * @example
  * return (
@@ -42,9 +39,5 @@ const App = () => {
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-
-});
 
 export default App;

@@ -98,13 +98,177 @@
 
         
             
+<h4 class="name" id="addOrUpdateContact"><span class="type-signature">(constant) </span>addOrUpdateContact<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>This action creator updates the user state
+by either adding a new contact entry or updating
+an existing on in the contactedIDs user state.</p>
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>tempID</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the contacted users temporary ID</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>rssi</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the connection signal strength at the time of contact</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>date</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the date given at the time of contact</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(addOrUpdateContact(characteristic[0].uuid, device.rssi, new Date()))</code></pre>
+
+
+
+        
+            
 <h4 class="name" id="DiagnosisNavigator"><span class="type-signature">(constant) </span>DiagnosisNavigator<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>DiagnosisNavigator Component.</p>
+    <p>The DiagnosisNavigator represents the diagnosis tab
+in the bottom tab navigator. It manages all the screens
+meant to be shown in the diagnosis tab.</p>
 </div>
 
 
@@ -139,11 +303,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="navigation_ParliamentNavigators.js.html">navigation/ParliamentNavigators.js</a>, <a href="navigation_ParliamentNavigators.js.html#line46">line 46</a>
-    </li></ul></dd>
     
 
     
@@ -173,7 +332,9 @@
 
 
 <div class="description">
-    <p>HomeNavigator Component.</p>
+    <p>The HomeNavigator represents the home tab
+in the bottom tab navigator. It manages all the screens
+meant to be shown in the home tab.</p>
 </div>
 
 
@@ -208,11 +369,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="navigation_ParliamentNavigators.js.html">navigation/ParliamentNavigators.js</a>, <a href="navigation_ParliamentNavigators.js.html#line27">line 27</a>
-    </li></ul></dd>
     
 
     
@@ -242,7 +398,9 @@
 
 
 <div class="description">
-    <p>NotificationsNavigator Component.</p>
+    <p>The NotificationsNavigator represents the notifications tab
+in the bottom tab navigator. It manages all the screens
+meant to be shown in the notifications tab.</p>
 </div>
 
 
@@ -277,11 +435,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="navigation_ParliamentNavigators.js.html">navigation/ParliamentNavigators.js</a>, <a href="navigation_ParliamentNavigators.js.html#line65">line 65</a>
-    </li></ul></dd>
     
 
     
@@ -305,13 +458,15 @@
 
         
             
-<h4 class="name" id="SettingsNavigator"><span class="type-signature">(constant) </span>SettingsNavigator<span class="type-signature"></span></h4>
+<h4 class="name" id="setDidTryAutoLogin"><span class="type-signature">(constant) </span>setDidTryAutoLogin<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>SettingsNavigator Component.</p>
+    <p>This action creator sets that the user did
+try to auto login on the startup screen.
+This is what lets us display the user navigator.</p>
 </div>
 
 
@@ -347,10 +502,69 @@
     
 
     
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="navigation_ParliamentNavigators.js.html">navigation/ParliamentNavigators.js</a>, <a href="navigation_ParliamentNavigators.js.html#line84">line 84</a>
-    </li></ul></dd>
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(setDidTryAutoLogin())</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="SettingsNavigator"><span class="type-signature">(constant) </span>SettingsNavigator<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>The SettingsNavigator represents the settings tab
+in the bottom tab navigator. It manages all the screens
+meant to be shown in the settings tab.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
     
 
     
@@ -374,13 +588,154 @@
 
         
             
+<h4 class="name" id="updateAccessToken"><span class="type-signature">(constant) </span>updateAccessToken<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>This action creator updates the user state
+with a refreshed access token provided by the
+authentication API.</p>
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>newAccessToken</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the refreshed access token</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>newAccessTokenExpiration</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Date</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>the expiration date of the refreshed access token</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(updateAccessToken())</code></pre>
+
+
+
+        
+            
 <h4 class="name" id="UserNavigator"><span class="type-signature">(constant) </span>UserNavigator<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>UserNavigator Component.</p>
+    <p>The UserNavigator represents the
+bottom tab navigator. It manages each
+tabs respective navigators.</p>
 </div>
 
 
@@ -415,11 +770,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="navigation_ParliamentNavigators.js.html">navigation/ParliamentNavigators.js</a>, <a href="navigation_ParliamentNavigators.js.html#line103">line 103</a>
-    </li></ul></dd>
     
 
     
@@ -461,7 +811,11 @@
 
 
 <div class="description">
-    <p>App Component.</p>
+    <p>This is the first component called at
+application start and is the parent
+component of the app.
+This component wraps the parent navigator
+with a Redux Provider.</p>
 </div>
 
 
@@ -502,11 +856,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="App.js.html">App.js</a>, <a href="App.js.html#line31">line 31</a>
-    </li></ul></dd>
     
 
     
@@ -556,7 +905,11 @@
 
 
 <div class="description">
-    <p>AppNavigator Component.</p>
+    <p>The AppNavigator is the root navigation component.
+The AppNavigator wraps the startup screen component
+and user navigatior in a navigation container.
+It also ensures that the startup screen is the first
+component to render.</p>
 </div>
 
 
@@ -597,11 +950,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="navigation_AppNavigator.js.html">navigation/AppNavigator.js</a>, <a href="navigation_AppNavigator.js.html#line15">line 15</a>
-    </li></ul></dd>
     
 
     
@@ -651,7 +999,9 @@
 
 
 <div class="description">
-    <p>DiagnosisScreen Component.</p>
+    <p>The DiagnosisScreen component houses the UI components
+and handler functions for QR diagnosis code submission
+and navigating the user to testing site website.</p>
 </div>
 
 
@@ -692,11 +1042,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="screens_diagnosis_DiagnosisScreen.js.html">screens/diagnosis/DiagnosisScreen.js</a>, <a href="screens_diagnosis_DiagnosisScreen.js.html#line12">line 12</a>
-    </li></ul></dd>
     
 
     
@@ -746,7 +1091,9 @@
 
 
 <div class="description">
-    <p>HomeScreen Component.</p>
+    <p>The HomeScreen component houses the UI components
+and handler functions for starting and stopping
+contact tracing.</p>
 </div>
 
 
@@ -787,11 +1134,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="screens_home_HomeScreen.js.html">screens/home/HomeScreen.js</a>, <a href="screens_home_HomeScreen.js.html#line17">line 17</a>
-    </li></ul></dd>
     
 
     
@@ -841,7 +1183,9 @@
 
 
 <div class="description">
-    <p>NotificationsScreen Component.</p>
+    <p>The NotificationsScreen component houses the UI components
+and handler functions for displaying the users
+push notification history.</p>
 </div>
 
 
@@ -882,11 +1226,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="screens_notifications_NotificationsScreen.js.html">screens/notifications/NotificationsScreen.js</a>, <a href="screens_notifications_NotificationsScreen.js.html#line12">line 12</a>
-    </li></ul></dd>
     
 
     
@@ -936,7 +1275,9 @@
 
 
 <div class="description">
-    <p>SettingsScreen Component.</p>
+    <p>The SettingsScreen component houses the UI components
+and handler functions for user account deletion and contact
+tracing settings.</p>
 </div>
 
 
@@ -977,11 +1318,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="screens_settings_SettingsScreen.js.html">screens/settings/SettingsScreen.js</a>, <a href="screens_settings_SettingsScreen.js.html#line12">line 12</a>
-    </li></ul></dd>
     
 
     
@@ -1031,7 +1367,9 @@
 
 
 <div class="description">
-    <p>StartupScreen Component.</p>
+    <p>The StartupScreen component is responsible for authenticating
+and retrieving user data saved in persistent storage on
+application startup.</p>
 </div>
 
 
@@ -1072,11 +1410,6 @@
 
     
 
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="screens_StartupScreen.js.html">screens/StartupScreen.js</a>, <a href="screens_StartupScreen.js.html#line15">line 15</a>
-    </li></ul></dd>
     
 
     
@@ -1128,13 +1461,13 @@
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#AppNavigator">AppNavigator</a></li><li><a href="global.html#DiagnosisNavigator">DiagnosisNavigator</a></li><li><a href="global.html#DiagnosisScreen">DiagnosisScreen</a></li><li><a href="global.html#HomeNavigator">HomeNavigator</a></li><li><a href="global.html#HomeScreen">HomeScreen</a></li><li><a href="global.html#NotificationsNavigator">NotificationsNavigator</a></li><li><a href="global.html#NotificationsScreen">NotificationsScreen</a></li><li><a href="global.html#SettingsNavigator">SettingsNavigator</a></li><li><a href="global.html#SettingsScreen">SettingsScreen</a></li><li><a href="global.html#StartupScreen">StartupScreen</a></li><li><a href="global.html#UserNavigator">UserNavigator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Contact.html">Contact</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addOrUpdateContact">addOrUpdateContact</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppNavigator">AppNavigator</a></li><li><a href="global.html#DiagnosisNavigator">DiagnosisNavigator</a></li><li><a href="global.html#DiagnosisScreen">DiagnosisScreen</a></li><li><a href="global.html#HomeNavigator">HomeNavigator</a></li><li><a href="global.html#HomeScreen">HomeScreen</a></li><li><a href="global.html#NotificationsNavigator">NotificationsNavigator</a></li><li><a href="global.html#NotificationsScreen">NotificationsScreen</a></li><li><a href="global.html#setDidTryAutoLogin">setDidTryAutoLogin</a></li><li><a href="global.html#SettingsNavigator">SettingsNavigator</a></li><li><a href="global.html#SettingsScreen">SettingsScreen</a></li><li><a href="global.html#StartupScreen">StartupScreen</a></li><li><a href="global.html#updateAccessToken">updateAccessToken</a></li><li><a href="global.html#UserNavigator">UserNavigator</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 02 2020 05:07:43 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 02 2020 23:28:57 GMT-0400 (Eastern Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>

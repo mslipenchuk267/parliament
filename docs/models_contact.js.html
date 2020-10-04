@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: screens/diagnosis/DiagnosisScreen.js</title>
+    <title>JSDoc: Source: models/contact.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: screens/diagnosis/DiagnosisScreen.js</h1>
+    <h1 class="page-title">Source: models/contact.js</h1>
 
     
 
@@ -26,32 +26,30 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import React from 'react'
-import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
-
-/**
- * The DiagnosisScreen component houses the UI components 
- * and handler functions for QR diagnosis code submission
- * and navigating the user to testing site website.
- * @example
- * return (
- *   &lt;DiagnosisScreen />
- * )
+            <pre class="prettyprint source linenums"><code>/**
+ * The contact class describes the 
+ * by either adding a new contact entry or updating
+ * an existing on in the contactedIDs user state.
+ * @property {string} tempID - the contacted users temporary ID
+ * @property {string} averageRssi - the average connection strength during the interaction
+ * @property {Date} createdDate - the date given at the time of first contact
+ * @property {Date} lastContactDate - the date given at the time of most recent contact
+ * @property {int} totalScans - the total amount of times the same device was scanned. This is also used to incrementally update the averageRssi.
+ * @return {Action} - an UPDATE_ACCESS_TOKEN action to be dispatched to the user reducer
+ * @example  
+ * await dispatch(addOrUpdateContact(characteristic[0].uuid, device.rssi, new Date()))
  */
-const DiagnosisScreen = () => {
-    return (
-        &lt;SafeAreaView>
-            &lt;Text>This is the diagnosis screen&lt;/Text>
-        &lt;/SafeAreaView>
-    )
+class Contact {
+    constructor(tempID, averageRssi, createdDate, lastContactDate, totalScans ) {
+        this.tempID = tempID;
+        this.averageRssi = averageRssi,
+        this.createdDate = createdDate,
+        this.lastContactDate = lastContactDate, 
+        this.totalScans = totalScans
+    }
 };
 
-const styles = StyleSheet.create({
-    
-});
-
-export default DiagnosisScreen;
-</code></pre>
+export default Contact;</code></pre>
         </article>
     </section>
 

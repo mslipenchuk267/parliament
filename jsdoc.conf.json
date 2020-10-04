@@ -3,8 +3,7 @@
         "allowUnknownTags": true
     },
     "source": {
-        "include": ["./screens", "./navigation", "./App.js", "./node_modules/react-native-ble-plx", 
-            "./node_modules/react-native-ble-peripheral", ".node_modules/react-native-ble-manager"]
+        "include": ["./screens", "./navigation", "./models", "./store", "./App.js"]
     },
     "plugins": [
         "plugins/markdown",
@@ -19,6 +18,9 @@
     "templates": {
         "better-docs": {
             "name": "My React components"
+        },
+        "default": {
+            "outputSourceFiles": false
         }
     }
   }

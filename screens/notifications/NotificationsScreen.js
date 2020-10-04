@@ -2,8 +2,9 @@ import React from 'react'
 import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
 
 /**
- * NotificationsScreen Component.
- *
+ * The NotificationsScreen component houses the UI components 
+ * and handler functions for displaying the users 
+ * push notification history.
  * @example
  * return (
  *   <NotificationsScreen />
