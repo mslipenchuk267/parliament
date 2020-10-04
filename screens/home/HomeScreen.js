@@ -88,7 +88,7 @@ const HomeScreen = () => {
 
             BLEPeripheral.start()
                 .then(res => {
-                    console.log(res)
+                    console.log("Started Advertising on Android: ", tempID)
                 }).catch(error => {
                     console.log(error)
                 })
@@ -117,7 +117,7 @@ const HomeScreen = () => {
                 name: 'PiOS',
                 serviceUuids: [PARLIAMENT_SERVICE_UUID, tempID],
             })
-            console.log("Started Advertising on iOS")
+            console.log("Started Advertising on iOS: ", tempID)
 
         }
     }
