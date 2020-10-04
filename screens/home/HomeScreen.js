@@ -4,11 +4,20 @@ import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaV
 import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
+import { Mutex } from 'async-mutex';
 
 import * as userActions from '../../store/actions/user';
 
-const bleManager = new BleManager();
-
+const bleManager = new BleManager({
+    restoreStateIdentifier: 'BleInTheBackground',
+    restoreStateFunction: restoredState => {
+      if (restoredState == null) {
+        // BleManager was constructed for the first time.
+      } else {
+        // BleManager was restored. Check `restoredState.connectedPeripherals` property.
+      }
+    },
+  });
 /**
  * The HomeScreen component houses the UI components 
  * and handler functions for starting and stopping
@@ -18,6 +27,8 @@ const bleManager = new BleManager();
  *   <HomeScreen />
  * )
  */
+const mutex = new Mutex();
+
 const HomeScreen = () => {
 
     const dispatch = useDispatch();
@@ -31,9 +42,16 @@ const HomeScreen = () => {
     const handleStartContactTracing = async () => {
         try {
             bleManager.startDeviceScan(
-                null, //['00001200-0000-1000-8000-00805f9b34fb']
+                ['00001200-0000-1000-8000-00805f9b34fb'], //['00001200-0000-1000-8000-00805f9b34fb']
                 { allowDuplicates: false },
                 async (error, device) => {
+                    try {
+                        //const release = await mutex.acquire();
+                        console.log("Acquired mutex");
+                    } catch {
+                        console.log("Could not acquire mutex");
+                        return;
+                    }
                     // get services
                     let services = device.serviceUUIDs
                     // check if there are services being advertised
@@ -44,6 +62,7 @@ const HomeScreen = () => {
                             device = await device.connect({ timeout: 1000 * 3 })
                         } catch {
                             console.log("Could not connect")
+                            //release();
                             return;
                         }
 
@@ -53,23 +72,31 @@ const HomeScreen = () => {
                             let characteristics = await device.characteristicsForService('00001200-0000-1000-8000-00805f9b34fb')
                             console.log("************************Characteristic:", characteristics[0].uuid)
                             // Save or update the contacted device in the redux 
-                            await dispatch(userActions.addOrUpdateContact(characteristics[0].uuid, device.rssi, new Date()))
+                            try {
+                               await  dispatch(userActions.addOrUpdateContact(characteristics[0].uuid, device.rssi, new Date()))
+                                console.log("Dispatched addOrUpdateContact() action creator")
+                            } catch {
+                                console.log("Could not dispatch addOrUpdateContact() action creator")
+                            }
                         } catch {
                             console.log("Could not get Discover services")
+                            //release();
                             return;
                         }
 
                         try {
                             await bleManager.cancelDeviceConnection(device.id)
+                            console.log("Disconnected from device: ", device.name)
                         } catch {
                             console.log("Could not disconnect")
+                            //release();
                         }
-
+                        //release();
                     }
                 }
             )
         } catch (error) {
-            console.log('Could not start scanning for devices', { error })
+            console.log('bleManager not start scanning for devices', { error })
         }
     }
 
