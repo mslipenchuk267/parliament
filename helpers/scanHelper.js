@@ -7,7 +7,7 @@ export const handleDevice = async (error, device, dispatch, bleManager) => {
     // check if there are services being advertised
     if (services && services.includes('00001200-0000-1000-8000-00805f9b34fb')) {
         console.log("Scanned a device with name: " + device.name + " | " + device.id + " | " + rssi)
-        
+
         console.log("Services:", services)
         try {
             device = await device.connect({ timeout: 1000 * 5 })
@@ -23,21 +23,19 @@ export const handleDevice = async (error, device, dispatch, bleManager) => {
             // Save or update the contacted device in the redux 
             try {
                 await dispatch(userActions.addOrUpdateContact(characteristics[0].uuid, rssi, new Date()))
-                console.log("Dispatched addOrUpdateContact() action creator")
+                console.log("Finished dispatching addOrUpdateContact() action creator")
             } catch {
                 console.log("Could not dispatch addOrUpdateContact() action creator")
             }
         } catch {
             console.log("Could not get Discover services on:", device.name)
         }
-        //while (device.isConnected()) {
-            try {
-                await bleManager.cancelDeviceConnection(device.id)
-                console.log("Disconnected from device: ", device.name)
-            } catch {
-                console.log("Could not disconnect from device: ", device.name)
-            }
-        //}
+        try {
+            await bleManager.cancelDeviceConnection(device.id)
+            console.log("Disconnected from device: ", device.name)
+        } catch {
+            console.log("Could not disconnect from device: ", device.name)
+        }
 
     }
 }

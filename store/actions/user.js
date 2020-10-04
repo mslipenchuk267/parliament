@@ -50,7 +50,6 @@ export const setDidTryAutoLogin = () => {
 export const addOrUpdateContact = (tempID, rssi, date) => {
     return async (dispatch, getState) => {
         const savedContactIndex = getState().user.contactedIDs.findIndex(savedContact => savedContact.tempID === tempID)
-        console.log("Saved Contact Index:", savedContactIndex)
         const updatedContactedIDs = [...getState().user.contactedIDs];
         // Determine if we add a new contact or update an existing one
         if (savedContactIndex >= 0) { // if the savedContactIndex exists, it's already been scanned before
@@ -60,15 +59,14 @@ export const addOrUpdateContact = (tempID, rssi, date) => {
             const updatedAverageRssi = lastContact.averageRssi + ((rssi - lastContact.averageRssi) / (lastContact.totalScans + 1))
             let updatedContact = new Contact(
                 tempID,
-                updatedAverageRssi,
+                lastContact.averageRssi = updatedAverageRssi,
                 lastContact.createdDate,
-                date, // updated lastContactDate
+                lastContact.lastContactDate = date, // updated lastContactDate
                 lastContact.totalScans = lastContact.totalScans + 1
             )
             console.log("Updated Contact:", updatedContact)
             try {
                 await dispatch({ type: UPDATE_CONTACT, updatedContact: updatedContact });
-
             } catch {
                 console.log("Could not dispatch updateContact")
             }
