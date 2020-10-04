@@ -16,6 +16,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* parliamentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* parliamentTests.m */; };
+		48F477072524E637007116E8 /* react_native_ble_plx_setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F477062524E637007116E8 /* react_native_ble_plx_setup.swift */; };
 		60BCB9F7EE74B083C8FDFBF1 /* libPods-parliament-parliamentTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9EAD1B08103FAF013CF3387 /* libPods-parliament-parliamentTests.a */; };
 		6B6D9DF5D00FBCD8CDE1D75A /* libPods-parliament-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0264B4FB8F130B7641F3E9 /* libPods-parliament-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -56,6 +57,8 @@
 		2D02E4901E0B4A5D006451C7 /* parliament-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "parliament-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C91C4CC93B99EF5517ACC4 /* libPods-parliament-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-parliament-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F0264B4FB8F130B7641F3E9 /* libPods-parliament-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-parliament-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		48F477052524E636007116E8 /* parliament-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "parliament-Bridging-Header.h"; sourceTree = "<group>"; };
+		48F477062524E637007116E8 /* react_native_ble_plx_setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = react_native_ble_plx_setup.swift; sourceTree = "<group>"; };
 		581CE3C361802456325F8409 /* Pods-parliament-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-parliament-tvOSTests/Pods-parliament-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = parliament/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87EAD4B34297FEB24BF97B58 /* Pods-parliament-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-parliament-tvOSTests/Pods-parliament-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -159,12 +162,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				48F477062524E637007116E8 /* react_native_ble_plx_setup.swift */,
 				13B07FAE1A68108700A75B9A /* parliament */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* parliamentTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				D6315658929491C81DC20BE7 /* Pods */,
+				48F477052524E636007116E8 /* parliament-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -194,7 +199,6 @@
 				581CE3C361802456325F8409 /* Pods-parliament-tvOSTests.debug.xcconfig */,
 				87EAD4B34297FEB24BF97B58 /* Pods-parliament-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -294,7 +298,8 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						DevelopmentTeam = 58CJ77XWKX;
+						LastSwiftMigration = 1140;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -570,6 +575,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				48F477072524E637007116E8 /* react_native_ble_plx_setup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +616,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C819D32101FACE7BF22F8953 /* Pods-parliament-parliamentTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -633,6 +640,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AFD7737FAC3BA6433A111A23 /* Pods-parliament-parliamentTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = parliamentTests/Info.plist;
@@ -656,8 +664,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 58CJ77XWKX;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = parliament/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -666,6 +676,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = parliament;
+				SWIFT_OBJC_BRIDGING_HEADER = "parliament-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -679,7 +690,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 58CJ77XWKX;
 				INFOPLIST_FILE = parliament/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -688,6 +701,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = parliament;
+				SWIFT_OBJC_BRIDGING_HEADER = "parliament-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

@@ -16,6 +16,15 @@ const DiagnosisStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
 
+/**
+ * The HomeNavigator represents the home tab
+ * in the bottom tab navigator. It manages all the screens
+ * meant to be shown in the home tab. 
+ * @example
+ * return (
+ *   <HomeNavigator />
+ * )
+ */
 export const HomeNavigator = () => {
     return (
         <HomeStackNavigator.Navigator>
@@ -27,6 +36,15 @@ export const HomeNavigator = () => {
     )
 }
 
+/**
+ * The DiagnosisNavigator represents the diagnosis tab
+ * in the bottom tab navigator. It manages all the screens
+ * meant to be shown in the diagnosis tab. 
+ * @example
+ * return (
+ *   <DiagnosisNavigator />
+ * )
+ */
 export const DiagnosisNavigator = () => {
     return (
         <DiagnosisStackNavigator.Navigator>
@@ -38,6 +56,15 @@ export const DiagnosisNavigator = () => {
     )
 }
 
+/**
+ * The NotificationsNavigator represents the notifications tab
+ * in the bottom tab navigator. It manages all the screens
+ * meant to be shown in the notifications tab. 
+ * @example
+ * return (
+ *   <NotificationsNavigator />
+ * )
+ */
 export const NotificationsNavigator = () => {
     return (
         <NotificationStackNavigator.Navigator>
@@ -49,6 +76,15 @@ export const NotificationsNavigator = () => {
     )
 }
 
+/**
+ * The SettingsNavigator represents the settings tab
+ * in the bottom tab navigator. It manages all the screens
+ * meant to be shown in the settings tab. 
+ * @example
+ * return (
+ *   <SettingsNavigator />
+ * )
+ */
 export const SettingsNavigator = () => {
     return (
         <SettingsStackNavigator.Navigator>
@@ -60,6 +96,15 @@ export const SettingsNavigator = () => {
     )
 }
 
+/**
+ * The UserNavigator represents the 
+ * bottom tab navigator. It manages each
+ * tabs respective navigators. 
+ * @example
+ * return (
+ *   <UserNavigator />
+ * )
+ */
 export const UserNavigator = () => {
     return (
         <UserTabNavigator.Navigator >

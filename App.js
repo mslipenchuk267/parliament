@@ -20,6 +20,18 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(ReduxThunk)));
 
+/**
+ * This is the first component called at 
+ * application start and is the parent 
+ * component of the app.
+ * This component wraps the parent navigator
+ * with a Redux Provider.
+ * 
+ * @example
+ * return (
+ *   <App />
+ * )
+ */
 const App = () => {
   return (
     <Provider store={store}>
@@ -27,9 +39,5 @@ const App = () => {
     </Provider>
   );
 };
-
-const styles = StyleSheet.create({
-
-});
 
 export default App;

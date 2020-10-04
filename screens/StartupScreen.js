@@ -4,6 +4,15 @@ import { useDispatch } from 'react-redux';
 
 import * as userActions from '../store/actions/user';
 
+/**
+ * The StartupScreen component is responsible for authenticating
+ * and retrieving user data saved in persistent storage on 
+ * application startup.
+ * @example
+ * return (
+ *   <StartupScreen />
+ * )
+ */
 const StartupScreen = () => {
     const dispatch = useDispatch();
 
