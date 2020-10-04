@@ -7,17 +7,20 @@ import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
 import { Mutex } from 'async-mutex';
 
 import * as userActions from '../../store/actions/user';
+import { handleDevice } from '../../helpers/scanHelper';
 
-const bleManager = new BleManager({
-    restoreStateIdentifier: 'BleInTheBackground',
-    restoreStateFunction: restoredState => {
-      if (restoredState == null) {
-        // BleManager was constructed for the first time.
-      } else {
-        // BleManager was restored. Check `restoredState.connectedPeripherals` property.
-      }
-    },
-  });
+const bleManager = new BleManager();
+
+// const bleManager = new BleManager({
+//     restoreStateIdentifier: 'BleInTheBackground',
+//     restoreStateFunction: restoredState => {
+//       if (restoredState == null) {
+//         // BleManager was constructed for the first time.
+//       } else {
+//         // BleManager was restored. Check `restoredState.connectedPeripherals` property.
+//       }
+//     },
+//   });
 /**
  * The HomeScreen component houses the UI components 
  * and handler functions for starting and stopping
@@ -27,7 +30,6 @@ const bleManager = new BleManager({
  *   <HomeScreen />
  * )
  */
-const mutex = new Mutex();
 
 const HomeScreen = () => {
 
@@ -40,59 +42,15 @@ const HomeScreen = () => {
      * await handleStartContactTracing()     
      */
     const handleStartContactTracing = async () => {
+        const mutex = new Mutex();
         try {
             bleManager.startDeviceScan(
-                ['00001200-0000-1000-8000-00805f9b34fb'], //['00001200-0000-1000-8000-00805f9b34fb']
-                { allowDuplicates: false },
+                null, //['00001200-0000-1000-8000-00805f9b34fb']
+                { allowDuplicates: true },
                 async (error, device) => {
-                    try {
-                        //const release = await mutex.acquire();
-                        console.log("Acquired mutex");
-                    } catch {
-                        console.log("Could not acquire mutex");
-                        return;
-                    }
-                    // get services
-                    let services = device.serviceUUIDs
-                    // check if there are services being advertised
-                    if (services && services.includes('00001200-0000-1000-8000-00805f9b34fb')) {
-                        console.log("Scanned a device with name: " + device.name + " | " + device.id + " | " + device.rssi)
-                        console.log("Services:", services)
-                        try {
-                            device = await device.connect({ timeout: 1000 * 3 })
-                        } catch {
-                            console.log("Could not connect")
-                            //release();
-                            return;
-                        }
-
-                        console.log("Connected to device: ", device.name)
-                        try {
-                            device = await device.discoverAllServicesAndCharacteristics()
-                            let characteristics = await device.characteristicsForService('00001200-0000-1000-8000-00805f9b34fb')
-                            console.log("************************Characteristic:", characteristics[0].uuid)
-                            // Save or update the contacted device in the redux 
-                            try {
-                               await  dispatch(userActions.addOrUpdateContact(characteristics[0].uuid, device.rssi, new Date()))
-                                console.log("Dispatched addOrUpdateContact() action creator")
-                            } catch {
-                                console.log("Could not dispatch addOrUpdateContact() action creator")
-                            }
-                        } catch {
-                            console.log("Could not get Discover services")
-                            //release();
-                            return;
-                        }
-
-                        try {
-                            await bleManager.cancelDeviceConnection(device.id)
-                            console.log("Disconnected from device: ", device.name)
-                        } catch {
-                            console.log("Could not disconnect")
-                            //release();
-                        }
-                        //release();
-                    }
+                    await mutex.runExclusive(async () => {
+                        await handleDevice(error, device, dispatch);
+                    });
                 }
             )
         } catch (error) {
