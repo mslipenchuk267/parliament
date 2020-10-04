@@ -1,8 +1,10 @@
 import {
     UPDATE_ACCESS_TOKEN,
     SET_DID_TRY_AUTO_LOGIN,
-    ADD_OR_UPDATE_CONTACT
+    ADD_CONTACT,
+    UPDATE_CONTACT
 } from '../../constants/ActionTypes';
+import Contact from '../../models/contact';
 
 /**
  * This action creator updates the user state
@@ -35,9 +37,9 @@ export const setDidTryAutoLogin = () => {
 }
 
 /**
- * This action creator updates the user state
- * by either adding a new contact entry or updating
- * an existing on in the contactedIDs user state.
+ * This action creator determines if the passed in tempID
+ * is already in the contactedIDs user state and then either
+ * dispatches an ADD_CONTACT action or UPDATE_CONTACT action.
  * @property {string} tempID - the contacted users temporary ID
  * @property {string} rssi - the connection signal strength at the time of contact
  * @property {Date} date - the date given at the time of contact
@@ -46,10 +48,53 @@ export const setDidTryAutoLogin = () => {
  * await dispatch(addOrUpdateContact(characteristic[0].uuid, device.rssi, new Date()))
  */
 export const addOrUpdateContact = (tempID, rssi, date) => {
-    return {
-        type: ADD_OR_UPDATE_CONTACT,
-        tempID: tempID,
-        rssi: rssi,
-        date: date
-    };
+    return async (dispatch, getState) => {
+        const savedContactIndex = getState().user.contactedIDs.findIndex(savedContact => savedContact.tempID === tempID)
+        console.log("Saved Contact Index:", savedContactIndex)
+        const updatedContactedIDs = [...getState().user.contactedIDs];
+        // Determine if we add a new contact or update an existing one
+        if (savedContactIndex >= 0) { // if the savedContactIndex exists, it's already been scanned before
+            let lastContact = updatedContactedIDs[savedContactIndex]
+            console.log("Last Contact:", lastContact)
+            // incrementally update this contacts averageRssi
+            const updatedAverageRssi = lastContact.averageRssi + ((rssi - lastContact.averageRssi) / (lastContact.totalScans + 1))
+            let updatedContact = new Contact(
+                tempID,
+                updatedAverageRssi,
+                lastContact.createdDate,
+                date, // updated lastContactDate
+                lastContact.totalScans = lastContact.totalScans + 1
+            )
+            console.log("Updated Contact:", updatedContact)
+            try {
+                await dispatch({ type: UPDATE_CONTACT, updatedContact: updatedContact });
+
+            } catch {
+                console.log("Could not dispatch updateContact")
+            }
+        } else { // tempID does not already exist in contactedIDs 
+            let newContact = new Contact(
+                tempID,
+                rssi,
+                date,
+                date,
+                1 // first scan
+            )
+            try {
+                await dispatch({ type: ADD_CONTACT, newContact: newContact });
+            } catch {
+                console.log("Could not dispatch addContact")
+            }
+        }
+
+    }
+
+}
+
+export const addNewContact = (newContact) => {
+    return { type: ADD_CONTACT, newContact: newContact }
+}
+
+export const updateContact = (updatedContact) => {
+    return { type: UPDATE_CONTACT, updatedContact: updatedContact }
 }

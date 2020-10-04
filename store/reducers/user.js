@@ -1,9 +1,9 @@
 import {
     UPDATE_ACCESS_TOKEN,
     SET_DID_TRY_AUTO_LOGIN,
-    ADD_OR_UPDATE_CONTACT
+    ADD_CONTACT,
+    UPDATE_CONTACT
 } from '../../constants/ActionTypes';
-import Contact from '../../models/contact';
 
 const initialState = {
     accessToken: "",
@@ -20,49 +20,23 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
-        case ADD_OR_UPDATE_CONTACT:
-            // See if contact's tempID already exists 
-            const savedContactIndex = state.contactedIDs.findIndex(savedContact => savedContact.tempID === action.tempID)
-            const updatedContactedIDs = [...state.contactedIDs];
-            // Update & Add logic --
-            // if (savedContactIndex >= 0) { // if the savedContactIndex exists, it's already been scanned before
-            //     let lastContact = savedContactIndex[savedContactIndex]
-            //     // Remove the contact we will replace with updates
-            //     updatedContactedIDs.splice(savedContactIndex, 1);
-            //     let updatedContact = new Contact(
-            //         action.tempID,
-            //         lastContact.averageRssi + ((action.rssi - lastContact.averageRssi) / lastContact.totalScans + 1), // Update Average rssi
-            //         lastContact.createdDate,
-            //         action.date, // updated lastContactDate
-            //         lastContact.totalScans = lastContact.totalScans + 1
-            //     )
-            //     return {
-            //         ...state,
-            //         contactedIDs: state.contactedIDs.concat(updatedContact)
-            //     }
-            // } else { // Add contact
-            //     let newContact = new Contact(
-            //         action.tempID,
-            //         action.rssi,
-            //         action.date,
-            //         action.date,
-            //         1
-            //     )
-            //     return {
-            //         ...state,
-            //         contactedIDs: state.contactedIDs.concat(newContact)
-            //     }
-            // }
-            let newContact = new Contact(
-                action.tempID,
-                action.rssi,
-                action.date,
-                action.date,
-                1
-            )
+        case ADD_CONTACT:
             return {
                 ...state,
-                contactedIDs: state.contactedIDs.concat(newContact)
+                contactedIDs: state.contactedIDs.concat(action.newContact)
+            }
+        case UPDATE_CONTACT:
+            // remove the now outdated contact entry so we can replace it
+            const contactedIndex = state.contactedIDs.findIndex(contact => contact.tempId === action.updatedContact.tempID)
+            const updatedContactIDs = [...state.contactedIDs];
+            // Make sure that the contact actually exists
+            if (contactedIndex >= 0) {
+                updatedContactIDs.splice(contactedIndex, 1); // remove old contact entry
+                updatedContactIDs.splice(contactedIndex, 0, action.updatedContact); // replace with updated contact entry
+                return {
+                    ...state,
+                    contactedIDs: updatedContactIDs
+                }
             }
         case SET_DID_TRY_AUTO_LOGIN:
             return {
@@ -72,8 +46,8 @@ export default (state = initialState, action) => {
         case UPDATE_ACCESS_TOKEN:
             return {
                 ...state,
-                accessToken: newAccessToken,
-                accessTokenExpiration: newAccessTokenExpiration
+                accessToken: action.newAccessToken,
+                accessTokenExpiration: action.newAccessTokenExpiration
             }
         default:
             return state;

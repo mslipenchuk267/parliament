@@ -1,11 +1,13 @@
 import * as userActions from '../store/actions/user';
 
 export const handleDevice = async (error, device, dispatch, bleManager) => {
-    // get services
+    // get services and rssi
     let services = device.serviceUUIDs
+    let rssi = device.rssi
     // check if there are services being advertised
     if (services && services.includes('00001200-0000-1000-8000-00805f9b34fb')) {
-        console.log("Scanned a device with name: " + device.name + " | " + device.id + " | " + device.rssi)
+        console.log("Scanned a device with name: " + device.name + " | " + device.id + " | " + rssi)
+        
         console.log("Services:", services)
         try {
             device = await device.connect({ timeout: 1000 * 5 })
@@ -20,7 +22,7 @@ export const handleDevice = async (error, device, dispatch, bleManager) => {
             console.log("************************Characteristic:", characteristics[0].uuid, " for device:", device.name)
             // Save or update the contacted device in the redux 
             try {
-                await dispatch(userActions.addOrUpdateContact(characteristics[0].uuid, device.rssi, new Date()))
+                await dispatch(userActions.addOrUpdateContact(characteristics[0].uuid, rssi, new Date()))
                 console.log("Dispatched addOrUpdateContact() action creator")
             } catch {
                 console.log("Could not dispatch addOrUpdateContact() action creator")
