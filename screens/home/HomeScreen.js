@@ -9,6 +9,7 @@ import { Mutex } from 'async-mutex';
 import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
 import { generateTempID, PARLIAMENT_SERVICE_UUID } from '../../helpers/uuidHelper';
+
 const bleManager = new BleManager();
 
 // const bleManager = new BleManager({
