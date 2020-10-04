@@ -8,7 +8,7 @@ import { Mutex } from 'async-mutex';
 
 import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
-
+import { generateTempID, PARLIAMENT_SERVICE_UUID } from '../../helpers/uuidHelper';
 const bleManager = new BleManager();
 
 // const bleManager = new BleManager({
@@ -45,7 +45,7 @@ const HomeScreen = () => {
         const mutex = new Mutex();
         try {
             bleManager.startDeviceScan(
-                null, //['00001200-0000-1000-8000-00805f9b34fb']
+                null, //[PARLIAMENT_SERVICE_UUID]
                 { allowDuplicates: true },
                 async (error, device) => {
                     await mutex.runExclusive(async () => {
@@ -79,10 +79,11 @@ const HomeScreen = () => {
 
             BLEPeripheral.setName('');
             // The contact tracing service UUID
-            BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fb', true);
+            BLEPeripheral.addService(PARLIAMENT_SERVICE_UUID, true);
             // The 
             //BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fa', true);
-            BLEPeripheral.addCharacteristicToService('00001200-0000-1000-8000-00805f9b34fb', '00001200-0000-1000-8000-00805f9b34fa', 16 | 1, 8)
+            const tempID = generateTempID();
+            BLEPeripheral.addCharacteristicToService(PARLIAMENT_SERVICE_UUID, tempID, 16 | 1, 8)
 
             BLEPeripheral.start()
                 .then(res => {
@@ -94,15 +95,15 @@ const HomeScreen = () => {
             //if (Peripheral.isAdvertising()) {
             //    await Peripheral.stopAdvertising()
             //}
-
+            const tempID = generateTempID();
             const ch = new Characteristic({
-                uuid: '00001100-0000-1000-8000-00505f8b34fc',
+                uuid: tempID,
                 value: '', // Base64-encoded string
                 properties: ['read'],
                 permissions: ['readable'],
             })
             const service = new Service({
-                uuid: '00001200-0000-1000-8000-00805f9b34fb',
+                uuid: PARLIAMENT_SERVICE_UUID,
                 characteristics: [ch],
             })
 
@@ -113,7 +114,7 @@ const HomeScreen = () => {
             // the contactTracingServiceUUID is only visible for other iOS devices and not for Android devices
             await Peripheral.startAdvertising({
                 name: 'PiOS',
-                serviceUuids: ['00001200-0000-1000-8000-00805f9b34fb', '00001100-0000-1000-8000-00505f8b34fc'],
+                serviceUuids: [PARLIAMENT_SERVICE_UUID, tempID],
             })
             console.log("Started Advertising on iOS")
 
