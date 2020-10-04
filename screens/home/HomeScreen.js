@@ -49,8 +49,8 @@ const HomeScreen = () => {
                 { allowDuplicates: true },
                 async (error, device) => {
                     await mutex.runExclusive(async () => {
-                        await handleDevice(error, device, dispatch);
-                    });
+                        await handleDevice(error, device, dispatch, bleManager);
+                    }); 
                 }
             )
         } catch (error) {
