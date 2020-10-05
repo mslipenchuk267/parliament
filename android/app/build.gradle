@@ -130,7 +130,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.parliament"
+        applicationId "com.parliament_tu"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

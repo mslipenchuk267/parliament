@@ -23,6 +23,7 @@ const bleManager = new BleManager();
 //       }
 //     },
 //   });
+
 /**
  * The HomeScreen component houses the UI components 
  * and handler functions for starting and stopping
