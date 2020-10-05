@@ -24,6 +24,7 @@ const StartupScreen = () => {
             const contactedIDs = await getContactedIDs();
             if (contactedIDs) {
                 // set redux state
+                dispatch(userActions.setContactIDs(contactedIDs));
             }
             // request to sign in user to user database
             dispatch(userActions.setDidTryAutoLogin());
