@@ -2,9 +2,15 @@ import {
     UPDATE_ACCESS_TOKEN,
     SET_DID_TRY_AUTO_LOGIN,
     ADD_CONTACT,
-    UPDATE_CONTACT
+    UPDATE_CONTACT,
+    SET_CONTACT_IDS
 } from '../../constants/ActionTypes';
+import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
+
+export const setContactIDs = (contactedIDs) => {
+    return { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
+}
 
 /**
  * This action creator updates the user state
@@ -84,7 +90,9 @@ export const addOrUpdateContact = (tempID, rssi, date) => {
                 console.log("Could not dispatch addContact")
             }
         }
-
+        await deleteContactedIDs();
+        const contactedIDs = [...getState().user.contactedIDs];
+        await saveContactedIDs(contactedIDs);
     }
 
 }

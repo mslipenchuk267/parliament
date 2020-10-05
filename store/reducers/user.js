@@ -2,7 +2,8 @@ import {
     UPDATE_ACCESS_TOKEN,
     SET_DID_TRY_AUTO_LOGIN,
     ADD_CONTACT,
-    UPDATE_CONTACT
+    UPDATE_CONTACT,
+    SET_CONTACT_IDS
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -20,6 +21,11 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+        case SET_CONTACT_IDS:
+            return {
+                ...state,
+                contactedIDs: action.contactedIDs
+            }
         case ADD_CONTACT:
             return {
                 ...state,

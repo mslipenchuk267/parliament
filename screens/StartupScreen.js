@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
+import * as SecureStore from 'expo-secure-store';
 
 import * as userActions from '../store/actions/user';
+import { getContactedIDs } from '../helpers/secureStoreHelper';
 
 /**
  * The StartupScreen component is responsible for authenticating
@@ -19,6 +21,11 @@ const StartupScreen = () => {
     useEffect(() => {
         const tryLogin = async () => {
             // check persistent storage for user data 
+            const contactedIDs = await getContactedIDs();
+            if (contactedIDs) {
+                // set redux state
+                dispatch(userActions.setContactIDs(contactedIDs));
+            }
             // request to sign in user to user database
             dispatch(userActions.setDidTryAutoLogin());
             return;
