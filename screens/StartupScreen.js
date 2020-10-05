@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
+import * as SecureStore from 'expo-secure-store';
 
 import * as userActions from '../store/actions/user';
 
@@ -19,6 +20,7 @@ const StartupScreen = () => {
     useEffect(() => {
         const tryLogin = async () => {
             // check persistent storage for user data 
+
             // request to sign in user to user database
             dispatch(userActions.setDidTryAutoLogin());
             return;

@@ -5,6 +5,7 @@ import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
 import { Mutex } from 'async-mutex';
+import * as SecureStore from 'expo-secure-store';
 
 import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
@@ -51,12 +52,13 @@ const HomeScreen = () => {
                 async (error, device) => {
                     await mutex.runExclusive(async () => {
                         await handleDevice(error, device, dispatch, bleManager);
-                    }); 
+                    });
                 }
             )
         } catch (error) {
             console.log('bleManager not start scanning for devices', { error })
         }
+        console.log("Start Scanning on ", Platform.OS)
     }
 
     /**
