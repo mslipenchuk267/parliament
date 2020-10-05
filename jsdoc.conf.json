@@ -1,0 +1,26 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "include": ["./screens", "./navigation", "./models", "./store", "./App.js"]
+    },
+    "plugins": [
+        "plugins/markdown",
+        "better-docs/component"
+    ],
+    "opts": {
+        "encoding": "utf8",
+        "destination": "docs/",
+        "recurse": true,
+        "verbose": true
+    },
+    "templates": {
+        "better-docs": {
+            "name": "My React components"
+        },
+        "default": {
+            "outputSourceFiles": false
+        }
+    }
+  }

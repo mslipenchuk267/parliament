@@ -1,12 +1,18 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native-unimodules/cocoapods.rb' # for expo-secure-store
 
 platform :ios, '10.0'
 
 target 'parliament' do
+  use_unimodules! # for expo-secure-store
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
+
+  pod 'react-native-ble-plx', :path => '../node_modules/react-native-ble-plx'
+
+  pod 'react-native-peripheral', :path => '../node_modules/react-native-peripheral'
 
   target 'parliamentTests' do
     inherit! :complete
