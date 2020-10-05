@@ -4,6 +4,7 @@ import {
     ADD_CONTACT,
     UPDATE_CONTACT
 } from '../../constants/ActionTypes';
+import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
 
 /**
@@ -84,7 +85,9 @@ export const addOrUpdateContact = (tempID, rssi, date) => {
                 console.log("Could not dispatch addContact")
             }
         }
-
+        await deleteContactedIDs();
+        const contactedIDs = [...getState().user.contactedIDs];
+        await saveContactedIDs(contactedIDs);
     }
 
 }
