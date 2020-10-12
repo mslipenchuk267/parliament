@@ -6,6 +6,7 @@ import HomeScreen from '../screens/home/HomeScreen';
 import DiagnosisScreen from '../screens/diagnosis/DiagnosisScreen';
 import NotificationsScreen from '../screens/notifications/NotificationsScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
+import AuthScreen from '../screens/auth/AuthScreen';
 
 // Bottom Tab Navigator
 const UserTabNavigator = createBottomTabNavigator();
@@ -15,6 +16,22 @@ const HomeStackNavigator = createStackNavigator();
 const DiagnosisStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
+const AuthNavigator = createStackNavigator();
+
+
+
+
+//AuthNavigator
+export const AuthNavigator = () => {
+    return (
+        <AuthNavigator.Navigator>
+            <AuthNavigator.Screen
+                name="Auth"
+                component={AuthScreen}
+            />
+        </AuthNavigator.Navigator>
+    )
+}
 
 /**
  * The HomeNavigator represents the home tab
@@ -25,6 +42,7 @@ const SettingsStackNavigator = createStackNavigator();
  *   <HomeNavigator />
  * )
  */
+
 export const HomeNavigator = () => {
     return (
         <HomeStackNavigator.Navigator>
@@ -108,19 +126,19 @@ export const SettingsNavigator = () => {
 export const UserNavigator = () => {
     return (
         <UserTabNavigator.Navigator >
-            <UserTabNavigator.Screen 
+            <UserTabNavigator.Screen
                 name="Home"
                 component={HomeNavigator}
             />
-            <UserTabNavigator.Screen 
+            <UserTabNavigator.Screen
                 name="Diagnosis"
                 component={DiagnosisNavigator}
             />
-            <UserTabNavigator.Screen 
+            <UserTabNavigator.Screen
                 name="Notifications"
                 component={NotificationsNavigator}
             />
-            <UserTabNavigator.Screen 
+            <UserTabNavigator.Screen
                 name="Settings"
                 component={SettingsNavigator}
             />
