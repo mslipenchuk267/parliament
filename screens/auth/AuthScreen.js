@@ -6,11 +6,11 @@ const AuthScreen = () => {
     return (<View>
         <Text>AuthScreen  </Text>
 
-        <Button title="Login" onPress={() => {
+        <Button title="Sign Up" onPress={() => {
             console.log("You click on the Login Button");
         }} />
 
-        <Button title="Logout" onPress={() => {
+        <Button title="Login" onPress={() => {
             console.log("You click on the Logout Button");
         }} />
     </View>
