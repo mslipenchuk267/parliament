@@ -8,10 +8,12 @@ const AuthScreen = () => {
 
         <Button title="Sign Up" onPress={() => {
             console.log("You click on the Login Button");
+            navigation.navigate('SignIn');
         }} />
 
         <Button title="Login" onPress={() => {
             console.log("You click on the Logout Button");
+            navigation.navigate('SignUp');
         }} />
     </View>
     );
