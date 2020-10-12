@@ -1,19 +1,31 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
+import { View, StyleSheet, Button, Text } from 'react-native';
+
+import { CommonActions } from '@react-navigation/native';
 
 
-const AuthScreen = () => {
+
+
+const AuthScreen = (props) => {
     return (<View>
         <Text>AuthScreen  </Text>
 
         <Button title="Sign Up" onPress={() => {
             console.log("You click on the Login Button");
-            navigation.navigate('SignIn');
+            // props.navigation.dispatch(
+            //     CommonActions.navigate({
+            //         name: 'SignIn'
+            //     })
+            // );
         }} />
 
         <Button title="Login" onPress={() => {
             console.log("You click on the Logout Button");
-            navigation.navigate('SignUp');
+            // props.navigation.dispatch(
+            //     CommonActions.navigate({
+            //         name: 'SignUp'
+            //     })
+            // );
         }} />
     </View>
     );

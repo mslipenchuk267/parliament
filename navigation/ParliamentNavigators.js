@@ -38,32 +38,15 @@ export const AuthNavigator = () => {
                 name="Auth"
                 component={AuthScreen}
             />
-        </AuthStackNavigator.Navigator>
-    )
-}
-
-//SignInNavigator
-export const SignInNavigator = () => {
-    return (
-        <SignInStackNavigator.Navigator>
-            <SignInStackNavigator.Screen
+            <AuthStackNavigator.Screen
                 name="SignIn"
                 component={SignInScreen}
             />
-        </SignInStackNavigator.Navigator>
-    )
-}
-
-
-//SignUpNavigator
-export const SignUpNavigator = () => {
-    return (
-        <SignUpStackNavigator.Navigator>
-            <SignUpStackNavigator.Screen
+            <AuthStackNavigator.Screen
                 name="SignUp"
                 component={SignUpScreen}
             />
-        </SignUpStackNavigator.Navigator>
+        </AuthStackNavigator.Navigator>
     )
 }
 
