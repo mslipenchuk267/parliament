@@ -6,7 +6,12 @@ import HomeScreen from '../screens/home/HomeScreen';
 import DiagnosisScreen from '../screens/diagnosis/DiagnosisScreen';
 import NotificationsScreen from '../screens/notifications/NotificationsScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
+
+
 import AuthScreen from '../screens/auth/AuthScreen';
+import SignInScreen from '../screens/auth/Sign_In_Screen';
+import SignUpScreen from '../screens/auth/Sign_up_Screen';
+
 
 // Bottom Tab Navigator
 const UserTabNavigator = createBottomTabNavigator();
@@ -16,22 +21,55 @@ const HomeStackNavigator = createStackNavigator();
 const DiagnosisStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
-const AuthNavigator = createStackNavigator();
+
+const AuthStackNavigator = createStackNavigator();
+const SignInStackNavigator = createStackNavigator();
+const SignUpStackNavigator = createStackNavigator();
 
 
 
 
-//AuthNavigator
+
+//AuthStackNavigator
 export const AuthNavigator = () => {
     return (
-        <AuthNavigator.Navigator>
-            <AuthNavigator.Screen
+        <AuthStackNavigator.Navigator>
+            <AuthStackNavigator.Screen
                 name="Auth"
                 component={AuthScreen}
             />
-        </AuthNavigator.Navigator>
+        </AuthStackNavigator.Navigator>
     )
 }
+
+//SignInNavigator
+export const SignInNavigator = () => {
+    return (
+        <SignInStackNavigator.Navigator>
+            <SignInStackNavigator.Screen
+                name="SignIn"
+                component={SignInScreen}
+            />
+        </SignInStackNavigator.Navigator>
+    )
+}
+
+
+//SignUpNavigator
+export const SignUpNavigator = () => {
+    return (
+        <SignUpStackNavigator.Navigator>
+            <SignUpStackNavigator.Screen
+                name="SignUp"
+                component={SignUpScreen}
+            />
+        </SignUpStackNavigator.Navigator>
+    )
+}
+
+
+
+
 
 /**
  * The HomeNavigator represents the home tab
