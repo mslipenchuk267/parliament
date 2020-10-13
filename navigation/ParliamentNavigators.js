@@ -9,8 +9,8 @@ import SettingsScreen from '../screens/settings/SettingsScreen';
 
 
 import AuthScreen from '../screens/auth/AuthScreen';
-import SignInScreen from '../screens/auth/Sign_In_Screen';
-import SignUpScreen from '../screens/auth/Sign_up_Screen';
+import SignInScreen from '../screens/auth/SignInScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
 
 
 // Bottom Tab Navigator
@@ -23,8 +23,7 @@ const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
 
 const AuthStackNavigator = createStackNavigator();
-const SignInStackNavigator = createStackNavigator();
-const SignUpStackNavigator = createStackNavigator();
+
 
 
 

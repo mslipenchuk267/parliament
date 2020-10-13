@@ -7,25 +7,26 @@ import { CommonActions } from '@react-navigation/native';
 
 
 const AuthScreen = (props) => {
+    console.log(props.navigation)
     return (<View>
         <Text>AuthScreen  </Text>
 
-        <Button title="Sign Up" onPress={() => {
+        <Button title="Sign In" onPress={() => {
             console.log("You click on the Login Button");
-            // props.navigation.dispatch(
-            //     CommonActions.navigate({
-            //         name: 'SignIn'
-            //     })
-            // );
+            props.navigation.dispatch(
+                CommonActions.navigate({
+                    name: 'SignIn'
+                })
+            );
         }} />
 
-        <Button title="Login" onPress={() => {
+        <Button title="SignUp" onPress={() => {
             console.log("You click on the Logout Button");
-            // props.navigation.dispatch(
-            //     CommonActions.navigate({
-            //         name: 'SignUp'
-            //     })
-            // );
+            props.navigation.dispatch(
+                CommonActions.navigate({
+                    name: 'SignUp'
+                })
+            );
         }} />
     </View>
     );
