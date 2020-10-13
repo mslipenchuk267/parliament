@@ -7,6 +7,12 @@ import DiagnosisScreen from '../screens/diagnosis/DiagnosisScreen';
 import NotificationsScreen from '../screens/notifications/NotificationsScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
 
+
+import AuthScreen from '../screens/auth/AuthScreen';
+import SignInScreen from '../screens/auth/SignInScreen';
+import SignUpScreen from '../screens/auth/SignUpScreen';
+
+
 // Bottom Tab Navigator
 const UserTabNavigator = createBottomTabNavigator();
 
@@ -15,6 +21,37 @@ const HomeStackNavigator = createStackNavigator();
 const DiagnosisStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
+
+const AuthStackNavigator = createStackNavigator();
+
+
+
+
+
+
+//AuthStackNavigator
+export const AuthNavigator = () => {
+    return (
+        <AuthStackNavigator.Navigator>
+            <AuthStackNavigator.Screen
+                name="Auth"
+                component={AuthScreen}
+            />
+            <AuthStackNavigator.Screen
+                name="SignIn"
+                component={SignInScreen}
+            />
+            <AuthStackNavigator.Screen
+                name="SignUp"
+                component={SignUpScreen}
+            />
+        </AuthStackNavigator.Navigator>
+    )
+}
+
+
+
+
 
 /**
  * The HomeNavigator represents the home tab
@@ -25,6 +62,7 @@ const SettingsStackNavigator = createStackNavigator();
  *   <HomeNavigator />
  * )
  */
+
 export const HomeNavigator = () => {
     return (
         <HomeStackNavigator.Navigator>
@@ -108,19 +146,19 @@ export const SettingsNavigator = () => {
 export const UserNavigator = () => {
     return (
         <UserTabNavigator.Navigator >
-            <UserTabNavigator.Screen 
+            <UserTabNavigator.Screen
                 name="Home"
                 component={HomeNavigator}
             />
-            <UserTabNavigator.Screen 
+            <UserTabNavigator.Screen
                 name="Diagnosis"
                 component={DiagnosisNavigator}
             />
-            <UserTabNavigator.Screen 
+            <UserTabNavigator.Screen
                 name="Notifications"
                 component={NotificationsNavigator}
             />
-            <UserTabNavigator.Screen 
+            <UserTabNavigator.Screen
                 name="Settings"
                 component={SettingsNavigator}
             />
