@@ -1,16 +1,17 @@
 import React from 'react';
-import { View, StyleSheet, Button,Text } from 'react-native';
+import { View, StyleSheet, Button,Text,TextInput } from 'react-native';
+import CustomTextInput from '../../Components/CustomTextInput';
 
 
 
-const SignUpScreen = () => {
+const Sign_up_Screen = () => {
     return (<View>
-        <Text>SignUpScreen  </Text>
-
-
+        <Text>Sign_up_Screen  </Text>
+        <CustomTextInput placeholder="Enter Username"/>
+        <CustomTextInput placeholder="Enter Password"/>
     </View>
     );
 
 }
-const styles = StyleSheet.create({});
-export default SignUpScreen;
+
+export default Sign_up_Screen; 
