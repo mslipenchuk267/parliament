@@ -6,7 +6,11 @@ import { View, StyleSheet, Button,Text,TextInput } from 'react-native';
 const CustomTextInput = (props) => {
     return (
         <View>
-            <TextInput placeholder={props.placeholder} style={styles.textInput}/>
+            <TextInput
+            placeholder={props.placeholder} 
+            secureTextEntry={props.secureTextEntry}
+            style={styles.textInput}
+            />
         </View>
     );
 }

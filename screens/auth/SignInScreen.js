@@ -5,9 +5,9 @@ import CustomTextInput from '../../Components/CustomTextInput';
 
 const SignInScreen = () => {
     return (<View>
-        <Text>SignInScreen  </Text>
         <CustomTextInput placeholder="Enter Username"/>
         <CustomTextInput placeholder="Enter Password" secureTextEntry={true}/>
+        <Button title="Sign In"/>
     </View>
     );
 
