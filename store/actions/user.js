@@ -3,7 +3,8 @@ import {
     SET_DID_TRY_AUTO_LOGIN,
     ADD_CONTACT,
     UPDATE_CONTACT,
-    SET_CONTACT_IDS
+    SET_CONTACT_IDS,
+    AUTHENTICATE
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
@@ -103,4 +104,27 @@ export const addNewContact = (newContact) => {
 
 export const updateContact = (updatedContact) => {
     return { type: UPDATE_CONTACT, updatedContact: updatedContact }
+}
+
+export const attemptLogin = (username, password) => {
+    return async (dispatch) => {
+        console.log("in attemptLogin action creator with",username,password)
+        dispatch(authenticate(username,"mocktoken","mockrefreshtoken","mockexpiration","mockrefreshexpiration"))
+
+    }
+
+}
+
+export const attemptSignup = (username, password) => {
+    return async (dispatch) => {
+        console.log("in attemptSignup action creator with",username,password)
+        dispatch(authenticate(username,"mocktoken","mockrefreshtoken","mockexpiration","mockrefreshexpiration"))
+
+    }
+
+}
+
+export const authenticate = (username,accessToken,refreshToken,accessTokenExpiration,refreshTokenExpiration) => 
+{
+    return {type: AUTHENTICATE, username: username, accessToken:accessToken, refreshToken:refreshToken,accessTokenExpiration:accessTokenExpiration,refreshTokenExpiration:refreshTokenExpiration};
 }

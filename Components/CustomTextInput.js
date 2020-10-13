@@ -10,6 +10,7 @@ const CustomTextInput = (props) => {
             placeholder={props.placeholder} 
             secureTextEntry={props.secureTextEntry}
             style={styles.textInput}
+            onChangeText={props.onChangeText}
             />
         </View>
     );
