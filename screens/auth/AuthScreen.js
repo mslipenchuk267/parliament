@@ -21,7 +21,7 @@ const AuthScreen = (props) => {
         }} />
 
         <Button title="SignUp" onPress={() => {
-            console.log("You click on the Logout Button");
+            console.log("You click on the SignUp Button");
             props.navigation.dispatch(
                 CommonActions.navigate({
                     name: 'SignUp'
