@@ -69,20 +69,7 @@ export default (state = initialState, action) => {
                 
             }
         case LOGOUT:
-            return{
-                ...state,
-                accessToken: "",
-                accessTokenExpiration: "",
-                refreshToken: "",
-                refreshTokenExpiration: "",
-                contactedIDs: [],
-                deviceToken: "",
-                userID: "",
-                notificationHistory: [],
-                tempIDs: [],
-                didTryAutoLogin: false,
-                username: "",
-            }
+            return initialState;
         default:
             return state;
     }
