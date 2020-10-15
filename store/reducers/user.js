@@ -4,7 +4,8 @@ import {
     ADD_CONTACT,
     UPDATE_CONTACT,
     SET_CONTACT_IDS,
-    AUTHENTICATE
+    AUTHENTICATE,
+    LOGOUT
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -66,6 +67,21 @@ export default (state = initialState, action) => {
                 refreshToken: action.refreshToken,
                 refreshTokenExpiration: action.refreshTokenExpiration
                 
+            }
+        case LOGOUT:
+            return{
+                ...state,
+                accessToken: "",
+                accessTokenExpiration: "",
+                refreshToken: "",
+                refreshTokenExpiration: "",
+                contactedIDs: [],
+                deviceToken: "",
+                userID: "",
+                notificationHistory: [],
+                tempIDs: [],
+                didTryAutoLogin: false,
+                username: "",
             }
         default:
             return state;

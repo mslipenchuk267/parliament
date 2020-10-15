@@ -1,5 +1,8 @@
 import React from 'react'
-import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
+import { Text, StyleSheet, SafeAreaView,Button } from 'react-native'
+import {useDispatch} from 'react-redux';
+import * as userActions from '../../store/actions/user';
+
 
 /**
  * The SettingsScreen component houses the UI components 
@@ -11,9 +14,16 @@ import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
  * )
  */
 const SettingsScreen = () => {
+
+    const dispatch = useDispatch();
+    const logoutButtonHandler = () => {
+        dispatch(userActions.logout())
+    }
+
     return (
         <SafeAreaView>
             <Text>This is the settings screen</Text>
+            <Button title="Logout" onPress={logoutButtonHandler}/>
         </SafeAreaView>
     )
 };
