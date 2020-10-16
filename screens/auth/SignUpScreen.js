@@ -18,7 +18,7 @@ const Sign_up_Screen = () => {
     }
 
     return (<View >
-        <ImageBackground source={require('../../images/vectorowl.png')}  style={{flex: 1, resizeMode: "cover", justifyContent: "center"}}>
+        <ImageBackground source={require('../../images/vectorowl.png')}  style={{width: '100%', height: '100%'}}>
             <View style={{padding:70}}></View>
             <View style={styles.textInputShape}>
                 <CustomTextInput 
