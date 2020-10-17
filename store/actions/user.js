@@ -4,7 +4,8 @@ import {
     ADD_CONTACT,
     UPDATE_CONTACT,
     SET_CONTACT_IDS,
-    AUTHENTICATE
+    AUTHENTICATE,
+    LOGOUT
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
@@ -121,6 +122,12 @@ export const attemptSignup = (username, password) => {
         dispatch(authenticate(username,"mocktoken","mockrefreshtoken","mockexpiration","mockrefreshexpiration"))
 
     }
+
+}
+
+export const logout = () =>{
+    console.log("in logout action creator")
+    return {type: LOGOUT};
 
 }
 
