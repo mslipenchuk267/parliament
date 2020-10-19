@@ -1,6 +1,6 @@
-import React,{useState} from 'react';
-import {useDispatch} from 'react-redux';
-import { View, StyleSheet, SafeAreaView} from 'react-native';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 
 import CustomTextInput from '../../Components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
@@ -13,7 +13,7 @@ const SignUpScreen = () => {
 
     const signUpButtonHandler = () => {
         console.log("SignInScreen.js/signUpButtonHandler() Pressed Sign Up Button");
-        dispatch(userActions.attemptSignup(username,password))
+        dispatch(userActions.signup(username, password))
     }
 
     return (

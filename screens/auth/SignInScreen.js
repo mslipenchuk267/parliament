@@ -14,7 +14,7 @@ const SignInScreen = () => {
 
     const signInButtonHandler = () => {
         console.log("SignInScreen.js/signInButtonHandler() Pressed Sign In Button");
-        dispatch(userActions.attemptLogin(username, password))
+        dispatch(userActions.login(username, password))
     }
 
     return (

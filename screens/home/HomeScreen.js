@@ -36,7 +36,6 @@ const bleManager = new BleManager();
  */
 
 const HomeScreen = () => {
-
     const dispatch = useDispatch();
 
     /**

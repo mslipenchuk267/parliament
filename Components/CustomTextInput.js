@@ -8,6 +8,7 @@ const CustomTextInput = (props) => {
             placeholder={props.placeholder}
             secureTextEntry={props.secureTextEntry}
             style={styles.textInput}
+            autoCapitalize='none'
             placeholderTextColor='grey'
             onChangeText={props.onChangeText}
         />

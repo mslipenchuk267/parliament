@@ -5,6 +5,8 @@ import {
   View,
   Text,
   StatusBar,
+  YellowBox,
+  LogBox,
 } from 'react-native';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
@@ -13,6 +15,11 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import userReducer from './store/reducers/user';
 import AppNavigator from './navigation/AppNavigator';
+
+LogBox.ignoreLogs([
+  'Require cycle:', // issued by the fetch() function -> doesn't affect anything
+])
+
 
 const rootReducer = combineReducers({
   user: userReducer

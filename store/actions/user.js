@@ -107,28 +107,85 @@ export const updateContact = (updatedContact) => {
     return { type: UPDATE_CONTACT, updatedContact: updatedContact }
 }
 
-export const attemptLogin = (username, password) => {
+export const login = (username, password) => {
     return async (dispatch) => {
-        console.log("in attemptLogin action creator with",username,password)
-        dispatch(authenticate(username,"mocktoken","mockrefreshtoken","mockexpiration","mockrefreshexpiration"))
+        console.log("store/actions/user.js/login() - Received Params:", username, password)
+        // Assemble http request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ "username": username, "password": password });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // Send Request
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/login", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        console.log("store/actions/user.js/login() - Login Request Successful")
+        dispatch(authenticate(
+            username,
+            resData.auth.accessToken,
+            resData.auth.accessTokenExpiration,
+            resData.auth.refreshToken,
+            resData.auth.refreshTokenExpiration
+        ))
+
     }
 }
 
-export const attemptSignup = (username, password) => {
+export const signup = (username, password) => {
     return async (dispatch) => {
-        console.log("in attemptSignup action creator with",username,password)
-        dispatch(authenticate(username,"mocktoken","mockrefreshtoken","mockexpiration","mockrefreshexpiration"))
+        console.log("store/actions/user.js/signup() - Received Params:", username, password)
+        // Assemble http request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ "username": username, "password": password });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // Send Request
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/users", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        console.log("store/actions/user.js/signup() - Signup Request Successful")
+        dispatch(authenticate(
+            username,
+            resData.auth.accessToken,
+            resData.auth.accessTokenExpiration,
+            resData.auth.refreshToken,
+            resData.auth.refreshTokenExpiration
+        ))
+
 
     }
 
 }
 
-export const logout = () =>{
+export const logout = () => {
     console.log("in logout action creator")
-    return {type: LOGOUT};
+    return { type: LOGOUT };
 }
 
-export const authenticate = (username,accessToken,refreshToken,accessTokenExpiration,refreshTokenExpiration) => 
-{
-    return {type: AUTHENTICATE, username: username, accessToken:accessToken, refreshToken:refreshToken,accessTokenExpiration:accessTokenExpiration,refreshTokenExpiration:refreshTokenExpiration};
+export const authenticate = (username, accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
+    return { type: AUTHENTICATE, username: username, accessToken: accessToken, refreshToken: refreshToken, accessTokenExpiration: accessTokenExpiration, refreshTokenExpiration: refreshTokenExpiration };
 }
