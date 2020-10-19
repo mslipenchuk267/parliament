@@ -1,6 +1,7 @@
 import React from 'react'
-import { Text, StyleSheet, SafeAreaView,Button } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native'
 import {useDispatch} from 'react-redux';
+import CustomButton from '../../Components/CustomButton';
 import * as userActions from '../../store/actions/user';
 
 
@@ -14,22 +15,26 @@ import * as userActions from '../../store/actions/user';
  * )
  */
 const SettingsScreen = () => {
-
     const dispatch = useDispatch();
+
     const logoutButtonHandler = () => {
         dispatch(userActions.logout())
     }
 
     return (
-        <SafeAreaView>
-            <Text>This is the settings screen</Text>
-            <Button title="Logout" onPress={logoutButtonHandler}/>
+        <SafeAreaView style={styles.container} >
+            <CustomButton title="Logout" handlePress={logoutButtonHandler} />
         </SafeAreaView>
     )
 };
 
 const styles = StyleSheet.create({
-    
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 export default SettingsScreen;
