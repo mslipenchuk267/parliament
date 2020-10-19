@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Pressable, ImageBackground, } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { blue } from '../constants/colors';
 
 
 const CustomButton = (props) => {
@@ -25,6 +26,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 50,
         marginVertical: 20,
+        alignItems: 'center',
         // shadow
         shadowColor: "#000",
         shadowOffset: {
@@ -37,8 +39,8 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 18,
-        fontWeight: '400',
-        color: "#007aff"
+        fontWeight: '600',
+        color: blue
     }
 });
 export default CustomButton;

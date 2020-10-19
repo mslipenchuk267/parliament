@@ -1,26 +1,32 @@
 import React from 'react';
-import { View, StyleSheet, Button,Text,TextInput } from 'react-native';
-
-
+import { TextInput, StyleSheet } from 'react-native';
+import { lightGrey, mediumGrey } from '../constants/colors';
 
 const CustomTextInput = (props) => {
     return (
-        <View>
-            <TextInput
-            placeholder={props.placeholder} 
+        <TextInput
+            placeholder={props.placeholder}
             secureTextEntry={props.secureTextEntry}
             style={styles.textInput}
+            placeholderTextColor='grey'
             onChangeText={props.onChangeText}
-            />
-        </View>
+        />
     );
 }
 
 
 const styles = StyleSheet.create({
     textInput: {
-          backgroundColor: 'white',}
-  });
+        backgroundColor: lightGrey,
+        borderColor: mediumGrey,
+        borderWidth: 1,
+        paddingVertical: 15,
+        paddingHorizontal: 15,
+        borderRadius: 10,
+        width: '75%',
+        fontSize: 16
+    },
+});
 
 
 export default CustomTextInput; 

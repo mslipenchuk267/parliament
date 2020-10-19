@@ -111,9 +111,7 @@ export const attemptLogin = (username, password) => {
     return async (dispatch) => {
         console.log("in attemptLogin action creator with",username,password)
         dispatch(authenticate(username,"mocktoken","mockrefreshtoken","mockexpiration","mockrefreshexpiration"))
-
     }
-
 }
 
 export const attemptSignup = (username, password) => {
@@ -128,7 +126,6 @@ export const attemptSignup = (username, password) => {
 export const logout = () =>{
     console.log("in logout action creator")
     return {type: LOGOUT};
-
 }
 
 export const authenticate = (username,accessToken,refreshToken,accessTokenExpiration,refreshTokenExpiration) => 
