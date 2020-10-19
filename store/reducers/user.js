@@ -6,7 +6,7 @@ import {
     SET_CONTACT_IDS,
     AUTHENTICATE,
     UNAUTHENTICATE,
-    REFRESH_TOKENS,
+    REFRESH_TOKENS
 } from '../../constants/ActionTypes';
 
 const initialState = {

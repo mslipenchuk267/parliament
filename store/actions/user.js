@@ -5,7 +5,8 @@ import {
     UPDATE_CONTACT,
     SET_CONTACT_IDS,
     AUTHENTICATE,
-    UNAUTHENTICATE
+    UNAUTHENTICATE,
+    REFRESH_TOKENS
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';

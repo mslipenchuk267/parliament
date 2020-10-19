@@ -1,7 +1,8 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native'
-import {useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomButton from '../../Components/CustomButton';
+import { isRefreshNeeded } from '../../helpers/authHelper';
 import * as userActions from '../../store/actions/user';
 
 
@@ -15,15 +16,22 @@ import * as userActions from '../../store/actions/user';
  * )
  */
 const SettingsScreen = () => {
+    const accessTokenExpiration = useSelector(state => state.user.accessTokenExpiration);
     const dispatch = useDispatch();
 
-    const logoutButtonHandler = () => {
+    const logoutButtonHandler = async () => {
         console.log("SettingsScreen.js/logoutButtonHandler() - Pressed Logout Button")
+        if (isRefreshNeeded(accessTokenExpiration)) {
+            await dispatch(userActions.refreshTokens())
+        }
         dispatch(userActions.logout())
     }
 
-    const deleteAccountButtonHandler = () => {
+    const deleteAccountButtonHandler = async () => {
         console.log("SettingsScreen.js/deleteAccountButtonHandler() - Pressed Delete Account Button")
+        if (isRefreshNeeded(accessTokenExpiration)) {
+            await dispatch(userActions.refreshTokens())
+        }
         dispatch(userActions.deleteAccount())
     }
 
