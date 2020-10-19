@@ -1,85 +1,60 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, ImageBackground,  } from 'react-native';
-
+import { View, Text, StyleSheet, StatusBar, Image, SafeAreaView } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
+
 import { owlImage } from '../../helpers/imageHelper';
+import CustomButton from '../../Components/CustomButton';
 
 
 const AuthScreen = (props) => {
-    return (<View>
-        <ImageBackground source={owlImage}  style={{width: '100%', height: '100%'}}>
-            <View style={{padding:70}}></View>
-            <View style={styles.containSizing}>
-                <Pressable
-                    onPress={() => {
-                        console.log("You click on the Login Button");
-                        props.navigation.dispatch(
-                            CommonActions.navigate({
-                                name: 'SignIn'
-                                })
-                            );
-                    }}
-                    style={({ pressed }) => [
-                    {
-                        backgroundColor: pressed
-                        ? "#479cfe" 
-                        : "#fe479c"
-                    },
-                    styles.buttonShape
-                    ]}>
-                    <Text style={styles.buttonText}>
-                        Sign in
-                    </Text>
-                </Pressable>
-            </View>
-            <View style={styles.containSizing}>
-                <Pressable
-                    onPress={() => {
-                        console.log("You click on the SignUp Button");
-                        props.navigation.dispatch(
-                            CommonActions.navigate({
-                                name: 'SignUp'
-                            })
-                        );
-                    }}
-                    style={({ pressed }) => [
-                    {
-                        backgroundColor: pressed
-                        ? "#479cfe" 
-                        : "#a947fe"
-                    },
-                    styles.buttonShape
-                    ]}>
-                    <Text style={styles.buttonText}>
-                        Sign up
-                    </Text>
-                </Pressable>
-            </View>
-        </ImageBackground>
-    </View>
-    );
+    const handleLoginButtonPress = () => {
+        console.log("AuthScreen.js/handleSignInButtonPress() Pressed Login Button");
+        props.navigation.dispatch(
+            CommonActions.navigate({
+                name: 'SignIn'
+            })
+        );
+    }
 
+    const handleSignUpButtonPress = () => {
+        console.log("AuthScreen.js/handleSignUpButtonPress() Pressed Sign Up Button");
+        props.navigation.dispatch(
+            CommonActions.navigate({
+                name: 'SignUp'
+            })
+        );
+    }
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <StatusBar barStyle="dark-content" />
+            <Image source={owlImage} style={{ width: 138, height: 205 }} />
+            <Text style={styles.titleText}>Welcome to Parliament</Text>
+            <View style={styles.buttonContainer}>
+                <CustomButton title="Login" handlePress={handleLoginButtonPress} />
+                <CustomButton title="Sign Up" handlePress={handleSignUpButtonPress} />
+            </View>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
-    containSizing: {
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    buttonContainer: {
         alignItems: "center",
         justifyContent: "center",
-        padding: 10
-      },
-
-    buttonShape: {
-        elevation: 10,
-        borderRadius: 15,
-        paddingVertical: 20,
-        paddingHorizontal: 50
-      },
-    buttonText: {
-        fontSize: 18,
-        color: "#000",
-        fontWeight: "bold",
-        alignSelf: "center",
-        textTransform: "uppercase"
-      }
+    },
+    titleContainer: {
+    },
+    titleText: {
+        fontSize: 30,
+        paddingVertical: 30
+    }
 });
+
 export default AuthScreen;
