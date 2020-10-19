@@ -1,11 +1,9 @@
-import { CommonActions } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { ImageBackground, Pressable, View, StyleSheet, Button, Text, TextInput, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 
 import CustomTextInput from '../../Components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
-import { owlImage } from '../../helpers/imageHelper';
 import CustomButton from '../../Components/CustomButton';
 
 
@@ -35,19 +33,13 @@ const SignInScreen = () => {
     );
 
 }
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center'
-    },
-    textInputShape: {
-        elevation: 10,
-        paddingVertical: 2,
-        paddingHorizontal: 5,
-        backgroundColor: "#497bfe",
-
     }
 });
 export default SignInScreen;
