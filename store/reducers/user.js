@@ -9,17 +9,16 @@ import {
 } from '../../constants/ActionTypes';
 
 const initialState = {
+    username: "",
     accessToken: "",
     accessTokenExpiration: "",
     refreshToken: "",
     refreshTokenExpiration: "",
     contactedIDs: [],
     deviceToken: "",
-    userID: "",
     notificationHistory: [],
     tempIDs: [],
     didTryAutoLogin: false,
-    username: "",
 }
 
 export default (state = initialState, action) => {

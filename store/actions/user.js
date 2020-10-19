@@ -205,10 +205,9 @@ export const logout = () => {
             alert(resData.error)
             return;
         }
-
+        // reset user authentication data
         dispatch({ type: LOGOUT });
     }
-
 }
 
 export const authenticate = (username, accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {

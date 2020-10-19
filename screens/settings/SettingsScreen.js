@@ -18,12 +18,19 @@ const SettingsScreen = () => {
     const dispatch = useDispatch();
 
     const logoutButtonHandler = () => {
+        console.log("SettingsScreen.js/logoutButtonHandler() - Pressed Logout Button")
         dispatch(userActions.logout())
+    }
+
+    const deleteAccountButtonHandler = () => {
+        console.log("SettingsScreen.js/deleteAccountButtonHandler() - Pressed Delete Account Button")
+        //dispatch(userActions.logout())
     }
 
     return (
         <SafeAreaView style={styles.container} >
             <CustomButton title="Logout" handlePress={logoutButtonHandler} />
+            <CustomButton title="Delete Account" handlePress={deleteAccountButtonHandler} />
         </SafeAreaView>
     )
 };

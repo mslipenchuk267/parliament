@@ -8,12 +8,11 @@ const CustomButton = (props) => {
     return (
         <TouchableOpacity
             onPress={props.handlePress}
+            style={styles.button}
         >
-            <View style={styles.button}>
-                <Text style={styles.buttonText}>
-                    {props.title}
-                </Text>
-            </View>
+            <Text style={styles.buttonText}>
+                {props.title}
+            </Text>
         </TouchableOpacity>
     );
 }
