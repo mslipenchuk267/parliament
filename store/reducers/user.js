@@ -6,6 +6,7 @@ import {
     SET_CONTACT_IDS,
     AUTHENTICATE,
     UNAUTHENTICATE,
+    REFRESH_TOKENS,
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -65,7 +66,13 @@ export default (state = initialState, action) => {
                 accessTokenExpiration: action.accessTokenExpiration,
                 refreshToken: action.refreshToken,
                 refreshTokenExpiration: action.refreshTokenExpiration
-
+            }
+        case REFRESH_TOKENS:
+            return {
+                accessToken: action.accessToken,
+                accessTokenExpiration: action.accessTokenExpiration,
+                refreshToken: action.refreshToken,
+                refreshTokenExpiration: action.refreshTokenExpiration
             }
         case UNAUTHENTICATE:
             return {

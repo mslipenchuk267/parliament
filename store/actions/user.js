@@ -175,8 +175,6 @@ export const signup = (username, password) => {
             resData.auth.refreshToken,
             resData.auth.refreshTokenExpiration
         ))
-
-
     }
 
 }
@@ -206,6 +204,7 @@ export const logout = () => {
             return;
         }
         // reset user authentication data
+        console.log("store/actions/user.js/logout() - Logout Request Successful")
         dispatch({ type: UNAUTHENTICATE });
     }
 }
@@ -238,12 +237,64 @@ export const deleteAccount = () => {
             return;
         }
         // reset user authentication data
+        console.log("store/actions/user.js/deleteAccount() - Delete Request Successful")
         dispatch({ type: UNAUTHENTICATE });
         // remove the contactedIDs data from the secure store
         await deleteContactedIDs();
     }
 }
 
+export const refreshTokens = () => {
+    return async (dispatch, getState) => {
+        const refreshToken = getState().user.refreshToken
+        // Assemble Request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ "refreshToken": refreshToken });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // Send Request
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/refresh", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        console.log("store/actions/user.js/refreshTokens() - Refresh Request Successful")
+        dispatch(refresh(
+            resData.auth.accessToken,
+            resData.auth.accessTokenExpiration,
+            resData.auth.refreshToken,
+            resData.auth.refreshTokenExpiration
+        ))
+    }
+}
+
 export const authenticate = (username, accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
-    return { type: AUTHENTICATE, username: username, accessToken: accessToken, refreshToken: refreshToken, accessTokenExpiration: accessTokenExpiration, refreshTokenExpiration: refreshTokenExpiration };
+    return {
+        type: AUTHENTICATE,
+        username: username,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        accessTokenExpiration: accessTokenExpiration,
+        refreshTokenExpiration: refreshTokenExpiration
+    };
+}
+
+export const refresh = (accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
+    return {
+        type: REFRESH_TOKENS,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        accessTokenExpiration: accessTokenExpiration,
+        refreshTokenExpiration: refreshTokenExpiration
+    };
 }
