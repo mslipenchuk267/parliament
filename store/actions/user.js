@@ -182,8 +182,33 @@ export const signup = (username, password) => {
 }
 
 export const logout = () => {
-    console.log("in logout action creator")
-    return { type: LOGOUT };
+    return async (dispatch, getState) => {
+        const accessToken = getState().user.accessToken;
+        // Assemble http request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ "accessToken": accessToken });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // Send Request
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/logout", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+
+        dispatch({ type: LOGOUT });
+    }
+
 }
 
 export const authenticate = (username, accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
