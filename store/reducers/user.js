@@ -5,7 +5,7 @@ import {
     UPDATE_CONTACT,
     SET_CONTACT_IDS,
     AUTHENTICATE,
-    LOGOUT
+    UNAUTHENTICATE,
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -60,14 +60,14 @@ export default (state = initialState, action) => {
         case AUTHENTICATE:
             return {
                 ...state,
-                username:  action.username,
+                username: action.username,
                 accessToken: action.accessToken,
                 accessTokenExpiration: action.accessTokenExpiration,
                 refreshToken: action.refreshToken,
                 refreshTokenExpiration: action.refreshTokenExpiration
-                
+
             }
-        case LOGOUT:
+        case UNAUTHENTICATE:
             return {
                 ...initialState,
                 didTryAutoLogin: true

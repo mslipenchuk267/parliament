@@ -5,7 +5,7 @@ import {
     UPDATE_CONTACT,
     SET_CONTACT_IDS,
     AUTHENTICATE,
-    LOGOUT
+    UNAUTHENTICATE
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
@@ -206,7 +206,41 @@ export const logout = () => {
             return;
         }
         // reset user authentication data
-        dispatch({ type: LOGOUT });
+        dispatch({ type: UNAUTHENTICATE });
+    }
+}
+
+export const deleteAccount = () => {
+    return async (dispatch, getState) => {
+        const accessToken = getState().user.accessToken;
+        const refreshToken = getState().user.refreshToken;
+        // Assemble http request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({ "accessToken": accessToken, "refreshToken": refreshToken });
+
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/delete", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        // reset user authentication data
+        dispatch({ type: UNAUTHENTICATE });
+        // remove the contactedIDs data from the secure store
+        await deleteContactedIDs();
     }
 }
 

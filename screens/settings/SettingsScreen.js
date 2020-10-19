@@ -24,7 +24,7 @@ const SettingsScreen = () => {
 
     const deleteAccountButtonHandler = () => {
         console.log("SettingsScreen.js/deleteAccountButtonHandler() - Pressed Delete Account Button")
-        //dispatch(userActions.logout())
+        dispatch(userActions.deleteAccount())
     }
 
     return (
