@@ -1,12 +1,10 @@
 import React,{useState} from 'react';
 import {useDispatch} from 'react-redux';
 import { ImageBackground, Pressable, View, StyleSheet, Button,Text,TextInput} from 'react-native';
+
 import CustomTextInput from '../../Components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
-
-
-
-
+import { owlImage } from '../../helpers/imageHelper';
 
 const Sign_up_Screen = () => {
 
@@ -18,7 +16,7 @@ const Sign_up_Screen = () => {
     }
 
     return (<View >
-        <ImageBackground source={require('../../assets/images/parliament_owl.png')}  style={{width: '100%', height: '100%'}}>
+        <ImageBackground source={owlImage}  style={{width: '100%', height: '100%'}}>
             <View style={{padding:70}}></View>
             <View style={styles.textInputShape}>
                 <CustomTextInput 

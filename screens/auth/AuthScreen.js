@@ -1,14 +1,13 @@
 import React from 'react';
-import { Pressable, ImageBackground, View, StyleSheet, Button, Text } from 'react-native';
+import { View, Text, StyleSheet, Pressable, ImageBackground,  } from 'react-native';
 
 import { CommonActions } from '@react-navigation/native';
+import { owlImage } from '../../helpers/imageHelper';
 
-
-//const image = { uri: '../../images/vectorowl.PNG' };
 
 const AuthScreen = (props) => {
     return (<View>
-        <ImageBackground source={require('../../assets/images/parliament_owl.png')}  style={{width: '100%', height: '100%'}}>
+        <ImageBackground source={owlImage}  style={{width: '100%', height: '100%'}}>
             <View style={{padding:70}}></View>
             <View style={styles.containSizing}>
                 <Pressable

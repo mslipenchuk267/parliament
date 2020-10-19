@@ -2,23 +2,24 @@ import { CommonActions } from '@react-navigation/native';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ImageBackground, Pressable, View, StyleSheet, Button, Text, TextInput } from 'react-native';
+
 import CustomTextInput from '../../Components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
+import { owlImage } from '../../helpers/imageHelper';
 
 
 const SignInScreen = () => {
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
+
     const signInButtonHandler = () => {
         dispatch(userActions.attemptLogin(username, password))
     }
 
-
     return (
         <View >
-            <ImageBackground source={require('../../assets/images/parliament_owl.png')} style={{ width: '100%', height: '100%' }}>
+            <ImageBackground source={owlImage} style={{ width: '100%', height: '100%' }}>
                 <View style={{ padding: 70 }}></View>
                 <View style={styles.textInputShape}>
                     <CustomTextInput
