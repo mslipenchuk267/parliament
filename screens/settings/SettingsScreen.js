@@ -1,5 +1,10 @@
 import React from 'react'
-import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux';
+import CustomButton from '../../Components/CustomButton';
+import { isRefreshNeeded } from '../../helpers/authHelper';
+import * as userActions from '../../store/actions/user';
+
 
 /**
  * The SettingsScreen component houses the UI components 
@@ -11,15 +16,40 @@ import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
  * )
  */
 const SettingsScreen = () => {
+    const accessTokenExpiration = useSelector(state => state.user.accessTokenExpiration);
+    const dispatch = useDispatch();
+
+    const logoutButtonHandler = async () => {
+        console.log("SettingsScreen.js/logoutButtonHandler() - Pressed Logout Button")
+        if (isRefreshNeeded(accessTokenExpiration)) {
+            await dispatch(userActions.refreshTokens())
+        }
+        dispatch(userActions.logout())
+    }
+
+    const deleteAccountButtonHandler = async () => {
+        console.log("SettingsScreen.js/deleteAccountButtonHandler() - Pressed Delete Account Button")
+        if (isRefreshNeeded(accessTokenExpiration)) {
+            await dispatch(userActions.refreshTokens())
+        }
+        dispatch(userActions.deleteAccount())
+    }
+
     return (
-        <SafeAreaView>
-            <Text>This is the settings screen</Text>
+        <SafeAreaView style={styles.container} >
+            <CustomButton title="Logout" handlePress={logoutButtonHandler} />
+            <CustomButton title="Delete Account" handlePress={deleteAccountButtonHandler} />
         </SafeAreaView>
     )
 };
 
 const styles = StyleSheet.create({
-    
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 export default SettingsScreen;

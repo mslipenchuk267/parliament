@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { UserNavigator } from './ParliamentNavigators';
+import { AuthNavigator, UserNavigator } from './ParliamentNavigators';
 import StartupScreen from '../screens/StartupScreen';
 import { useSelector } from 'react-redux';
 
@@ -18,10 +18,14 @@ import { useSelector } from 'react-redux';
 const AppNavigator = (props) => {
     const didTryAutoLogin = useSelector(state => state.user.didTryAutoLogin);
 
+    const accessToken = useSelector(state => state.user.accessToken);
+
     return (
         <NavigationContainer>
-            { didTryAutoLogin === false && <StartupScreen /> }
-            { didTryAutoLogin === true && <UserNavigator /> }
+            { didTryAutoLogin === false && <StartupScreen />}
+            { didTryAutoLogin === true && accessToken.length < 1 && <AuthNavigator />}
+            { didTryAutoLogin === true && accessToken.length > 0 && <UserNavigator />}
+
         </NavigationContainer>
     )
 }
