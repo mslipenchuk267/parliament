@@ -10,6 +10,7 @@ import * as SecureStore from 'expo-secure-store';
 import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
 import { generateTempID, PARLIAMENT_SERVICE_UUID } from '../../helpers/uuidHelper';
+import CustomButton from '../../Components/CustomButton';
 
 const bleManager = new BleManager();
 
@@ -157,30 +158,10 @@ const HomeScreen = () => {
 
     return (
         <SafeAreaView style={styles.container} >
-            <View>
-                <Button
-                    title='Start Contact Tracing'
-                    onPress={handleStartContactTracing}
-                />
-            </View>
-            <View>
-                <Button
-                    title='Stop Contact Tracing'
-                    onPress={handleStopContactTracing}
-                />
-            </View>
-            <View>
-                <Button
-                    title='Start Advertising'
-                    onPress={handleStartAdvertising}
-                />
-            </View>
-            <View>
-                <Button
-                    title='Stop Advertising'
-                    onPress={handleStopAdvertising}
-                />
-            </View>
+            <CustomButton title='Start Scanning' handlePress={handleStartContactTracing} />
+            <CustomButton title='Stop Scanning' handlePress={handleStopContactTracing} />
+            <CustomButton title='Start Advertising' handlePress={handleStartAdvertising} />
+            <CustomButton title='Stop Advertising' handlePress={handleStopAdvertising} />
         </SafeAreaView>
     )
 };
