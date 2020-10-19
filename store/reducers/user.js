@@ -3,20 +3,23 @@ import {
     SET_DID_TRY_AUTO_LOGIN,
     ADD_CONTACT,
     UPDATE_CONTACT,
-    SET_CONTACT_IDS
+    SET_CONTACT_IDS,
+    AUTHENTICATE,
+    UNAUTHENTICATE,
+    REFRESH_TOKENS
 } from '../../constants/ActionTypes';
 
 const initialState = {
+    username: "",
     accessToken: "",
     accessTokenExpiration: "",
     refreshToken: "",
     refreshTokenExpiration: "",
     contactedIDs: [],
     deviceToken: "",
-    userID: "",
     notificationHistory: [],
     tempIDs: [],
-    didTryAutoLogin: false
+    didTryAutoLogin: false,
 }
 
 export default (state = initialState, action) => {
@@ -55,6 +58,27 @@ export default (state = initialState, action) => {
                 accessToken: action.newAccessToken,
                 accessTokenExpiration: action.newAccessTokenExpiration
             }
+        case AUTHENTICATE:
+            return {
+                ...state,
+                username: action.username,
+                accessToken: action.accessToken,
+                accessTokenExpiration: action.accessTokenExpiration,
+                refreshToken: action.refreshToken,
+                refreshTokenExpiration: action.refreshTokenExpiration
+            }
+        case REFRESH_TOKENS:
+            return {
+                accessToken: action.accessToken,
+                accessTokenExpiration: action.accessTokenExpiration,
+                refreshToken: action.refreshToken,
+                refreshTokenExpiration: action.refreshTokenExpiration
+            }
+        case UNAUTHENTICATE:
+            return {
+                ...initialState,
+                didTryAutoLogin: true
+            };
         default:
             return state;
     }

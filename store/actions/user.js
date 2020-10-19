@@ -3,7 +3,10 @@ import {
     SET_DID_TRY_AUTO_LOGIN,
     ADD_CONTACT,
     UPDATE_CONTACT,
-    SET_CONTACT_IDS
+    SET_CONTACT_IDS,
+    AUTHENTICATE,
+    UNAUTHENTICATE,
+    REFRESH_TOKENS
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
@@ -103,4 +106,196 @@ export const addNewContact = (newContact) => {
 
 export const updateContact = (updatedContact) => {
     return { type: UPDATE_CONTACT, updatedContact: updatedContact }
+}
+
+export const login = (username, password) => {
+    return async (dispatch) => {
+        console.log("store/actions/user.js/login() - Received Params:", username, password)
+        // Assemble http request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ "username": username, "password": password });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // Send Request
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/login", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        console.log("store/actions/user.js/login() - Login Request Successful")
+        dispatch(authenticate(
+            username,
+            resData.auth.accessToken,
+            resData.auth.accessTokenExpiration,
+            resData.auth.refreshToken,
+            resData.auth.refreshTokenExpiration
+        ))
+
+    }
+}
+
+export const signup = (username, password) => {
+    return async (dispatch) => {
+        console.log("store/actions/user.js/signup() - Received Params:", username, password)
+        // Assemble http request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ "username": username, "password": password });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // Send Request
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/users", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        console.log("store/actions/user.js/signup() - Signup Request Successful")
+        dispatch(authenticate(
+            username,
+            resData.auth.accessToken,
+            resData.auth.accessTokenExpiration,
+            resData.auth.refreshToken,
+            resData.auth.refreshTokenExpiration
+        ))
+    }
+
+}
+
+export const logout = () => {
+    return async (dispatch, getState) => {
+        const accessToken = getState().user.accessToken;
+        // Assemble http request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ "accessToken": accessToken });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // Send Request
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/logout", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        // reset user authentication data
+        console.log("store/actions/user.js/logout() - Logout Request Successful")
+        dispatch({ type: UNAUTHENTICATE });
+    }
+}
+
+export const deleteAccount = () => {
+    return async (dispatch, getState) => {
+        const accessToken = getState().user.accessToken;
+        const refreshToken = getState().user.refreshToken;
+        // Assemble http request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({ "accessToken": accessToken, "refreshToken": refreshToken });
+
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/delete", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        // reset user authentication data
+        console.log("store/actions/user.js/deleteAccount() - Delete Request Successful")
+        dispatch({ type: UNAUTHENTICATE });
+        // remove the contactedIDs data from the secure store
+        await deleteContactedIDs();
+    }
+}
+
+export const refreshTokens = () => {
+    return async (dispatch, getState) => {
+        const refreshToken = getState().user.refreshToken
+        // Assemble Request
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var raw = JSON.stringify({ "refreshToken": refreshToken });
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+        // Send Request
+        const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/refresh", requestOptions)
+        // Format result
+        const resData = await result.json()
+
+        // Error Check
+        if (resData.error) {
+            // alert user to error
+            alert(resData.error)
+            return;
+        }
+        console.log("store/actions/user.js/refreshTokens() - Refresh Request Successful")
+        dispatch(refresh(
+            resData.auth.accessToken,
+            resData.auth.accessTokenExpiration,
+            resData.auth.refreshToken,
+            resData.auth.refreshTokenExpiration
+        ))
+    }
+}
+
+export const authenticate = (username, accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
+    return {
+        type: AUTHENTICATE,
+        username: username,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        accessTokenExpiration: accessTokenExpiration,
+        refreshTokenExpiration: refreshTokenExpiration
+    };
+}
+
+export const refresh = (accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
+    return {
+        type: REFRESH_TOKENS,
+        accessToken: accessToken,
+        refreshToken: refreshToken,
+        accessTokenExpiration: accessTokenExpiration,
+        refreshTokenExpiration: refreshTokenExpiration
+    };
 }
