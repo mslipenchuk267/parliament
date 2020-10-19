@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: "white",
         elevation: 10,
-        borderRadius: 15,
+        borderRadius: 20,
         paddingVertical: 20,
         paddingHorizontal: 50,
         marginVertical: 20,
@@ -33,14 +33,12 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.32,
         shadowRadius: 5.46,
-
         elevation: 9,
     },
     buttonText: {
         fontSize: 18,
-        color: "#000",
-        fontWeight: "bold",
-        alignSelf: "center"
+        fontWeight: '400',
+        color: "#007aff"
     }
 });
 export default CustomButton;

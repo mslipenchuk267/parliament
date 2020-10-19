@@ -28,7 +28,7 @@ const AuthScreen = (props) => {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar barStyle="dark-content" />
-            <Image source={owlImage} style={{ width: 138, height: 205 }} />
+            <Image source={owlImage} style={styles.image} />
             <Text style={styles.titleText}>Welcome to Parliament</Text>
             <View style={styles.buttonContainer}>
                 <CustomButton title="Login" handlePress={handleLoginButtonPress} />
@@ -54,6 +54,11 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 30,
         paddingVertical: 30
+    },
+    image: {
+        width: 138,
+        height: 205,
+        marginBottom: 10
     }
 });
 
