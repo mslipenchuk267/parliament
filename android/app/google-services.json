@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "279035944613",
+    "firebase_url": "https://parliament-2bedd.firebaseio.com",
+    "project_id": "parliament-2bedd",
+    "storage_bucket": "parliament-2bedd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:279035944613:android:293cc73dcf1215978fb74c",
+        "android_client_info": {
+          "package_name": "com.parliament_temple"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "279035944613-9tkuetr3gn3p3539u561kn3aq5gr7qht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCww6Hr6h1D239PMgP_uBGnB-emhViCMOs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "279035944613-9tkuetr3gn3p3539u561kn3aq5gr7qht.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
