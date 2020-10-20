@@ -1,5 +1,8 @@
 import React from 'react'
-import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native';
+import CustomButton from '../../Components/CustomButton';
+
+//import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView } from 'react-native';
 
 /**
  * The DiagnosisScreen component houses the UI components 
@@ -11,9 +14,11 @@ import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
  * )
  */
 const DiagnosisScreen = () => {
+
     return (
-        <SafeAreaView>
-            <Text>This is the diagnosis screen</Text>
+        <SafeAreaView style={styles.container} >
+            <CustomButton title='Find COVID testing near me' />
+            <CustomButton title='Submit Covid diagnosis' />
         </SafeAreaView>
     )
 };
