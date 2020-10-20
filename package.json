@@ -24,6 +24,7 @@
     "react-native-ble-peripheral": "^2.0.1",
     "react-native-ble-plx": "^2.0.1",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-notifications": "^3.3.4",
     "react-native-peripheral": "^0.0.3",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
