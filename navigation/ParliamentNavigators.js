@@ -24,6 +24,8 @@ const SettingsStackNavigator = createStackNavigator();
 // AuthNavigator Stack Component 
 const AuthStackNavigator = createStackNavigator();
 
+// DiagnosisScreen -> StateSelector Screen
+import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
 /**
  * The AuthNavigator is a stack navigator
  * that contains all screens needed for user
@@ -89,13 +91,20 @@ export const HomeNavigator = () => {
 export const DiagnosisNavigator = () => {
     return (
         <DiagnosisStackNavigator.Navigator>
+
             <DiagnosisStackNavigator.Screen
                 name="Submission"
                 component={DiagnosisScreen}
             />
+
+            <DiagnosisStackNavigator.Screen
+                name="StateSelectorScreen"
+                component={StateSelectorScreen}
+            />
         </DiagnosisStackNavigator.Navigator>
     )
 }
+
 
 /**
  * The NotificationsNavigator represents the notifications tab

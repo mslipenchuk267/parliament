@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native';
 import CustomButton from '../../Components/CustomButton';
 //import { createStackNavigator, createAppContainer } from 'react-navigation';  
+import { CommonActions } from '@react-navigation/native';
 
 //import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView } from 'react-native';
 
@@ -14,11 +15,18 @@ import CustomButton from '../../Components/CustomButton';
  *   <DiagnosisScreen />
  * )
  */
-const DiagnosisScreen = () => {
+const DiagnosisScreen = (props) => {
 
     const findCovidTestingButtonHandler = () => {
         //when button is clicked, take user to StateSelectorScreen
+        console.log("DiagnosisScreen.js/findCovidTestingButtonHandler() Pressed Find COVID testing near me");
 
+        //goes into next screen
+         props.navigation.dispatch(
+             CommonActions.navigate({
+                name: 'StateSelectorScreen' // .navigate -> key:string
+            })
+         );
     }//end findCovidTestingButtonHandler
 
     return (
