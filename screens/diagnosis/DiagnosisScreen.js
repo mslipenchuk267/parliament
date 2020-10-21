@@ -1,6 +1,7 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native';
 import CustomButton from '../../Components/CustomButton';
+//import { createStackNavigator, createAppContainer } from 'react-navigation';  
 
 //import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView } from 'react-native';
 
@@ -15,16 +16,26 @@ import CustomButton from '../../Components/CustomButton';
  */
 const DiagnosisScreen = () => {
 
+    const findCovidTestingButtonHandler = () => {
+        //when button is clicked, take user to StateSelectorScreen
+
+    }//end findCovidTestingButtonHandler
+
     return (
         <SafeAreaView style={styles.container} >
-            <CustomButton title='Find COVID testing near me' />
+            <CustomButton title='Find COVID testing near me' handlePress={findCovidTestingButtonHandler} />
             <CustomButton title='Submit Covid diagnosis' />
         </SafeAreaView>
     )
 };
 
 const styles = StyleSheet.create({
-    
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 export default DiagnosisScreen;
