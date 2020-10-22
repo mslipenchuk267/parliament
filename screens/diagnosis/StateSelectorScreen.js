@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
+import CustomButton from '../../Components/CustomButton';
 
 /**
  * The StateSelectorScreen component houses 2 components 
@@ -80,19 +81,22 @@ const StateSelectorScreen = () => {
         Grabs the states from the array and uses the styling component to display to user.
         Also uses Touchable Opacity to express that the user pressed link by fading into lighter color
         */
-        <View style = {styles.container}>
+        <SafeAreaView style = {styles.container}>
+            
             <FlatList
                 keyExtractor = {(item) => item.stateCode}
                 data={selectedState}
                 renderItem={({item}) => (
                     <TouchableOpacity onPress={() => pressManager(item.stateCode)}>
                         <Text style={styles.item}>{item.stateName}</Text>
-                    </TouchableOpacity>
-                    
-                )}
-                
+                    </TouchableOpacity>   
+                )} 
             />
-        </View>
+
+            <CustomButton title='Go to Testing Site' />
+
+
+        </SafeAreaView>
 
     )
 };
