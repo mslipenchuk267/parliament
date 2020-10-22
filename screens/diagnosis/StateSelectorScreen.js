@@ -13,7 +13,7 @@ import CustomButton from '../../Components/CustomButton';
  */
 
 //URL to be navigated to when button is clicked 
-const testingWebsiteURL = "https://www.hhs.gov/coronavirus/community-based-testing-sites/index.html#ca";
+const testingWebsiteURL = "https://www.hhs.gov/coronavirus/community-based-testing-sites/index.html#";
 
 //method is called when "Go to testing Website" text is clicked in StateSelectorScreen
 const OpenURLButton = ({ url, children }) => {
@@ -91,7 +91,9 @@ const StateSelectorScreen = () => {
 
     //Manages what occurs when pressing on a state
     const pressManager = (stateCode) => {
-        console.log(stateCode);        
+        console.log(stateCode);
+        const testingWebsiteURL2 = "https://www.hhs.gov/coronavirus/community-based-testing-sites/index.html#" + stateCode.toLowerCase();
+        return (Linking.openURL(testingWebsiteURL2).catch((err) => console.error('An error occurred', err)));
     }
 
     return (
