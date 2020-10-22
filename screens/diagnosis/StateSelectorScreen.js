@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
+import React, {useState, useCallback} from 'react'
+import { Linking, Button, Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import CustomButton from '../../Components/CustomButton';
 
 /**
@@ -12,6 +12,28 @@ import CustomButton from '../../Components/CustomButton';
  * )
  */
 
+//URL to be navigated to when button is clicked 
+const testingWebsiteURL = "https://www.hhs.gov/coronavirus/community-based-testing-sites/index.html#ca";
+
+//method is called when "Go to testing Website" text is clicked in StateSelectorScreen
+const OpenURLButton = ({ url, children }) => {
+    const handlePress = useCallback(async () => {
+        // Checking if the link is supported for links with custom URL scheme.
+        const supported = await Linking.canOpenURL(url);
+      
+        if (supported) {
+        // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+        // by some browser in the mobile
+        await Linking.openURL(url);
+        } else {
+            //handles broken URL, without http, etc.
+            Alert.alert(`Don't know how to open this URL: ${url}`);
+        }
+    }, [url]);
+      
+        return (<Button title={children} onPress={handlePress} />);
+};
+    
 const StateSelectorScreen = () => {
     //Array containing states and their abbreviations
     const [selectedState, setSelectedState] = useState([
@@ -82,7 +104,6 @@ const StateSelectorScreen = () => {
         Also uses Touchable Opacity to express that the user pressed link by fading into lighter color
         */
         <SafeAreaView style = {styles.container}>
-            
             <FlatList
                 keyExtractor = {(item) => item.stateCode}
                 data={selectedState}
@@ -92,10 +113,7 @@ const StateSelectorScreen = () => {
                     </TouchableOpacity>   
                 )} 
             />
-
-            <CustomButton title='Go to Testing Site' />
-
-
+           <OpenURLButton url={testingWebsiteURL}>Go to Testing Website</OpenURLButton>
         </SafeAreaView>
 
     )
