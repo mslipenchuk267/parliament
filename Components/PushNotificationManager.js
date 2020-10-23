@@ -16,7 +16,18 @@ export default class PushNotificationManager extends React.Component {
     Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
       console.error(event)
     })
-
+    /*
+    Notifications.setNotificationChannel({
+      channelId: 'my-channel',
+      name: 'My Channel',
+      importance: 5,
+      description: 'My Description',
+      enableLights: true,
+      enableVibration: true,
+      // groupId: 'your-group',
+      showBadge: true,
+    })
+    */
     Notifications.registerRemoteNotifications()
   }
 
@@ -41,10 +52,10 @@ export default class PushNotificationManager extends React.Component {
     })
 
     Notifications.getInitialNotification()
-        .then(notification => {
-          console.log('Initial notification was:', notification || 'N/A')
-        })
-        .catch(err => console.error('getInitialNotifiation() failed', err))
+      .then(notification => {
+        console.log('Initial notification was:', notification || 'N/A')
+      })
+      .catch(err => console.error('getInitialNotifiation() failed', err))
   }
 
   render() {
