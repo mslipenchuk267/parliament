@@ -1,6 +1,8 @@
 import React, {useState, useCallback} from 'react'
 import { Linking, Button, Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
+import { color } from 'react-native-reanimated';
 import CustomButton from '../../Components/CustomButton';
+import { blue } from '../../constants/colors';
 
 /**
  * The StateSelectorScreen component houses 2 components 
@@ -106,7 +108,11 @@ const StateSelectorScreen = () => {
         Also uses Touchable Opacity to express that the user pressed link by fading into lighter color
         */
         <SafeAreaView style = {styles.container}>
-            <FlatList
+            <Text>
+                Please Click on State below for more information
+            </Text>
+
+            <FlatList style = {styles.container}
                 keyExtractor = {(item) => item.stateCode}
                 data={selectedState}
                 renderItem={({item}) => (
