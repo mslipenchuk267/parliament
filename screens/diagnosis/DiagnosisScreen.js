@@ -24,7 +24,7 @@ const DiagnosisScreen = (props) => {
         //goes into next screen
          props.navigation.dispatch(
              CommonActions.navigate({
-                name: 'StateSelectorScreen' // .navigate -> key:string
+                name: 'StateSelector' // .navigate -> key:string
             })
          );
     }//end findCovidTestingButtonHandler

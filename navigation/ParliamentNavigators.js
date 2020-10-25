@@ -98,8 +98,9 @@ export const DiagnosisNavigator = () => {
             />
 
             <DiagnosisStackNavigator.Screen
-                name="StateSelectorScreen"
+                name="StateSelector"
                 component={StateSelectorScreen}
+                options={{ headerTitle: "Testing Sites", headerBackTitleVisible: false }}
             />
         </DiagnosisStackNavigator.Navigator>
     )

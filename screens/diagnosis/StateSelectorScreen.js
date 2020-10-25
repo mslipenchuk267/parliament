@@ -1,8 +1,9 @@
-import React, {useState, useCallback} from 'react'
+import React, { useState, useCallback } from 'react'
 import { Linking, Button, Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
-import { color } from 'react-native-reanimated';
+
 import CustomButton from '../../Components/CustomButton';
-import { blue } from '../../constants/colors';
+import { blue, lightGrey, mediumGrey } from '../../constants/colors';
+import { states } from '../../constants/states';
 
 /**
  * The StateSelectorScreen component houses 2 components 
@@ -17,111 +18,50 @@ import { blue } from '../../constants/colors';
 //URL to be navigated to when button is clicked 
 const testingWebsiteURL = "https://www.hhs.gov/coronavirus/community-based-testing-sites/index.html#";
 
-//method is called when "Go to testing Website" text is clicked in StateSelectorScreen
-const OpenURLButton = ({ url, children }) => {
-    const handlePress = useCallback(async () => {
-        // Checking if the link is supported for links with custom URL scheme.
-        const supported = await Linking.canOpenURL(url);
-      
+const StateSelectorScreen = () => {
+    //Manages what occurs when pressing on a state
+    const handleStateButton = async (stateCode) => {
+        console.log("StateSelectorScreen.js/handleStateButton() - Pressed a state button with state code:", stateCode);
+        // Assemble state testing site link
+        const stateTestingLink = testingWebsiteURL + stateCode.toLowerCase();
+        // Deep link to testing site
+        const supported = await Linking.canOpenURL(stateTestingLink);
         if (supported) {
-        // Opening the link with some app, if the URL scheme is "http" the web link should be opened
-        // by some browser in the mobile
-        await Linking.openURL(url);
+            // Opening the link with native browser, if the URL scheme is "http" the web link should be opened
+            // by some browser in the mobile
+            try {
+                await Linking.openURL(stateTestingLink);
+            } catch (err) {
+                console.error('An error occurred', err);
+            }
         } else {
             //handles broken URL, without http, etc.
-            Alert.alert(`Don't know how to open this URL: ${url}`);
+            Alert.alert(`Don't know how to open this URL: ${stateTestingLink}`);
         }
-    }, [url]);
-      
-        return (<Button title={children} onPress={handlePress} />);
-};
-    
-const StateSelectorScreen = () => {
-    //Array containing states and their abbreviations
-    const [selectedState, setSelectedState] = useState([
-        { stateName: 'Alabama',  stateCode: 'AL'}, 
-        { stateName: 'Alaska',  stateCode: 'AK'}, 
-        { stateName: 'Arizona',  stateCode: 'AZ'}, 
-        { stateName: 'Arkansas',  stateCode: 'AR'}, 
-        { stateName: 'California',  stateCode: 'CA'}, 
-        { stateName: 'Colorado',  stateCode: 'CO'}, 
-        { stateName: 'Connecticuit',  stateCode: 'CT'}, 
-        { stateName: 'Delaware',  stateCode: 'DE'}, 
-        { stateName: 'Florida',  stateCode: 'FL'}, 
-        { stateName: 'Georgia',  stateCode: 'GA'}, 
-        { stateName: 'Hawaii',  stateCode: 'HI'},
-        { stateName: 'Idaho',  stateCode: 'ID'}, 
-        { stateName: 'Illinois',  stateCode: 'IL'},
-        { stateName: 'Indiana',  stateCode: 'IN'}, 
-        { stateName: 'Iowa',  stateCode: 'IA'}, 
-        { stateName: 'Kansas',  stateCode: 'KS'}, 
-        { stateName: 'Kenctucky',  stateCode: 'KY'}, 
-        { stateName: 'Louisiana',  stateCode: 'LA'}, 
-        { stateName: 'Maine',  stateCode: 'ME'}, 
-        { stateName: 'Maryland',  stateCode: 'MD'}, 
-        { stateName: 'Massachusetts',  stateCode: 'MA'}, 
-        { stateName: 'Michigan',  stateCode: 'MI'}, 
-        { stateName: 'Minnesota',  stateCode: 'MN'}, 
-        { stateName: 'Mississippi',  stateCode: 'MS'}, 
-        { stateName: 'Missouri',  stateCode: 'MO'}, 
-        { stateName: 'Montana',  stateCode: 'MT'},
-        { stateName: 'Nebraska',  stateCode: 'NE'}, 
-        { stateName: 'Nevada',  stateCode: 'NV'},
-        { stateName: 'New Hampshire',  stateCode: 'NH'},
-        { stateName: 'New Jersey',  stateCode: 'NJ'},
-        { stateName: 'New Mexico',  stateCode: 'NM'},
-        { stateName: 'New York',  stateCode: 'NY'},
-        { stateName: 'North Carolina',  stateCode: 'NC'},
-        { stateName: 'North Dakota',  stateCode: 'ND'},
-        { stateName: 'Ohio',  stateCode: 'OH'},
-        { stateName: 'Oklahoma',  stateCode: 'OK'},
-        { stateName: 'Oregon',  stateCode: 'OR'},
-        { stateName: 'Pennsylvania',  stateCode: 'PA'},
-        { stateName: 'Rhode Island',  stateCode: 'RI'},
-        { stateName: 'South Carolina',  stateCode: 'SC'},
-        { stateName: 'South Dakota',  stateCode: 'SD'},
-        { stateName: 'Tennessee',  stateCode: 'TN'},
-        { stateName: 'Texas',  stateCode: 'TX'},
-        { stateName: 'Utah',  stateCode: 'UT'},
-        { stateName: 'Vermont',  stateCode: 'VT'},
-        { stateName: 'Virginia',  stateCode: 'VA'},
-        { stateName: 'Washington',  stateCode: 'WA'},
-        { stateName: 'West Virginia',  stateCode: 'WV'},
-        { stateName: 'Wisconsin',  stateCode: 'WI'},
-        { stateName: 'Wyoming',  stateCode: 'WY'},
-    ]);
-
-    //Manages what occurs when pressing on a state
-    const pressManager = (stateCode) => {
-        console.log(stateCode);
-        const testingWebsiteURL2 = "https://www.hhs.gov/coronavirus/community-based-testing-sites/index.html#" + stateCode.toLowerCase();
-        return (Linking.openURL(testingWebsiteURL2).catch((err) => console.error('An error occurred', err)));
     }
 
     return (
-        // <SafeAreaView>
-        //     <Text>This is the StateSelectorScreen screen</Text>
-        // </SafeAreaView>
-        
-        /*
-        Grabs the states from the array and uses the styling component to display to user.
-        Also uses Touchable Opacity to express that the user pressed link by fading into lighter color
-        */
-        <SafeAreaView style = {styles.container}>
-            <Text>
-                Please Click on State below for more information
-            </Text>
-
-            <FlatList style = {styles.container}
-                keyExtractor = {(item) => item.stateCode}
-                data={selectedState}
-                renderItem={({item}) => (
-                    <TouchableOpacity onPress={() => pressManager(item.stateCode)}>
-                        <Text style={styles.item}>{item.stateName}</Text>
-                    </TouchableOpacity>   
-                )} 
+        <SafeAreaView style={styles.container}>
+            <View style={styles.titleContainer} >
+                <Text style={styles.titleText} >
+                    View available Testing Sites for:
+                </Text>
+            </View>
+            {/*
+                Grabs the states from the array and uses the styling component to display to user.
+                Also uses Touchable Opacity to express that the user pressed link by fading into lighter color
+                */}
+            <FlatList
+                style={styles.listContainer}
+                showsVerticalScrollIndicator={false}
+                keyExtractor={(item) => item.stateCode}
+                data={states}
+                renderItem={({ item }) => (
+                    <TouchableOpacity style={styles.stateButton} onPress={handleStateButton.bind(this, item.stateCode)} >
+                        <Text style={styles.stateText} >{item.stateName}</Text>
+                    </TouchableOpacity>
+                )}
             />
-           <OpenURLButton url={testingWebsiteURL}>Go to Testing Website</OpenURLButton>
         </SafeAreaView>
 
     )
@@ -132,17 +72,44 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        paddingTop: 40,
-        paddingHorizontal: 20,
-        //alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    item: {
-        marginTop: 24,
+    titleContainer: {
+        paddingTop: 25,
+        paddingBottom: 25,
+    },
+    titleText: {
+        fontSize: 18,
+    },
+    listContainer: {
+        paddingVertical: 20,
+        paddingHorizontal: 50,
+        marginBottom: 50,
+        borderColor: mediumGrey,
+        borderWidth: 2,
+        borderRadius: 10,
+        backgroundColor: lightGrey
+    },
+    stateButton: {
+        marginBottom: 20,
         padding: 12,
-        backgroundColor: 'lightgray',
+        backgroundColor: "white",
+        borderRadius: 10,
+        // shadow
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.20,
+        shadowRadius: 1.41,
+        elevation: 2,
+    },
+    stateText: {
         fontSize: 28,
-        fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        color: blue
     }
 });
 
