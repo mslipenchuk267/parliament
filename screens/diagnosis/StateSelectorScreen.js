@@ -1,8 +1,9 @@
 import React from 'react';
-import { Linking, Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 
 import { blue, lightGrey, mediumGrey } from '../../constants/colors';
 import { states, newsSiteLink } from '../../constants/states';
+import { linkToSite } from '../../helpers/deepLinkHelper';
 
 /**
  * The StateSelectorScreen component houses 2 components 
@@ -20,19 +21,7 @@ const StateSelectorScreen = () => {
         // Assemble state news site link
         const stateNewsLink = newsSiteLink + stateName.replace(/\s+/g, '-').toLowerCase();
         // Deep link to news site
-        const supported = await Linking.canOpenURL(stateNewsLink);
-        if (supported) {
-            // Opening the link with native browser, if the URL scheme is "http" the web link should be opened
-            // by some browser in the mobile
-            try {
-                await Linking.openURL(stateNewsLink);
-            } catch (err) {
-                console.error('An error occurred', err);
-            }
-        } else {
-            //handles broken URL, without http, etc.
-            Alert.alert(`Don't know how to open this URL: ${stateNewsLink}`);
-        }
+        await linkToSite(stateNewsLink);
     }
 
     return (
