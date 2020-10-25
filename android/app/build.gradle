@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy' // for expo-secure-store
- 
+apply plugin: 'com.google.gms.google-services'
+
 import com.android.build.OutputFile
 
 /**
@@ -185,6 +186,12 @@ dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
+    // for FCM notifications
+    implementation platform('com.google.firebase:firebase-bom:25.12.0')
+    implementation project(':react-native-notifications')
+    implementation 'com.google.firebase:firebase-core:16.0.0'
+    // for analytics on FCM notifications
+    implementation 'com.google.firebase:firebase-analytics'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
@@ -220,3 +227,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+apply plugin: 'com.google.gms.google-services'

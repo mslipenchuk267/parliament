@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "docs": "jsdoc -c jsdoc.conf.json"
+    "docs": "jsdoc -c jsdoc.conf.json",
+    "prepare": "patch-package"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -24,6 +25,7 @@
     "react-native-ble-peripheral": "^2.0.1",
     "react-native-ble-plx": "^2.0.1",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-notifications": "^3.3.4",
     "react-native-peripheral": "^0.0.3",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
@@ -43,6 +45,8 @@
     "eslint": "^7.10.0",
     "jest": "^26.4.2",
     "metro-react-native-babel-preset": "^0.63.0",
+    "patch-package": "^6.2.2",
+    "postinstall-prepare": "^1.0.1",
     "react-test-renderer": "16.13.1"
   },
   "jest": {

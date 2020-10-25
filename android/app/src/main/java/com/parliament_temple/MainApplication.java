@@ -16,7 +16,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 // for expo-secure-store
 import java.util.Arrays;
- 
+// for notifications
+import com.wix.reactnativenotifications.RNNotificationsPackage;
+
 import org.unimodules.adapters.react.ModuleRegistryAdapter;
 import org.unimodules.adapters.react.ReactModuleRegistryProvider;
 import org.unimodules.core.interfaces.SingletonModule;

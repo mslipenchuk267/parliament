@@ -1,0 +1,26 @@
+diff --git a/node_modules/react-native-notifications/lib/android/app/src/main/java/com/wix/reactnativenotifications/core/notification/PushNotification.java b/node_modules/react-native-notifications/lib/android/app/src/main/java/com/wix/reactnativenotifications/core/notification/PushNotification.java
+index 507dd42..a47e515 100644
+--- a/node_modules/react-native-notifications/lib/android/app/src/main/java/com/wix/reactnativenotifications/core/notification/PushNotification.java
++++ b/node_modules/react-native-notifications/lib/android/app/src/main/java/com/wix/reactnativenotifications/core/notification/PushNotification.java
+@@ -57,6 +57,7 @@ public class PushNotification implements IPushNotification {
+         mNotificationProps = createProps(bundle);
+     }
+ 
++    /* OLD -> background notification not working
+     @Override
+     public void onReceived() throws InvalidNotificationException {
+         if (!mAppLifecycleFacade.isAppVisible()) {
+@@ -64,6 +65,13 @@ public class PushNotification implements IPushNotification {
+         }
+         notifyReceivedToJS();
+     }
++    */
++    // NEW -> Fixes foreground notification issue
++    @Override
++    public void onReceived() throws InvalidNotificationException {
++        postNotification(null);
++        notifyReceivedToJS();
++    }
+ 
+     @Override
+     public void onOpened() {

@@ -15,6 +15,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import userReducer from './store/reducers/user';
 import AppNavigator from './navigation/AppNavigator';
+import PushNotificationManager from './Components/PushNotificationManager';
 
 LogBox.ignoreLogs([
   'Require cycle:', // issued by the fetch() function -> doesn't affect anything
@@ -42,7 +43,9 @@ const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(Redux
 const App = () => {
   return (
     <Provider store={store}>
-      <AppNavigator />
+      <PushNotificationManager>
+        <AppNavigator />
+      </PushNotificationManager>
     </Provider>
   );
 };
