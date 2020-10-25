@@ -1,3 +1,5 @@
+export const newsSiteLink = "https://www.cnbc.com/";
+
 export const states = [
     { stateName: 'Alabama',  stateCode: 'AL'}, 
     { stateName: 'Alaska',  stateCode: 'AK'}, 

@@ -1,10 +1,8 @@
 import React from 'react'
 import { StyleSheet, SafeAreaView } from 'react-native';
-import CustomButton from '../../Components/CustomButton';
-//import { createStackNavigator, createAppContainer } from 'react-navigation';  
 import { CommonActions } from '@react-navigation/native';
 
-//import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView } from 'react-native';
+import CustomButton from '../../Components/CustomButton';
 
 /**
  * The DiagnosisScreen component houses the UI components 
@@ -17,22 +15,21 @@ import { CommonActions } from '@react-navigation/native';
  */
 const DiagnosisScreen = (props) => {
 
-    const findCovidTestingButtonHandler = () => {
-        //when button is clicked, take user to StateSelectorScreen
-        console.log("DiagnosisScreen.js/findCovidTestingButtonHandler() Pressed Find COVID testing near me");
-
-        //goes into next screen
+    const handleNewsSiteButton = () => {
+        // when button is clicked, take user to StateSelectorScreen
+        console.log("DiagnosisScreen.js/handleNewsSiteButton() - Pressed Find News Button");
+        // goes into next screen
          props.navigation.dispatch(
              CommonActions.navigate({
                 name: 'StateSelector' // .navigate -> key:string
             })
          );
-    }//end findCovidTestingButtonHandler
+    }
 
     return (
         <SafeAreaView style={styles.container} >
-            <CustomButton title='Find COVID testing near me' handlePress={findCovidTestingButtonHandler} />
-            <CustomButton title='Submit Covid diagnosis' />
+            <CustomButton title='Find News in Your State' handlePress={handleNewsSiteButton} />
+            <CustomButton title='Submit QR Code' />
         </SafeAreaView>
     )
 };

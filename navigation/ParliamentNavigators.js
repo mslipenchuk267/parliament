@@ -100,7 +100,7 @@ export const DiagnosisNavigator = () => {
             <DiagnosisStackNavigator.Screen
                 name="StateSelector"
                 component={StateSelectorScreen}
-                options={{ headerTitle: "Testing Sites", headerBackTitleVisible: false }}
+                options={{ headerTitle: "US State News", headerBackTitleVisible: false }}
             />
         </DiagnosisStackNavigator.Navigator>
     )
