@@ -1,65 +1,63 @@
-import React from 'react'
-import { Platform, View } from 'react-native'
-import { Notifications } from 'react-native-notifications'
+import React, { useEffect } from 'react';
+import { Platform, View } from 'react-native';
+import { Notifications } from 'react-native-notifications';
+import { useDispatch } from 'react-redux';
+import { setDeviceToken } from '../store/actions/user';
 
-export default class PushNotificationManager extends React.Component {
-  componentDidMount() {
-    this.registerDevice()
-    this.registerNotificationEvents()
-  }
+const PushNotificationManager = (props) => {
+  const dispatch = useDispatch();
 
-  registerDevice = () => {
-    Notifications.events().registerRemoteNotificationsRegistered(event => {
-      // TODO: Send the token to my server so it could send back push notifications...
-      console.log('Device Token Received', event.deviceToken)
-    })
-    Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
-      console.error(event)
-    })
-    /*
-    Notifications.setNotificationChannel({
-      channelId: 'my-channel',
-      name: 'My Channel',
-      importance: 5,
-      description: 'My Description',
-      enableLights: true,
-      enableVibration: true,
-      // groupId: 'your-group',
-      showBadge: true,
-    })
-    */
-    Notifications.registerRemoteNotifications()
-  }
+  useEffect(() => {
+    registerDevice = () => {
+      Notifications.events().registerRemoteNotificationsRegistered(event => {
+        // Set the device token state
+        dispatch(setDeviceToken(event.deviceToken));
+        console.log('Device Token Received', event.deviceToken)
 
-  registerNotificationEvents = () => {
-    Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
-      console.log('Notification Received - Foreground', notification)
-      // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
-      completion({ alert: true, sound: false, badge: true })
-    })
-
-    Notifications.events().registerNotificationOpened((notification, completion) => {
-      console.log('Notification opened by device user', notification)
-      console.log(`Notification opened with an action identifier: ${notification.identifier}`)
-      completion()
-    })
-
-    Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
-      console.log('Notification Received - Background', notification)
-
-      // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
-      completion({ alert: true, sound: true, badge: false })
-    })
-
-    Notifications.getInitialNotification()
-      .then(notification => {
-        console.log('Initial notification was:', notification || 'N/A')
       })
-      .catch(err => console.error('getInitialNotifiation() failed', err))
-  }
+      Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
+        console.error(event)
+      })
+      Notifications.registerRemoteNotifications()
+    }
 
-  render() {
-    const { children } = this.props
-    return <View style={{ flex: 1 }}>{children}</View>
-  }
+    registerNotificationEvents = () => {
+      Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
+        console.log('Notification Received - Foreground', notification)
+        // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
+        completion({ alert: true, sound: false, badge: true })
+      })
+
+      Notifications.events().registerNotificationOpened((notification, completion) => {
+        console.log('Notification opened by device user', notification)
+        console.log(`Notification opened with an action identifier: ${notification.identifier}`)
+        completion()
+      })
+
+      Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
+        console.log('Notification Received - Background', notification)
+
+        // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
+        completion({ alert: true, sound: true, badge: false })
+      })
+
+      Notifications.getInitialNotification()
+        .then(notification => {
+          console.log('Initial notification was:', notification || 'N/A')
+        })
+        .catch(err => console.error('getInitialNotifiation() failed', err))
+    }
+
+    registerDevice()
+    registerNotificationEvents()
+  }, [dispatch])
+
+  return (
+    <View style={{ flex: 1 }}>
+      {props.children}
+    </View>
+  )
+
 }
+
+export default PushNotificationManager;
