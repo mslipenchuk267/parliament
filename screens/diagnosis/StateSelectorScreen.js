@@ -1,5 +1,5 @@
-import React from 'react'
-import { Linking, Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
+import React from 'react';
+import { Linking, Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
 
 import { blue, lightGrey, mediumGrey } from '../../constants/colors';
 import { states, newsSiteLink } from '../../constants/states';
@@ -12,8 +12,6 @@ import { states, newsSiteLink } from '../../constants/states';
  *   <StateSelectorScreen />
  * )
  */
-
-//URL to be navigated to when button is clicked 
 
 const StateSelectorScreen = () => {
     //Manages what occurs when pressing on a state
@@ -92,7 +90,7 @@ const styles = StyleSheet.create({
         backgroundColor: lightGrey,
     },
     stateButton: {
-        marginTop: 20,
+        marginVertical: 10,
         marginHorizontal: '10%',
         padding: 12,
         backgroundColor: "white",
