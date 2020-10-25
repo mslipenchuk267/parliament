@@ -6371,6 +6371,7 @@ react-native-notifications@^3.3.4:
   resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-3.3.4.tgz#ade029e623380113f06f8d5b7759ad36e27c9566"
   integrity sha512-oJuuUxKh/82HI7kgWUBlxf3d0/ngfX1Lp1meeESySA6u0I+jeTS0EOPDAVD6bGrfAywCi3d4elY7QbGTy6MWGQ==
 
+
 react-native-peripheral@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/react-native-peripheral/-/react-native-peripheral-0.0.3.tgz#a39385f9fddc135069d07767c92e3bcb60317c5d"

@@ -50,6 +50,11 @@
     "react-test-renderer": "16.13.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+    "setupFiles": ["./jest/setup.js"],
+    "transformIgnorePatterns": [ 
+      "node_modules/(?!((jest-)?react-native|expo-secure-store|react-native-ble-plx|@unimodules|react-native-peripheral|react-navigation|@react-navigation/.*))" 
+    ]
   }
 }
