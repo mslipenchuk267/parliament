@@ -6,11 +6,12 @@ import {
     SET_CONTACT_IDS,
     AUTHENTICATE,
     UNAUTHENTICATE,
-    REFRESH_TOKENS
+    REFRESH_TOKENS,
+    SET_DEVICE_TOKEN
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
-
+import { uploadDeviceToken } from '../../helpers/authHelper';
 export const setContactIDs = (contactedIDs) => {
     return { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
 }
@@ -109,7 +110,7 @@ export const updateContact = (updatedContact) => {
 }
 
 export const login = (username, password) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         console.log("store/actions/user.js/login() - Received Params:", username, password)
         // Assemble http request
         var myHeaders = new Headers();
@@ -133,19 +134,20 @@ export const login = (username, password) => {
             return;
         }
         console.log("store/actions/user.js/login() - Login Request Successful")
-        dispatch(authenticate(
+        await dispatch(authenticate(
             username,
             resData.auth.accessToken,
             resData.auth.accessTokenExpiration,
             resData.auth.refreshToken,
             resData.auth.refreshTokenExpiration
         ))
-
+        // Upload device token to AUTH api, need accessToken to do so
+        uploadDeviceToken(getState().user.deviceToken, getState().user.accessToken);
     }
 }
 
 export const signup = (username, password) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         console.log("store/actions/user.js/signup() - Received Params:", username, password)
         // Assemble http request
         var myHeaders = new Headers();
@@ -176,6 +178,8 @@ export const signup = (username, password) => {
             resData.auth.refreshToken,
             resData.auth.refreshTokenExpiration
         ))
+        // Upload device token to AUTH api, need accessToken to do so
+        uploadDeviceToken(getState().user.deviceToken, getState().user.accessToken);
     }
 
 }
@@ -277,6 +281,10 @@ export const refreshTokens = () => {
             resData.auth.refreshTokenExpiration
         ))
     }
+}
+
+export const setDeviceToken = (deviceToken) => {
+    return { type: SET_DEVICE_TOKEN, deviceToken: deviceToken }
 }
 
 export const authenticate = (username, accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
