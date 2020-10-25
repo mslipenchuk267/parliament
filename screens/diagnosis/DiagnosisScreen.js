@@ -1,5 +1,8 @@
 import React from 'react'
-import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
+import { StyleSheet, SafeAreaView } from 'react-native';
+import { CommonActions } from '@react-navigation/native';
+
+import CustomButton from '../../Components/CustomButton';
 
 /**
  * The DiagnosisScreen component houses the UI components 
@@ -10,16 +13,34 @@ import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
  *   <DiagnosisScreen />
  * )
  */
-const DiagnosisScreen = () => {
+const DiagnosisScreen = (props) => {
+
+    const handleNewsSiteButton = () => {
+        // when button is clicked, take user to StateSelectorScreen
+        console.log("DiagnosisScreen.js/handleNewsSiteButton() - Pressed Find News Button");
+        // goes into next screen
+         props.navigation.dispatch(
+             CommonActions.navigate({
+                name: 'StateSelector' // .navigate -> key:string
+            })
+         );
+    }
+
     return (
-        <SafeAreaView>
-            <Text>This is the diagnosis screen</Text>
+        <SafeAreaView style={styles.container} >
+            <CustomButton title='Find News in Your State' handlePress={handleNewsSiteButton} />
+            <CustomButton title='Submit QR Code' />
         </SafeAreaView>
     )
 };
 
 const styles = StyleSheet.create({
-    
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 export default DiagnosisScreen;

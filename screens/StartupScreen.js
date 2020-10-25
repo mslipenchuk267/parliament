@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import * as SecureStore from 'expo-secure-store';
 
 import * as userActions from '../store/actions/user';
 import { getContactedIDs } from '../helpers/secureStoreHelper';

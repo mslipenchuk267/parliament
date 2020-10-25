@@ -1,17 +1,29 @@
-import 'react-native';
 import React from 'react';
 import App from '../App';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
+
 import {
   UPDATE_ACCESS_TOKEN
 } from '../constants/ActionTypes';
 import * as userActions from '../store/actions/user';
+import { linkToSite } from '../helpers/deepLinkHelper';
 
+/*
 it('renders correctly', () => {
   renderer.create(<App />);
 });
+*/
+
+
+describe('Deep Linking', () => {
+  it('should open correctly formatted url', async () => {
+    const site = "https://gooogle.com"
+    await expect(linkToSite(site)).resolves.not.toThrow()
+  })
+})
+
 
 describe('Redux Store Updates', () => {
   it('should create an action to update accessToken and accessTokenExpiration', () => {
