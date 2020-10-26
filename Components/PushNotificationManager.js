@@ -3,6 +3,9 @@ import { Platform, View } from 'react-native';
 import { Notifications } from 'react-native-notifications';
 import { useDispatch } from 'react-redux';
 import { setDeviceToken } from '../store/actions/user';
+import { parsing_token } from './ParsingToken';
+
+
 
 const PushNotificationManager = (props) => {
   const dispatch = useDispatch();
@@ -24,6 +27,7 @@ const PushNotificationManager = (props) => {
     registerNotificationEvents = () => {
       Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
         console.log('Notification Received - Foreground', notification)
+        parsing_token(notification)
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
         completion({ alert: true, sound: false, badge: true })
       })
