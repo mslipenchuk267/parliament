@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    "docs": "jsdoc -c jsdoc.conf.json"
+    "docs": "jsdoc -c jsdoc.conf.json",
+    "prepare": "patch-package"
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
@@ -24,11 +25,13 @@
     "react-native-ble-peripheral": "^2.0.1",
     "react-native-ble-plx": "^2.0.1",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-notifications": "^3.3.4",
     "react-native-peripheral": "^0.0.3",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
     "react-native-unimodules": "^0.11.0",
+    "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
@@ -43,9 +46,25 @@
     "eslint": "^7.10.0",
     "jest": "^26.4.2",
     "metro-react-native-babel-preset": "^0.63.0",
+    "patch-package": "^6.2.2",
+    "postinstall-prepare": "^1.0.1",
     "react-test-renderer": "16.13.1"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "setupFiles": [
+      "./jest/setup.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|react-native-vector-icons/Entypo|expo-secure-store|react-native-ble-plx|@unimodules|react-native-peripheral|react-navigation|@react-navigation/.*))"
+    ]
   }
 }

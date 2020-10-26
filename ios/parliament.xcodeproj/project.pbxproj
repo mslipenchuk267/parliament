@@ -17,6 +17,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* parliamentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* parliamentTests.m */; };
 		4838D188252F72FF00E23CBC /* libMultiplatformBleAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4838D187252F72FF00E23CBC /* libMultiplatformBleAdapter.a */; };
+		487750A725464F0000824754 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 487750A625464F0000824754 /* Entypo.ttf */; };
 		48F477072524E637007116E8 /* react_native_ble_plx_setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F477062524E637007116E8 /* react_native_ble_plx_setup.swift */; };
 		60BCB9F7EE74B083C8FDFBF1 /* libPods-parliament-parliamentTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9EAD1B08103FAF013CF3387 /* libPods-parliament-parliamentTests.a */; };
 		6B6D9DF5D00FBCD8CDE1D75A /* libPods-parliament-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0264B4FB8F130B7641F3E9 /* libPods-parliament-tvOSTests.a */; };
@@ -52,23 +53,24 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = parliament/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = parliament/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = parliament/main.m; sourceTree = "<group>"; };
-		19298A7B59FE20116CADCB89 /* Pods-parliament.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament.debug.xcconfig"; path = "Target Support Files/Pods-parliament/Pods-parliament.debug.xcconfig"; sourceTree = "<group>"; };
-		22704AFE98254BF9947F46C7 /* Pods-parliament-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-parliament-tvOS/Pods-parliament-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		25198C7956A52F9E78639F2D /* Pods-parliament-parliamentTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-parliamentTests.release.xcconfig"; path = "Target Support Files/Pods-parliament-parliamentTests/Pods-parliament-parliamentTests.release.xcconfig"; sourceTree = "<group>"; };
+		2C5336A7806C79FD6EF00BAA /* Pods-parliament-parliamentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-parliamentTests.debug.xcconfig"; path = "Target Support Files/Pods-parliament-parliamentTests/Pods-parliament-parliamentTests.debug.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* parliament-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "parliament-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* parliament-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "parliament-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C91C4CC93B99EF5517ACC4 /* libPods-parliament-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-parliament-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3C5D10B7C319A0A8F8372C09 /* Pods-parliament-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-parliament-tvOS/Pods-parliament-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		3F0264B4FB8F130B7641F3E9 /* libPods-parliament-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-parliament-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4838D187252F72FF00E23CBC /* libMultiplatformBleAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMultiplatformBleAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4838D24E252F98FC00E23CBC /* parliamentRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = parliamentRelease.entitlements; path = parliament/parliamentRelease.entitlements; sourceTree = "<group>"; };
+		487750A625464F0000824754 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		48F477052524E636007116E8 /* parliament-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "parliament-Bridging-Header.h"; sourceTree = "<group>"; };
 		48F477062524E637007116E8 /* react_native_ble_plx_setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = react_native_ble_plx_setup.swift; sourceTree = "<group>"; };
-		581CE3C361802456325F8409 /* Pods-parliament-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-parliament-tvOSTests/Pods-parliament-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5B308D21AC75CC51CB7212C7 /* Pods-parliament-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOS.release.xcconfig"; path = "Target Support Files/Pods-parliament-tvOS/Pods-parliament-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		638F04465EC688A4D6CF8DC1 /* Pods-parliament.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament.release.xcconfig"; path = "Target Support Files/Pods-parliament/Pods-parliament.release.xcconfig"; sourceTree = "<group>"; };
+		6FD82527613BD92D70A4070A /* Pods-parliament-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-parliament-tvOSTests/Pods-parliament-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = parliament/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		87EAD4B34297FEB24BF97B58 /* Pods-parliament-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-parliament-tvOSTests/Pods-parliament-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		AFD7737FAC3BA6433A111A23 /* Pods-parliament-parliamentTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-parliamentTests.release.xcconfig"; path = "Target Support Files/Pods-parliament-parliamentTests/Pods-parliament-parliamentTests.release.xcconfig"; sourceTree = "<group>"; };
-		C819D32101FACE7BF22F8953 /* Pods-parliament-parliamentTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-parliamentTests.debug.xcconfig"; path = "Target Support Files/Pods-parliament-parliamentTests/Pods-parliament-parliamentTests.debug.xcconfig"; sourceTree = "<group>"; };
-		D51FC7C3C2ED284D3F052EEA /* Pods-parliament.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament.release.xcconfig"; path = "Target Support Files/Pods-parliament/Pods-parliament.release.xcconfig"; sourceTree = "<group>"; };
-		DA21AD7C564F3CE8D4D42EF4 /* Pods-parliament-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOS.release.xcconfig"; path = "Target Support Files/Pods-parliament-tvOS/Pods-parliament-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		A26F40CC54091B28B9695FD0 /* Pods-parliament.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament.debug.xcconfig"; path = "Target Support Files/Pods-parliament/Pods-parliament.debug.xcconfig"; sourceTree = "<group>"; };
+		E66E148303A9BD5CFCAB8A25 /* Pods-parliament-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-parliament-tvOSTests/Pods-parliament-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E983271A66141DCDDA510311 /* libPods-parliament.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-parliament.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -132,6 +134,7 @@
 		13B07FAE1A68108700A75B9A /* parliament */ = {
 			isa = PBXGroup;
 			children = (
+				487750A125464E2500824754 /* Fonts */,
 				4838D24E252F98FC00E23CBC /* parliamentRelease.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -158,6 +161,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		487750A125464E2500824754 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				487750A625464F0000824754 /* Entypo.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -174,8 +185,8 @@
 				00E356EF1AD99517003FC87E /* parliamentTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				D6315658929491C81DC20BE7 /* Pods */,
 				48F477052524E636007116E8 /* parliament-Bridging-Header.h */,
+				F861F8C9E026C76D17DC3277 /* Pods */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -193,17 +204,17 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D6315658929491C81DC20BE7 /* Pods */ = {
+		F861F8C9E026C76D17DC3277 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				19298A7B59FE20116CADCB89 /* Pods-parliament.debug.xcconfig */,
-				D51FC7C3C2ED284D3F052EEA /* Pods-parliament.release.xcconfig */,
-				C819D32101FACE7BF22F8953 /* Pods-parliament-parliamentTests.debug.xcconfig */,
-				AFD7737FAC3BA6433A111A23 /* Pods-parliament-parliamentTests.release.xcconfig */,
-				22704AFE98254BF9947F46C7 /* Pods-parliament-tvOS.debug.xcconfig */,
-				DA21AD7C564F3CE8D4D42EF4 /* Pods-parliament-tvOS.release.xcconfig */,
-				581CE3C361802456325F8409 /* Pods-parliament-tvOSTests.debug.xcconfig */,
-				87EAD4B34297FEB24BF97B58 /* Pods-parliament-tvOSTests.release.xcconfig */,
+				A26F40CC54091B28B9695FD0 /* Pods-parliament.debug.xcconfig */,
+				638F04465EC688A4D6CF8DC1 /* Pods-parliament.release.xcconfig */,
+				2C5336A7806C79FD6EF00BAA /* Pods-parliament-parliamentTests.debug.xcconfig */,
+				25198C7956A52F9E78639F2D /* Pods-parliament-parliamentTests.release.xcconfig */,
+				3C5D10B7C319A0A8F8372C09 /* Pods-parliament-tvOS.debug.xcconfig */,
+				5B308D21AC75CC51CB7212C7 /* Pods-parliament-tvOS.release.xcconfig */,
+				E66E148303A9BD5CFCAB8A25 /* Pods-parliament-tvOSTests.debug.xcconfig */,
+				6FD82527613BD92D70A4070A /* Pods-parliament-tvOSTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -352,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				487750A725464F0000824754 /* Entypo.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,7 +632,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C819D32101FACE7BF22F8953 /* Pods-parliament-parliamentTests.debug.xcconfig */;
+			baseConfigurationReference = 2C5336A7806C79FD6EF00BAA /* Pods-parliament-parliamentTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -644,7 +656,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AFD7737FAC3BA6433A111A23 /* Pods-parliament-parliamentTests.release.xcconfig */;
+			baseConfigurationReference = 25198C7956A52F9E78639F2D /* Pods-parliament-parliamentTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -665,10 +677,11 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19298A7B59FE20116CADCB89 /* Pods-parliament.debug.xcconfig */;
+			baseConfigurationReference = A26F40CC54091B28B9695FD0 /* Pods-parliament.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_ENTITLEMENTS[sdk=*]" = parliament/parliamentRelease.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 58CJ77XWKX;
 				ENABLE_BITCODE = NO;
@@ -692,7 +705,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D51FC7C3C2ED284D3F052EEA /* Pods-parliament.release.xcconfig */;
+			baseConfigurationReference = 638F04465EC688A4D6CF8DC1 /* Pods-parliament.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -718,7 +731,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22704AFE98254BF9947F46C7 /* Pods-parliament-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 3C5D10B7C319A0A8F8372C09 /* Pods-parliament-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -746,7 +759,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DA21AD7C564F3CE8D4D42EF4 /* Pods-parliament-tvOS.release.xcconfig */;
+			baseConfigurationReference = 5B308D21AC75CC51CB7212C7 /* Pods-parliament-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -774,7 +787,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 581CE3C361802456325F8409 /* Pods-parliament-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = E66E148303A9BD5CFCAB8A25 /* Pods-parliament-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -801,7 +814,7 @@
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 87EAD4B34297FEB24BF97B58 /* Pods-parliament-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 6FD82527613BD92D70A4070A /* Pods-parliament-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
