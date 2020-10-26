@@ -1,15 +1,14 @@
 
-import { getContactedIDs } from '../helpers/secureStoreHelper';
 
 
-
-
-export const parsing_token = (token) => {
+export const parsing_token = (token, contactedIDs) => {
 
     //Retrive the json data and parse it
     const payload = JSON.stringify(token.payload);
     const object = JSON.parse(payload);
 
+
+    
     console.log(`\n\n`);
 
     console.log(`The body is : ${GetBody(object)}\n`);
@@ -19,15 +18,11 @@ export const parsing_token = (token) => {
     const InfectedID = GetInfectedIDsByIndex(object.infectedIDs, 0);
     console.log(`The date is : ${GetDataInfectedID(InfectedID)}\n`);
     console.log(`The temple id is : ${GetTempIdInfectedID(InfectedID)}\n`);
-    FetchLocalData();
+
+    console.log(contactedIDs)
 
 }
 
-const FetchLocalData = () => {
-    const contactedIDs = getContactedIDs();
-    console.log(contactedIDs);
-    return;
-};
 
 
 
