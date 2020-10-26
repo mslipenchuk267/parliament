@@ -17,6 +17,7 @@
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* parliamentTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* parliamentTests.m */; };
 		4838D188252F72FF00E23CBC /* libMultiplatformBleAdapter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4838D187252F72FF00E23CBC /* libMultiplatformBleAdapter.a */; };
+		487750A725464F0000824754 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 487750A625464F0000824754 /* Entypo.ttf */; };
 		48F477072524E637007116E8 /* react_native_ble_plx_setup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48F477062524E637007116E8 /* react_native_ble_plx_setup.swift */; };
 		60BCB9F7EE74B083C8FDFBF1 /* libPods-parliament-parliamentTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F9EAD1B08103FAF013CF3387 /* libPods-parliament-parliamentTests.a */; };
 		6B6D9DF5D00FBCD8CDE1D75A /* libPods-parliament-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F0264B4FB8F130B7641F3E9 /* libPods-parliament-tvOSTests.a */; };
@@ -61,6 +62,7 @@
 		3F0264B4FB8F130B7641F3E9 /* libPods-parliament-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-parliament-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4838D187252F72FF00E23CBC /* libMultiplatformBleAdapter.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libMultiplatformBleAdapter.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4838D24E252F98FC00E23CBC /* parliamentRelease.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = parliamentRelease.entitlements; path = parliament/parliamentRelease.entitlements; sourceTree = "<group>"; };
+		487750A625464F0000824754 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		48F477052524E636007116E8 /* parliament-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "parliament-Bridging-Header.h"; sourceTree = "<group>"; };
 		48F477062524E637007116E8 /* react_native_ble_plx_setup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = react_native_ble_plx_setup.swift; sourceTree = "<group>"; };
 		5B308D21AC75CC51CB7212C7 /* Pods-parliament-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-parliament-tvOS.release.xcconfig"; path = "Target Support Files/Pods-parliament-tvOS/Pods-parliament-tvOS.release.xcconfig"; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 		13B07FAE1A68108700A75B9A /* parliament */ = {
 			isa = PBXGroup;
 			children = (
+				487750A125464E2500824754 /* Fonts */,
 				4838D24E252F98FC00E23CBC /* parliamentRelease.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -156,6 +159,14 @@
 				3F0264B4FB8F130B7641F3E9 /* libPods-parliament-tvOSTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		487750A125464E2500824754 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				487750A625464F0000824754 /* Entypo.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -205,7 +216,6 @@
 				E66E148303A9BD5CFCAB8A25 /* Pods-parliament-tvOSTests.debug.xcconfig */,
 				6FD82527613BD92D70A4070A /* Pods-parliament-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -353,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				487750A725464F0000824754 /* Entypo.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

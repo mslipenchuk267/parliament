@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Icon from 'react-native-vector-icons/Entypo';
 
 // UserNavigator screens 
 import HomeScreen from '../screens/home/HomeScreen';
@@ -26,6 +27,7 @@ const AuthStackNavigator = createStackNavigator();
 
 // DiagnosisScreen -> StateSelector Screen
 import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
+import { blue } from '../constants/colors';
 /**
  * The AuthNavigator is a stack navigator
  * that contains all screens needed for user
@@ -158,7 +160,29 @@ export const SettingsNavigator = () => {
  */
 export const UserNavigator = () => {
     return (
-        <UserTabNavigator.Navigator >
+        <UserTabNavigator.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+                    if (route.name === 'Home') {
+                        iconName = 'home'
+                    } else if (route.name === 'Diagnosis') {
+                        iconName = 'magnifying-glass';
+                    } else if (route.name === 'Notifications') {
+                        iconName = 'bell';
+                    } else if (route.name === 'Settings') {
+                        iconName = 'cog';
+                    }
+                    // You can return any component that you like here!
+                    return <Icon name={iconName} size={size} color={color} />;
+                },
+            })}
+            tabBarOptions={{
+                activeTintColor: blue,
+                inactiveTintColor: 'gray',
+                showLabel: false
+            }}
+        >
             <UserTabNavigator.Screen
                 name="Home"
                 component={HomeNavigator}
