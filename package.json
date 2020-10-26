@@ -31,6 +31,7 @@
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
     "react-native-unimodules": "^0.11.0",
+    "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
@@ -51,10 +52,19 @@
   },
   "jest": {
     "preset": "react-native",
-    "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
-    "setupFiles": ["./jest/setup.js"],
-    "transformIgnorePatterns": [ 
-      "node_modules/(?!((jest-)?react-native|react-native-vector-icons/Entypo|expo-secure-store|react-native-ble-plx|@unimodules|react-native-peripheral|react-navigation|@react-navigation/.*))" 
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "setupFiles": [
+      "./jest/setup.js"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|react-native-vector-icons/Entypo|expo-secure-store|react-native-ble-plx|@unimodules|react-native-peripheral|react-navigation|@react-navigation/.*))"
     ]
   }
 }
