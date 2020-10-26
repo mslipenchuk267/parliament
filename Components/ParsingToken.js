@@ -12,9 +12,10 @@ export const parsing_token = (token) => {
     // console.log(`The title is : ${GetTitle(object)}\n`);
     // console.log(`The infectedIDs is : ${GetInfectedIDs(object)}\n`);
     // console.log(`The 1st is : ${GetInfectedIDsByIndex(object.infectedIDs, 0)}\n`);
-    console.log(`The date is : ${GetDataInfectedID(GetInfectedIDsByIndex(object.infectedIDs, 0))}\n`);
-    console.log(`The temple id is : ${GetTempIdInfectedID(GetInfectedIDsByIndex(object.infectedIDs, 0))}\n`);
-    
+    const InfectedID = GetInfectedIDsByIndex(object.infectedIDs, 0);
+    console.log(`The date is : ${GetDataInfectedID(InfectedID)}\n`);
+    console.log(`The temple id is : ${GetTempIdInfectedID(InfectedID)}\n`);
+
 }
 
 
