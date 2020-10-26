@@ -11,28 +11,51 @@ export const parsing_token = (token) => {
     // console.log(`The body is : ${GetBody(object)}\n`);
     // console.log(`The title is : ${GetTitle(object)}\n`);
     // console.log(`The infectedIDs is : ${GetInfectedIDs(object)}\n`);
-    console.log(`The 1st is : ${GetInfectedIDsByIndex(object.infectedIDs, 0)}\n`);
-
+    // console.log(`The 1st is : ${GetInfectedIDsByIndex(object.infectedIDs, 0)}\n`);
+    console.log(`The date is : ${GetDataInfectedID(GetInfectedIDsByIndex(object.infectedIDs, 0))}\n`);
+    console.log(`The temple id is : ${GetTempIdInfectedID(GetInfectedIDsByIndex(object.infectedIDs, 0))}\n`);
+    
 }
 
 
 
-
+//Return the body
 export const GetBody = (CurrentData) => {
     return CurrentData.body;
 }
+
+//Return the title
 export const GetTitle = (CurrentData) => {
     return CurrentData.title;
 }
+
+//Return InfectedIDS
 export const GetInfectedIDs = (CurrentData) => {
     return CurrentData.infectedIDs;
 }
+
+
+//Enter the index return the specific individuals within infectedIDs
 export const GetInfectedIDsByIndex = (CurrentData, index) => {
-    //CurrentData is a string needs to fix here
-    console.log(CurrentData[0]);
-    return CurrentData[0];
+    const current = JSON.parse(CurrentData)[index];
+    const current_to_string = JSON.stringify(current);
+    return current_to_string;
 
 }
+
+export const GetTempIdInfectedID = (InfectedID) => {
+    const object = JSON.parse(InfectedID);
+
+    return object.tempId;
+}
+
+export const GetDataInfectedID = (InfectedID) => {
+    const object = JSON.parse(InfectedID);
+
+    return object.date;
+}
+
+
 
 
 // {
