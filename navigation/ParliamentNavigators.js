@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/Entypo';
+import Icon from '../node_modules/react-native-vector-icons/Entypo';
 
 // UserNavigator screens 
 import HomeScreen from '../screens/home/HomeScreen';
