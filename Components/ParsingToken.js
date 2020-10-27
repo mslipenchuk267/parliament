@@ -34,21 +34,26 @@ export const do_matching = (userInfectedIDs, otherUserInfectedIDs) => {
     var newArray = [];
 
     for (let i = 0; i < otherInfectedIDsLength; i++) {
-        const otherInformation = otherContactedids[i]
-        const otherDate = otherInformation.date;
-        const otherTempleid = otherInformation.tempId
-        
+        // console.log(otherContactedids[i]);
         for (let j = 0; j < userInfectedIDsLength; j++) {
-            const userInformation = userInfectedIDs[j];
-            const userDate = userInformation.date;
-            const userTempleid = userInformation.tempId;
-            console.log(`my date ${userDate} other date ${otherDate} my id ${userTempleid} other id ${otherTempleid}`);
-            if (otherDate === userDate && userTempleid !== otherTempleid) {
-                newArray.push(otherTempleid);
+            if (otherContactedids[i].date === userInfectedIDs[j].date && otherUserInfectedIDs[i].tempId !== userInfectedIDs[j].tempId) {
+                newArray.push(otherContactedids[i])
             }
+
         }
+
     }
 
+    //filter  --- > debuging
+    newArray = newArray.filter(function (val) {
+        return userInfectedIDs.indexOf(val) == -1;
+    });
+
+
+    //others 
+    console.log("\n users: \n")
+    console.log(userInfectedIDs);
+    console.log("\n others: \n\n")
     console.log(newArray);
     return newArray;
 }

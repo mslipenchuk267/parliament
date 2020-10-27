@@ -16,7 +16,7 @@ const initialState = {
     accessTokenExpiration: "",
     refreshToken: "",
     refreshTokenExpiration: "",
-    contactedIDs: [{"tempId":"1984014","date":"2020-11-26T20:32:24.482Z"},{"tempId":"131d13d1","date":"2020-10-26T20:32:24.482Z"}],
+    contactedIDs: [{"tempId":"i7l0ii8i","date":"2020-09-06T08:08:46.502Z"},{"tempId":"i7l0ii8i","date":"2020-09-28T11:47:14.477Z"}],
     deviceToken: "",
     notificationHistory: [],
     tempIDs: [],
