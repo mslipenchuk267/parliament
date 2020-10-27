@@ -31,31 +31,24 @@ export const do_matching = (userInfectedIDs, otherUserInfectedIDs) => {
     const otherContactedids = JSON.parse(otherUserInfectedIDs);
 
 
-    var newArray = [];
+    var otherNewArray = [];
 
     for (let i = 0; i < otherInfectedIDsLength; i++) {
         // console.log(otherContactedids[i]);
         for (let j = 0; j < userInfectedIDsLength; j++) {
             if (otherContactedids[i].date === userInfectedIDs[j].date && otherUserInfectedIDs[i].tempId !== userInfectedIDs[j].tempId) {
-                newArray.push(otherContactedids[i])
+                otherNewArray.push(otherContactedids[i])
             }
 
         }
 
     }
 
-    //filter  --- > debuging
-    newArray = newArray.filter(function (val) {
-        return userInfectedIDs.indexOf(val) == -1;
-    });
-
-
-    //others 
-    console.log("\n users: \n")
-    console.log(userInfectedIDs);
-    console.log("\n others: \n\n")
-    console.log(newArray);
-    return newArray;
+    //Filter Remove Duplication
+    var clean = otherNewArray.filter((otherNewArray, index, userInfectedIDs) =>
+        index === userInfectedIDs.findIndex((t) => (t.save === otherNewArray.save && t.State === otherNewArray.State)))
+    console.log(clean);
+    return clean;
 }
 
 //working on and debuging---------------------->
