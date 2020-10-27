@@ -3,57 +3,54 @@
 
 export const parsingToken = (token, contactedIDs) => {
 
-    //Retrive the json data and parse it
+    /*
+    FMC data contains identifier and payload
+    */
+
+    //Retrieve the payload and parse it into json obejct
     const payload = JSON.stringify(token.payload);
-    const object = JSON.parse(payload);
+    const payloadjsonObject = JSON.parse(payload);
 
-
-    console.log(`\n\n`);
-
-    // console.log(`The body is : ${getBody(object)}\n`);
-    // console.log(`The title is : ${getTitle(object)}\n`);
-    // console.log(`The infectedIDs is : ${getInfectedIDs(object)}\n`);
-    // console.log(`The 1st is : ${getInfectedIDsByIndex(object.infectedIDs, 0)}\n`);
-    // const InfectedID = getInfectedIDsByIndex(object.infectedIDs, 0);
+    // console.log(`The body is : ${getBody(payloadjsonObject)}\n`);
+    // console.log(`The title is : ${getTitle(payloadjsonObject)}\n`);
+    // console.log(`The infectedIDs is : ${getInfectedIDs(payloadjsonObject)}\n`);
+    // console.log(`The 1st is : ${getInfectedIDsByIndex(payloadjsonObject.infectedIDs, 0)}\n`);
+    // const InfectedID = getInfectedIDsByIndex(payloadjsonObject.infectedIDs, 0);
     // console.log(`The date is : ${getDataInfectedID(InfectedID)}\n`);
     // console.log(`The temple id is : ${getTempIdInfectedID(InfectedID)}\n`);
 
-    // console.log("working")
-    do_matching(contactedIDs, object.infectedIDs);
+    do_matching(contactedIDs, payloadjsonObject.infectedIDs);
 
 }
 
 //working on and debuging---------------------->
-export const do_matching = (others_contactedIDs, mine_contactedIDs) => {
-    const other_len = others_contactedIDs.length;
-    const mine_len = JSON.parse(mine_contactedIDs).length;
-    const mine_contactedids = JSON.parse(mine_contactedIDs);
+export const do_matching = (userInfectedIDs, otherUserInfectedIDs) => {
 
-    var return_array = [];
-
-    for (let i = 0; i < other_len; i++) {
-        const other_id = others_contactedIDs[i]
-        const other_date = other_id.date;
-        const other_templeid = other_id.tempId
-
-        for (let j = 0; j < mine_len; j++) {
+    const userInfectedIDsLength = userInfectedIDs.length;
+    const otherInfectedIDsLength = JSON.parse(otherUserInfectedIDs).length;
+    const otherContactedids = JSON.parse(otherUserInfectedIDs);
 
 
-            const mine_id = mine_contactedids[j];
-            const mine_date = mine_id.date;
-            const mine_templeid = mine_id.tempId;
+    var newArray = [];
 
-            console.log(`other date ${other_date} mine date ${mine_date}`)
-            if (other_date === mine_date) {
-
-                return_array.push(other_templeid);
+    for (let i = 0; i < userInfectedIDsLength; i++) {
+        const userInformation = userInfectedIDs[i]
+        const userDate = userInformation.date;
+        const userTempleid = userInformation.tempId
+        
+        for (let j = 0; j < otherInfectedIDsLength; j++) {
+            const otherInformation = otherContactedids[j];
+            const otherDate = otherInformation.date;
+            const otherTempleid = otherInformation.tempId;
+            console.log(`my date ${userDate} other date ${otherDate} my id ${userTempleid} other id ${otherTempleid}`);
+            if (userDate === otherDate) {
+                newArray.push(otherTempleid);
             }
         }
     }
 
-
-    console.log(return_array);
-    return return_array;
+    console.log(newArray);
+    return newArray;
 }
 
 //working on and debuging---------------------->
@@ -87,14 +84,14 @@ export const getInfectedIDsByIndex = (currentData, index) => {
 
 //Return Infected TempID
 export const getTempIdInfectedID = (InfectedID) => {
-    const object = JSON.parse(InfectedID);
-    return object.tempId;
+    const payloadjsonObject = JSON.parse(InfectedID);
+    return payloadjsonObject.tempId;
 }
 
 //Return Infected Data
 export const getDataInfectedID = (InfectedID) => {
-    const object = JSON.parse(InfectedID);
-    return object.date;
+    const payloadjsonObject = JSON.parse(InfectedID);
+    return payloadjsonObject.date;
 }
 
 
