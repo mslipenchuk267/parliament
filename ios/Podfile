@@ -13,6 +13,11 @@ target 'parliament' do
 
 
   pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-Camera', :path => "#{permissions_path}/Camera.podspec"
+
+
+  pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
   target 'parliamentTests' do
     inherit! :complete
