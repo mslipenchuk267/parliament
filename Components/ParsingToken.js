@@ -11,31 +11,39 @@ export const parsingToken = (token, contactedIDs) => {
     const payload = JSON.stringify(token.payload);
     const payloadjsonObject = JSON.parse(payload);
 
-    // console.log(`The body is : ${getBody(payloadjsonObject)}\n`);
-    // console.log(`The title is : ${getTitle(payloadjsonObject)}\n`);
-    // console.log(`The infectedIDs is : ${getInfectedIDs(payloadjsonObject)}\n`);
-    // console.log(`The 1st is : ${getInfectedIDsByIndex(payloadjsonObject.infectedIDs, 0)}\n`);
-    // const InfectedID = getInfectedIDsByIndex(payloadjsonObject.infectedIDs, 0);
-    // console.log(`The date is : ${getDataInfectedID(InfectedID)}\n`);
-    // console.log(`The temple id is : ${getTempIdInfectedID(InfectedID)}\n`);
 
-    do_matching(contactedIDs, payloadjsonObject.infectedIDs);
+    /*
+        //Example of calling functions below
+        console.log(`The body is : ${getBody(payloadjsonObject)}\n`);
+        console.log(`The title is : ${getTitle(payloadjsonObject)}\n`);
+        console.log(`The infectedIDs is : ${getInfectedIDs(payloadjsonObject)}\n`);
+        console.log(`The 1st is : ${getInfectedIDsByIndex(payloadjsonObject.infectedIDs, 0)}\n`);
+        const InfectedID = getInfectedIDsByIndex(payloadjsonObject.infectedIDs, 0);
+        console.log(`The date is : ${getDataInfectedID(InfectedID)}\n`);
+        console.log(`The temple id is : ${getTempIdInfectedID(InfectedID)}\n`);
+    */
 
+
+    infectedIDComparison(contactedIDs, payloadjsonObject.infectedIDs);
 }
 
-//working on and debuging---------------------->
-export const do_matching = (userInfectedIDs, otherUserInfectedIDs) => {
+//InfectedIDComparison will return a json array which contains people who get infected and filter the user's token 
+export const infectedIDComparison = (userInfectedIDs, otherUserInfectedIDs) => {
 
+    //Get the length of jsonArray
     const userInfectedIDsLength = userInfectedIDs.length;
     const otherInfectedIDsLength = JSON.parse(otherUserInfectedIDs).length;
+
+    //Parse otherUserInfectedIDs
     const otherContactedids = JSON.parse(otherUserInfectedIDs);
 
 
+    //Initial new array contains otherUserInfectedIDs if other users has same day with current user get infected
     var otherNewArray = [];
 
     for (let i = 0; i < otherInfectedIDsLength; i++) {
-        // console.log(otherContactedids[i]);
         for (let j = 0; j < userInfectedIDsLength; j++) {
+            //Check if the date is match 
             if (otherContactedids[i].date === userInfectedIDs[j].date && otherUserInfectedIDs[i].tempId !== userInfectedIDs[j].tempId) {
                 otherNewArray.push(otherContactedids[i])
             }
@@ -44,14 +52,14 @@ export const do_matching = (userInfectedIDs, otherUserInfectedIDs) => {
 
     }
 
-    //Filter Remove Duplication
-    var clean = otherNewArray.filter((otherNewArray, index, userInfectedIDs) =>
+    //Filter Remove Duplication within 2 JsonArray. 1: Others, who get infected token; 2; Current users token
+    otherNewArray = otherNewArray.filter((otherNewArray, index, userInfectedIDs) =>
         index === userInfectedIDs.findIndex((t) => (t.save === otherNewArray.save && t.State === otherNewArray.State)))
-    console.log(clean);
-    return clean;
+    console.log(otherNewArray);
+    return otherNewArray;
 }
 
-//working on and debuging---------------------->
+
 
 
 
@@ -92,26 +100,6 @@ export const getDataInfectedID = (InfectedID) => {
     return payloadjsonObject.date;
 }
 
-
-
-
-// {
-//     "identifier": "0:1603745493050627%faed78fef9fd7ecd",
-//         "payload":
-//     {
-        // "body": "You may have been exposed to COVID",
-        // "from": "279035944613",
-        // "google.c.sender.id": "279035944613",
-        // "google.delivered_priority": "normal",
-        // "google.message_id": "0:1603745493050627%faed78fef9fd7ecd",
-        // "google.original_priority": "normal",
-        // "google.sent_time": 1603745493039,
-        // "google.ttl": 2419200,
-        // "infectedIDs":
-//         "[{\"date\":\"2020-10-26T20:32:24.482Z\",\"tempId\":\"1984014\"},{\"date\":\"2020-10-26T20:32:24.482Z\",\"tempId\":\"131d13d1\"}]",
-//             "title": "Exposure Notification"
-//     }
-// }
 
 
 
