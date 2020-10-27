@@ -1,6 +1,3 @@
-
-
-
 export const parsingToken = (token, contactedIDs) => {
 
     /*
@@ -10,7 +7,6 @@ export const parsingToken = (token, contactedIDs) => {
     //Retrieve the payload and parse it into json obejct
     const payload = JSON.stringify(token.payload);
     const payloadjsonObject = JSON.parse(payload);
-
 
     /*
         //Example of calling functions below
@@ -47,9 +43,7 @@ export const infectedIDComparison = (userInfectedIDs, otherUserInfectedIDs) => {
             if (otherContactedids[i].date === userInfectedIDs[j].date && otherUserInfectedIDs[i].tempId !== userInfectedIDs[j].tempId) {
                 otherNewArray.push(otherContactedids[i])
             }
-
         }
-
     }
 
     //Filter Remove Duplication within 2 JsonArray. 1: Others, who get infected token; 2; Current users token
@@ -58,8 +52,6 @@ export const infectedIDComparison = (userInfectedIDs, otherUserInfectedIDs) => {
     console.log(otherNewArray);
     return otherNewArray;
 }
-
-
 
 
 
