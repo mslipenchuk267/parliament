@@ -28,6 +28,8 @@
     "react-native-gesture-handler": "^1.8.0",
     "react-native-notifications": "^3.3.4",
     "react-native-peripheral": "^0.0.3",
+    "react-native-permissions": "^2.2.2",
+    "react-native-qrcode-scanner": "^1.4.1",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
