@@ -33,17 +33,17 @@ export const do_matching = (userInfectedIDs, otherUserInfectedIDs) => {
 
     var newArray = [];
 
-    for (let i = 0; i < userInfectedIDsLength; i++) {
-        const userInformation = userInfectedIDs[i]
-        const userDate = userInformation.date;
-        const userTempleid = userInformation.tempId
+    for (let i = 0; i < otherInfectedIDsLength; i++) {
+        const otherInformation = otherContactedids[i]
+        const otherDate = otherInformation.date;
+        const otherTempleid = otherInformation.tempId
         
-        for (let j = 0; j < otherInfectedIDsLength; j++) {
-            const otherInformation = otherContactedids[j];
-            const otherDate = otherInformation.date;
-            const otherTempleid = otherInformation.tempId;
+        for (let j = 0; j < userInfectedIDsLength; j++) {
+            const userInformation = userInfectedIDs[j];
+            const userDate = userInformation.date;
+            const userTempleid = userInformation.tempId;
             console.log(`my date ${userDate} other date ${otherDate} my id ${userTempleid} other id ${otherTempleid}`);
-            if (userDate === otherDate) {
+            if (otherDate === userDate && userTempleid !== otherTempleid) {
                 newArray.push(otherTempleid);
             }
         }
