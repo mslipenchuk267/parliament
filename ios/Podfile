@@ -12,6 +12,8 @@ target 'parliament' do
 
 
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
   target 'parliamentTests' do
     inherit! :complete
     # Pods for testing
