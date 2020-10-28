@@ -24,33 +24,33 @@ export const parsingToken = (token, contactedIDs) => {
 }
 
 //InfectedIDComparison will return a json array which contains people who get infected and filter the user's token 
-export const infectedIDComparison = (userInfectedIDs, otherUserInfectedIDs) => {
+export const infectedIDComparison = (contactedIDs, payLoadInfectedIDs) => {
 
     //Get the length of jsonArray
-    const userInfectedIDsLength = userInfectedIDs.length;
-    const otherInfectedIDsLength = JSON.parse(otherUserInfectedIDs).length;
+    const contactedIDsLength = contactedIDs.length;
+    const payLoadInfectedIDsLength = JSON.parse(payLoadInfectedIDs).length;
 
-    //Parse otherUserInfectedIDs
-    const otherContactedids = JSON.parse(otherUserInfectedIDs);
+    //Parse payLoadInfectedIDs
+    const payLoadInfectedIDs_Json = JSON.parse(payLoadInfectedIDs);
 
 
-    //Initial new array contains otherUserInfectedIDs if other users has same day with current user get infected
-    var otherNewArray = [];
+    //Initial new array contains payLoadInfectedIDs if other users has same day with current user get infected
+    var FilterArray = [];
 
-    for (let i = 0; i < otherInfectedIDsLength; i++) {
-        for (let j = 0; j < userInfectedIDsLength; j++) {
+    for (let i = 0; i < payLoadInfectedIDsLength; i++) {
+        for (let j = 0; j < contactedIDsLength; j++) {
             //Check if the date is match 
-            if (otherContactedids[i].date === userInfectedIDs[j].date && otherUserInfectedIDs[i].tempId !== userInfectedIDs[j].tempId) {
-                otherNewArray.push(otherContactedids[i])
+            if (payLoadInfectedIDs_Json[i].date === contactedIDs[j].date && payLoadInfectedIDs[i].tempId !== contactedIDs[j].tempId) {
+                FilterArray.push(payLoadInfectedIDs_Json[i])
             }
         }
     }
 
     //Filter Remove Duplication within 2 JsonArray. 1: Others, who get infected token; 2; Current users token
-    otherNewArray = otherNewArray.filter((otherNewArray, index, userInfectedIDs) =>
-        index === userInfectedIDs.findIndex((t) => (t.save === otherNewArray.save && t.State === otherNewArray.State)))
-    console.log(otherNewArray);
-    return otherNewArray;
+    FilterArray = FilterArray.filter((FilterArray, index, contactedIDs) =>
+        index === contactedIDs.findIndex((t) => (t.save === FilterArray.save && t.State === FilterArray.State)))
+    console.log(FilterArray);
+    return FilterArray;
 }
 
 
