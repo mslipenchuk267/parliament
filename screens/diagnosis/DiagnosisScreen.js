@@ -25,11 +25,23 @@ const DiagnosisScreen = (props) => {
             })
          );
     }
+    
+    const handleSubmitQRCodeButton = () => {
+        // when button is clicked, take user to QRScanningComponentScreen
+        console.log("DiagnosisScreen.js/handleSubmitQRCodeButton() - Pressed Submit QR Button");
+        // goes into next screen
+         props.navigation.dispatch(
+             CommonActions.navigate({
+                name: 'QRScreen' // .navigate -> key:string
+            })
+         );
+    }    
+    
 
     return (
         <SafeAreaView style={styles.container} >
             <CustomButton title='Find News in Your State' handlePress={handleNewsSiteButton} />
-            <CustomButton title='Submit QR Code' />
+            <CustomButton title='Submit QR Code' handlePress={handleSubmitQRCodeButton} />
         </SafeAreaView>
     )
 };
