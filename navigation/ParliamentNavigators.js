@@ -30,6 +30,7 @@ import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
 import { blue } from '../constants/colors';
 import QRScanningComponentScreen from '../screens/diagnosis/QRScanningComponentScreen';
 import QRPositiveScreen from '../screens/diagnosis/QRPositiveScreen';
+
 /**
  * The AuthNavigator is a stack navigator
  * that contains all screens needed for user
@@ -114,7 +115,7 @@ export const DiagnosisNavigator = () => {
             />            
 
             <DiagnosisStackNavigator.Screen
-                name="QRPositiveScreen"
+                name="QRPositive"
                 component={QRPositiveScreen}
                 options={{ headerTitle: "QRPositiveScreen header title", headerBackTitleVisible: false }}
             />  
