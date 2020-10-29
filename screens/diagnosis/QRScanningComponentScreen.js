@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, TouchableOpacity, View, StyleSheet, SafeAreaView } from 'react-native'
+import { Text, Alert, TouchableOpacity, View, StyleSheet, SafeAreaView } from 'react-native'
 
 import QRCodeScanner from 'react-native-qrcode-scanner';
 import { RNCamera } from 'react-native-camera';
@@ -11,46 +11,52 @@ import { RNCamera } from 'react-native-camera';
  * )
  */
 
-class QRScanningComponentScreen extends Component {
+const QRScanningComponentScreen = () => {
 
-    state ={
-        qr: ""
-    }
+        qrResult = "" //empty string for now, declared outside for scope
 
-    onRead = e => {
+    handleScan = e => {
+        
         //this.setState( {qr: e.data} )
-        console.log(e)
-    }
 
-    //Logic to implement QR Scanning
+        console.log(e.data); //logs 'Negative' or 'Positive' or Other data
 
-    //Load Camera to Scan QR Code
+        qrResult = e.data; //Capture result in variable
+
+        console.log(qrResult); //check to match console.log(e.data) : *RESULT -> match
+
+    }//end onRead(e)
+
 
     //Handle Result of Scan ; possible cases {positive,negative,neither}
 
-    //if result = positive
-        //upload {tempID} -> Infection API
+    const handleQRResults = () => {
 
-    //else if result = negative
-        //log negative result
-        //Alert user on component to keep staying safe
-     
-    //else(neither)
-        //Alert that QR Code was invalid, try again.
-render() {
+        if(this.qrResult == 'Positive') {
+            //upload {tempID} -> Infection API
+        } else if (this.qrResult == 'Negative') {
+            //log negative result
+            //Alert user on component to keep staying safe
+
+        } else {
+            //Alert that QR Code was invalid, try again.
+        }
+
+    }//end handleQRResults()
+
+
     return (
         <SafeAreaView>
 
             <Text>Clicked on "Submit QR Code" button to get here</Text>    
             
-            <QRCodeScanner
-            onRead={this.onRead}
-            />
+            <QRCodeScanner onRead={this.handleScan}/>
 
         </SafeAreaView>
     )
-};
+
 }
+
 const styles = StyleSheet.create({
     
 });
