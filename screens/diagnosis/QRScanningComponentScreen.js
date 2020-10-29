@@ -16,34 +16,29 @@ const QRScanningComponentScreen = () => {
         qrResult = "" //empty string for now, declared outside for scope
 
     handleScan = e => {
-        
-        //this.setState( {qr: e.data} )
-
-        console.log(e.data); //logs 'Negative' or 'Positive' or Other data
-
+    
         qrResult = e.data; //Capture result in variable
 
-        console.log(qrResult); //check to match console.log(e.data) : *RESULT -> match
+        console.log(qrResult); //logs result to console
 
-    }//end onRead(e)
-
-
-    //Handle Result of Scan ; possible cases {positive,negative,neither}
-
-    const handleQRResults = () => {
-
+        //Handle Result of Scan ; possible 3 cases { positive, negative, (!positive && !negative) }
         if(this.qrResult == 'Positive') {
+
             //upload {tempID} -> Infection API
+
         } else if (this.qrResult == 'Negative') {
-            //log negative result
+
             //Alert user on component to keep staying safe
+            Alert.alert("Your results were Negative, keep staying safe!")
 
         } else {
+
             //Alert that QR Code was invalid, try again.
+            Alert.alert("QR Code was invalid, try again.")
+            
         }
 
-    }//end handleQRResults()
-
+    }//end onRead(e)
 
     return (
         <SafeAreaView>
