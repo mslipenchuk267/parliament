@@ -27,12 +27,12 @@ const QRScanningComponentScreen = (props) => {
 
             console.log(qrResult); //logs result to console
 
-            Alert.alert("Your results were Positive.") //Alert user on physical device
+            //Alert.alert("Your results were Positive.") //Alert user on physical device
             
             //Navigate to QRPositiveScreen
             console.log("QRScanningComponentScreen has scanned a positive result, redirecting to QRPositiveScreen component"); //log function to console
 
-            // goes into next screen
+            // goes into next screen (QR Scan -> QR Positive Screen)
             props.navigation.dispatch(
                 CommonActions.navigate({
                    name: 'QRPositive' // .navigate -> key:string
