@@ -42,6 +42,7 @@ export const infectedIDComparison = (contactedIDs, payLoadFCMInfectedIDs) => {
     console.log("JSON ARRAY : \n")
     */
 
+    console.log("\n AverageRssi <= 70 \n -------------------------------");
     console.log(FilterArray);
     return FilterArray;
 }
