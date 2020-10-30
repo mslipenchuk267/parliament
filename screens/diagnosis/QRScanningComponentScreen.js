@@ -28,7 +28,7 @@ const QRScanningComponentScreen = (props) => {
             console.log(qrResult); //logs result to console
 
             Alert.alert("Your results were Positive.") //Alert user on physical device
-
+            
             //Navigate to QRPositiveScreen
             console.log("QRScanningComponentScreen has scanned a positive result, redirecting to QRPositiveScreen component"); //log function to console
 

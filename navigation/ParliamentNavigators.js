@@ -115,7 +115,7 @@ export const DiagnosisNavigator = () => {
             />            
 
             <DiagnosisStackNavigator.Screen
-                name="QRPositive"
+                name="QRPositive" 
                 component={QRPositiveScreen}
                 options={{ headerTitle: "QRPositiveScreen header title", headerBackTitleVisible: false }}
             />  
