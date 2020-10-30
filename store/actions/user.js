@@ -7,11 +7,17 @@ import {
     AUTHENTICATE,
     UNAUTHENTICATE,
     REFRESH_TOKENS,
-    SET_DEVICE_TOKEN
+    SET_DEVICE_TOKEN,
+    UPDATE_NOTIFICATION_HISTORY
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
 import { uploadDeviceToken } from '../../helpers/authHelper';
+
+export const updateNotificationHistory = (matchedContacts) => {
+    return { type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts }
+}
+
 export const setContactIDs = (contactedIDs) => {
     return { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
 }

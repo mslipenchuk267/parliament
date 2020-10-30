@@ -7,7 +7,8 @@ import {
     AUTHENTICATE,
     UNAUTHENTICATE,
     REFRESH_TOKENS,
-    SET_DEVICE_TOKEN
+    SET_DEVICE_TOKEN,
+    UPDATE_NOTIFICATION_HISTORY
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -16,16 +17,12 @@ const initialState = {
     accessTokenExpiration: "",
     refreshToken: "",
     refreshTokenExpiration: "",
-    contactedIDs: [    { tempID: "m25wlinci", averageRssi: 45.2345, createdDate: "2020-10-28T12:10:35.484Z", lastContactDate: "2020-10-28T14:10:35.484Z", totalScans: 34 },
-    { tempID: "4k898uvub", averageRssi: 96.1543, createdDate: "2020-10-26T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 45 },
-    { tempID: "wat0xifq5", averageRssi: 43.3687, createdDate: "2020-09-28T11:47:14.477Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 30 },
-    { tempID: "v7wlenoz2", averageRssi: 22.2345, createdDate: "2020-10-26T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 20 },
-    { tempID: "6foc7523b", averageRssi: 53.2345, createdDate: "2020-10-26T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 80 },
-    { tempID: "vwvxjfnga", averageRssi: 26.2345, createdDate: "2020-10-26T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 60 },
-    { tempID: "pbc4xm6ma", averageRssi: 77.2345, createdDate: "2020-10-26T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 50 },
-    { tempID: "vdkpgsu0x", averageRssi: 70.0000, createdDate: "2020-10-26T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 45 }],
+    contactedIDs: [
+        { tempID: "m25wlinci", averageRssi: 45.2345, createdDate: "2020-10-28T12:10:35.484Z", lastContactDate: "2020-10-28T14:10:35.484Z", totalScans: 34 },
+        { tempID: "4k898uvub", averageRssi: 96.1543, createdDate: "2020-10-26T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 45 },
+        { tempID: "fonfo24i2", averageRssi: 22.1543, createdDate: "2020-10-25T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 45 }],
     deviceToken: "",
-    notificationHistory: [],
+    notificationHistory: [{ date: "2020-10-28T12:10:35.484Z", averageRssi: 45.2345}],
     tempIDs: [],
     didTryAutoLogin: false,
 }
@@ -54,6 +51,28 @@ export default (state = initialState, action) => {
                     ...state,
                     contactedIDs: updatedContactIDs
                 }
+            }
+        case UPDATE_NOTIFICATION_HISTORY:
+            // Filter out notifications that are already in history
+            var uniqueNotifications = []
+            console.log("In the reducer with the matchedCOntacts:", action.matchedContacts)
+            for (var matchedContactIndex in action.matchedContacts) {
+                const notificationIndex = state.notificationHistory.findIndex(notification => notification.date === action.matchedContacts[matchedContactIndex].date)
+                if (notificationIndex >= 0) {
+                    // ignore
+                } else {
+                    console.log("Unique Notification in Reducer: ", action.matchedContacts[matchedContactIndex])
+                    uniqueNotifications.push(action.matchedContacts[matchedContactIndex])
+                }
+            }
+            // Check if we have a new unique notifications to add to notificationHistory
+            if (uniqueNotifications.length > 0) {
+                return {
+                    ...state,
+                    notificationHistory: state.notificationHistory.concat(uniqueNotifications)
+                }
+            } else { // no new notifications to add
+                return state;
             }
         case SET_DID_TRY_AUTO_LOGIN:
             return {

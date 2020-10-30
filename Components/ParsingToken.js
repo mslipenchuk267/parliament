@@ -1,9 +1,11 @@
-import {saveContactedIDs} from '../helpers/secureStoreHelper'
+import { saveContactedIDs } from '../helpers/secureStoreHelper'
+import Notification from '../models/notification';
 
 
 
 export const parsingToken = (tokenFromFCM, contactedIDs) => {
-    const  matchingInfectedIDs = infectedIDComparison(contactedIDs, tokenFromFCM.payload.infectedIDs);
+    const matchingInfectedIDs = infectedIDComparison(contactedIDs, tokenFromFCM.payload.infectedIDs);
+    return matchingInfectedIDs;
 }
 
 
@@ -24,20 +26,15 @@ export const infectedIDComparison = (contactedIDs, payLoadFCMInfectedIDs) => {
 
     for (let i = 0; i < payLoadInfectedIDsLength; i++) {
         for (let j = 0; j < contactedIDsLength; j++) {
-
             //Debug code; remove "//" to test
             // console.log("----------------------------");
             // console.log(payLoadFCMInfectedIDs[i].temp_id);
             // console.log(contactedIDs[j].tempID);
-
-
             //Logic 
             if (getTokenFromFCMTemp_id(payLoadFCMInfectedIDs, i) === getContactedIDsTempID(contactedIDs, j) && getContactedIDsAverageRssi(contactedIDs, j) <= 70) {
-
-                FilterArray.push(contactedIDs[j]);
-                
+                const newNotification = new Notification(getContactedIDsCreatedDate(contactedIDs, j), getContactedIDsAverageRssi(contactedIDs, j))
+                FilterArray.push(newNotification);
             }
-
         }
     }
 
