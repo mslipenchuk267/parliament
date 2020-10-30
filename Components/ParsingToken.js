@@ -1,7 +1,12 @@
+import {saveContactedIDs} from '../helpers/secureStoreHelper'
+
+
 
 export const parsingToken = (tokenFromFCM, contactedIDs) => {
-    infectedIDComparison(contactedIDs, tokenFromFCM.payload.infectedIDs);
+    const  matchingInfectedIDs = infectedIDComparison(contactedIDs, tokenFromFCM.payload.infectedIDs);
 }
+
+
 
 /*
 InfectedIDComparison will check the  payLoadFCMInfectedIDs and contactedIDs data see if there is a match. 
@@ -28,7 +33,9 @@ export const infectedIDComparison = (contactedIDs, payLoadFCMInfectedIDs) => {
 
             //Logic 
             if (getTokenFromFCMTemp_id(payLoadFCMInfectedIDs, i) === getContactedIDsTempID(contactedIDs, j) && getContactedIDsAverageRssi(contactedIDs, j) <= 70) {
-                FilterArray.push(contactedIDs[j])
+
+                FilterArray.push(contactedIDs[j]);
+                
             }
 
         }
