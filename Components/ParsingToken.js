@@ -1,97 +1,88 @@
-export const parsingToken = (token, contactedIDs) => {
 
-    /*
-    FMC data contains identifier and payload
-    */
-
-    //Retrieve the payload and parse it into json obejct
-    const payload = JSON.stringify(token.payload);
-    const payloadjsonObject = JSON.parse(payload);
-
-    /*
-        //Example of calling functions below
-        console.log(`The body is : ${getBody(payloadjsonObject)}\n`);
-        console.log(`The title is : ${getTitle(payloadjsonObject)}\n`);
-        console.log(`The infectedIDs is : ${getInfectedIDs(payloadjsonObject)}\n`);
-        console.log(`The 1st is : ${getInfectedIDsByIndex(payloadjsonObject.infectedIDs, 0)}\n`);
-        const InfectedID = getInfectedIDsByIndex(payloadjsonObject.infectedIDs, 0);
-        console.log(`The date is : ${getDataInfectedID(InfectedID)}\n`);
-        console.log(`The temple id is : ${getTempIdInfectedID(InfectedID)}\n`);
-    */
-
-
-    infectedIDComparison(contactedIDs, payloadjsonObject.infectedIDs);
+export const parsingToken = (tokenFromFCM, contactedIDs) => {
+    infectedIDComparison(contactedIDs, tokenFromFCM.payload.infectedIDs);
 }
 
-//InfectedIDComparison will return a json array which contains people who get infected and filter the user's token 
-export const infectedIDComparison = (contactedIDs, payLoadInfectedIDs) => {
+/*
+InfectedIDComparison will check the  payLoadFCMInfectedIDs and contactedIDs data see if there is a match. 
+If there is, infectedIDComparison will check AverageRssi. If the AverageRssi <= 70. The Id will be push to the array
+*/
+export const infectedIDComparison = (contactedIDs, payLoadFCMInfectedIDs) => {
 
-    //Get the length of jsonArray
+    //Get the length of both IDs 
     const contactedIDsLength = contactedIDs.length;
-    const payLoadInfectedIDsLength = JSON.parse(payLoadInfectedIDs).length;
+    const payLoadInfectedIDsLength = JSON.parse(payLoadFCMInfectedIDs).length;
+    payLoadFCMInfectedIDs = JSON.parse(payLoadFCMInfectedIDs);
 
-    //Parse payLoadInfectedIDs
-    const payLoadInfectedIDs_Json = JSON.parse(payLoadInfectedIDs);
-
-
-    //Initial new array contains payLoadInfectedIDs if other users has same day with current user get infected
+    //Initial new array contains InfectedIDs whose average RSSI is <= 70
     var FilterArray = [];
 
     for (let i = 0; i < payLoadInfectedIDsLength; i++) {
         for (let j = 0; j < contactedIDsLength; j++) {
-            //Check if the date is match 
-            if (payLoadInfectedIDs_Json[i].date === contactedIDs[j].date && payLoadInfectedIDs[i].tempId !== contactedIDs[j].tempId) {
-                FilterArray.push(payLoadInfectedIDs_Json[i])
+
+            //Debug code; remove "//" to test
+            // console.log("----------------------------");
+            // console.log(payLoadFCMInfectedIDs[i].temp_id);
+            // console.log(contactedIDs[j].tempID);
+
+
+            //Logic 
+            if (getTokenFromFCMTemp_id(payLoadFCMInfectedIDs, i) === getContactedIDsTempID(contactedIDs, j) && getContactedIDsAverageRssi(contactedIDs, j) <= 70) {
+                FilterArray.push(contactedIDs[j])
             }
+
         }
     }
 
-    //Filter Remove Duplication within 2 JsonArray. 1: Others, who get infected token; 2; Current users token
+    //Filter Remove Duplication within 2 JsonArray. 1: Others, who get infected tokenFromFCM; 2; Current users tokenFromFCM
+
+    /*
     FilterArray = FilterArray.filter((FilterArray, index, contactedIDs) =>
-        index === contactedIDs.findIndex((t) => (t.save === FilterArray.save && t.State === FilterArray.State)))
+    index === contactedIDs.findIndex((t) => (t.save === FilterArray.save && t.State === FilterArray.State)))
+    console.log("JSON ARRAY : \n")
+    */
+
     console.log(FilterArray);
     return FilterArray;
 }
 
 
+//Get Data from contactedIDs
 
-
-//Return the body
-export const getBody = (currentData) => {
-    return currentData.body;
+//Return the tempID by giving index and contactedIDs
+export const getContactedIDsTempID = (contactedIDs, index) => {
+    return contactedIDs[index].tempID;
 }
 
-//Return the title
-export const getTitle = (currentData) => {
-    return currentData.title;
+//Return the averageRssi by giving index and contactedIDs
+export const getContactedIDsAverageRssi = (contactedIDs, index) => {
+    return contactedIDs[index].averageRssi;
 }
 
-//Return InfectedIDS
-export const getInfectedIDs = (currentData) => {
-    return currentData.infectedIDs;
+//Return the createdDate by giving index and contactedIDs
+export const getContactedIDsCreatedDate = (contactedIDs, index) => {
+    return contactedIDs[index].createdDate;
 }
 
-
-//Enter the index return the specific individuals within infectedIDs
-export const getInfectedIDsByIndex = (currentData, index) => {
-    const current = JSON.parse(currentData)[index];
-    const current_to_string = JSON.stringify(current);
-    return current_to_string;
-
+//Return the lastContactDate by giving index and contactedIDs
+export const getContactedIDsLastContactDate = (contactedIDs, index) => {
+    return contactedIDs[index].lastContactDate;
 }
 
-//Return Infected TempID
-export const getTempIdInfectedID = (InfectedID) => {
-    const payloadjsonObject = JSON.parse(InfectedID);
-    return payloadjsonObject.tempId;
+//Return the totalScans by giving index and contactedIDs
+export const getContactedIDsTotalScans = (contactedIDs, index) => {
+    return contactedIDs[index].totalScans;
 }
 
-//Return Infected Data
-export const getDataInfectedID = (InfectedID) => {
-    const payloadjsonObject = JSON.parse(InfectedID);
-    return payloadjsonObject.date;
+//Get Data from payLoadFCMInfectedIDs
+
+//Return the temp_id by giving index and contactedIDs
+export const getTokenFromFCMTemp_id = (tokenFromFCM, index) => {
+    return tokenFromFCM[index].temp_id;
 }
 
+//Return the created_at by giving index and contactedIDs
+export const getTokenFromFCMCreated_at = (tokenFromFCM, index) => {
+    return tokenFromFCM[index].created_at;
 
-
-
+}
