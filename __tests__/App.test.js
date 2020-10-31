@@ -15,7 +15,6 @@ it('renders correctly', () => {
 });
 */
 
-
 describe('Deep Linking', () => {
   it('should open correctly formatted url', async () => {
     const site = "https://gooogle.com"
