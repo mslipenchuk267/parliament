@@ -22,7 +22,7 @@ const initialState = {
         { tempID: "4k898uvub", averageRssi: 96.1543, createdDate: "2020-10-26T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 45 },
         { tempID: "fonfo24i2", averageRssi: 22.1543, createdDate: "2020-10-25T12:10:35.484Z", lastContactDate: "2020-10-26T14:10:35.484Z", totalScans: 45 }],
     deviceToken: "",
-    notificationHistory: [{ date: "2020-10-28T12:10:35.484Z", averageRssi: 45.2345}],
+    notificationHistory: [],
     tempIDs: [],
     didTryAutoLogin: false,
 }

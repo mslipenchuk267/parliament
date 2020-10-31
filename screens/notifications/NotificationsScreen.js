@@ -1,5 +1,6 @@
 import React from 'react'
-import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
+import { Text, View, StyleSheet, SafeAreaView, FlatList } from 'react-native'
+import { useSelector } from 'react-redux';
 
 /**
  * The NotificationsScreen component houses the UI components 
@@ -11,15 +12,24 @@ import { Text, View, StyleSheet, SafeAreaView } from 'react-native'
  * )
  */
 const NotificationsScreen = () => {
+    const notificationHistory = useSelector(state => state.user.notificationHistory);
+
     return (
         <SafeAreaView>
             <Text>This is the notifications screen</Text>
+            <FlatList
+                data={notificationHistory}
+                keyExtractor={(item) => item.date}
+                renderItem={({ item }) => (
+                <Text>{item.date} and {item.averageRssi}</Text>
+                )}
+            />
         </SafeAreaView>
     )
 };
 
 const styles = StyleSheet.create({
-    
+
 });
 
 export default NotificationsScreen;
