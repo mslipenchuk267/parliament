@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, Alert, TouchableOpacity, View, StyleSheet, SafeAreaView, StatusBar } from 'react-native'
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
-import { CommonActions } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 
 /**
  * The QRScanningScreen component houses the UI components 
@@ -19,17 +19,20 @@ const QRScanningScreen = (props) => {
         switch (qrResult) {
             case 'Positive':
                 console.log("QRScanningScreen has scanned a positive result, redirecting to QRPositiveScreen component");
-                // Navigate to qr results screen
+                // Replace screen in stack to stop qr scanner from still being in focus
+                //  this fixes issue of qr scanner still scanning even if we just navigate to another screen
                 props.navigation.dispatch(
-                    CommonActions.navigate({
-                        name: 'QRPositive'
-                    })
+                    StackActions.replace('QRResults', { result: qrResult })
                 );
                 break
             case 'Negative':
                 console.log("QRScanningScreen has scanned a negative result");
                 //Alert user on component to keep staying safe
-                Alert.alert("Your results were Negative, keep staying safe!")
+                // Replace screen in stack to stop qr scanner from still being in focus
+                //  this fixes issue of qr scanner still scanning even if we just navigate to another screen
+                props.navigation.dispatch(
+                    StackActions.replace('QRResults', { result: qrResult })
+                );
                 break
             default:
                 Alert.alert("QR Code was invalid, try again.");

@@ -29,7 +29,7 @@ const AuthStackNavigator = createStackNavigator();
 import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
 import { blue } from '../constants/colors';
 import QRScanningScreen from '../screens/diagnosis/QRScanningScreen';
-import QRPositiveScreen from '../screens/diagnosis/QRPositiveScreen';
+import QRResultsScreen from '../screens/diagnosis/QRResultsScreen';
 
 /**
  * The AuthNavigator is a stack navigator
@@ -115,9 +115,9 @@ export const DiagnosisNavigator = () => {
             />            
 
             <DiagnosisStackNavigator.Screen
-                name="QRPositive" 
-                component={QRPositiveScreen}
-                options={{ headerTitle: "QRPositiveScreen header title", headerBackTitleVisible: false }}
+                name="QRResults" 
+                component={QRResultsScreen}
+                options={{ headerTitle: "QRResultsScreen header title", headerBackTitleVisible: false }}
             />  
 
         </DiagnosisStackNavigator.Navigator>

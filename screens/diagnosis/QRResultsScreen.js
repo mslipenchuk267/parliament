@@ -10,7 +10,8 @@ import { CommonActions } from '@react-navigation/native';
  * )
  */
 
-const QRPositiveScreen = (props) => {
+const QRResultsScreen = (props) => {
+    const qrResult = props.route.params?.result ?? "none";
 
     const createTwoButtonAlert = () => {
         Alert.alert(
@@ -41,7 +42,7 @@ const QRPositiveScreen = (props) => {
 
     return (
         <SafeAreaView>
-            <Text>This is the QRPositiveScreen screen</Text>
+            <Text>This is the QRResultsScreen screen, result was {qrResult}</Text>
             <Button title={"Click here for results"} onPress={createTwoButtonAlert} />
         </SafeAreaView>
     )
@@ -51,4 +52,4 @@ const styles = StyleSheet.create({
     
 });
 
-export default QRPositiveScreen;
+export default QRResultsScreen;
