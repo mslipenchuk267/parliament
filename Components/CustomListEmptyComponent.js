@@ -5,7 +5,7 @@ import { View, StyleSheet } from 'react-native';
 const CustomListEmptyComponent = (props) => {
 
     return (
-        <View style={styles.container}>
+        <View style={styles.container} testID="ListEmptyComponent" >
             {props.children}
         </View>
     )
