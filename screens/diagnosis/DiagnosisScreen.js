@@ -27,12 +27,12 @@ const DiagnosisScreen = (props) => {
     }
     
     const handleSubmitQRCodeButton = () => {
-        // when button is clicked, take user to QRScanningComponentScreen
+        // when button is clicked, take user to QRScanningtScreen
         console.log("DiagnosisScreen.js/handleSubmitQRCodeButton() - Pressed Submit QR Button");
         // goes into next screen
          props.navigation.dispatch(
              CommonActions.navigate({
-                name: 'QRScreen' // .navigate -> key:string
+                name: 'QRScanning' // .navigate -> key:string
             })
          );
     }    
