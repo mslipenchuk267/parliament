@@ -13,6 +13,7 @@ const CustomTextInput = (props) => {
             autoCompleteType='off'
             onChangeText={props.onChangeText}
             clearButtonMode='while-editing'
+            testID={props.testID || null}
         />
     );
 }
