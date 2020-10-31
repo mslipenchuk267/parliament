@@ -1,5 +1,6 @@
-import React from 'react';
-import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import CustomTextInput from '../../Components/CustomTextInput';
 
 import { blue, lightGrey, mediumGrey } from '../../constants/colors';
 import { states, newsSiteLink } from '../../constants/states';
@@ -15,6 +16,8 @@ import { linkToSite } from '../../helpers/deepLinkHelper';
  */
 
 const StateSelectorScreen = () => {
+    const [filteredStates, setFilteredStates] = useState(states)
+
     //Manages what occurs when pressing on a state
     const handleStateButton = async (stateName) => {
         console.log("StateSelectorScreen.js/handleStateButton() - Pressed a state button with state:", stateName);
@@ -24,33 +27,47 @@ const StateSelectorScreen = () => {
         await linkToSite(stateNewsLink);
     }
 
+    const handleSearchInput = (searchQuery) => {
+        if (searchQuery.length < 1) {
+            // if user deletes their query, us display all states again
+            setFilteredStates(states)
+        } else {
+            // if user provides query, check for matches in all state items
+            updatedFilteredStates = states.filter(state => state.stateName.toLowerCase().includes(searchQuery.toLowerCase()))
+            setFilteredStates(updatedFilteredStates)
+        }
+    }
+
     return (
-        <SafeAreaView style={styles.container}>
-            <View style={styles.titleContainer} >
-                <Text style={styles.titleText} >
-                    View US State News for:
-                </Text>
-            </View>
-            {/*
+        <TouchableWithoutFeedback
+            onPress={() => {
+                Keyboard.dismiss();
+            }}
+        >
+            <SafeAreaView style={styles.container}>
+                {/*
                 Grabs the states from the array and uses the styling component to display to user.
                 Also uses Touchable Opacity to express that the user pressed link by fading into lighter color
                 */}
-            <View style={styles.listContainer}>
-                <FlatList
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                    keyExtractor={(item) => item.stateCode}
-                    data={states}
-                    renderItem={({ item }) => (
-                        <TouchableOpacity style={styles.stateButton} onPress={handleStateButton.bind(this, item.stateName)} >
-                            <Text style={styles.stateText} >{item.stateName}</Text>
-                        </TouchableOpacity>
-                    )}
+                <CustomTextInput
+                    placeholder="Look up your state"
+                    onChangeText={(text) => handleSearchInput(text)}
                 />
-            </View>
-
-        </SafeAreaView>
-
+                <View style={styles.listContainer}>
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
+                        showsHorizontalScrollIndicator={false}
+                        keyExtractor={(item) => item.stateCode}
+                        data={filteredStates}
+                        renderItem={({ item }) => (
+                            <TouchableOpacity style={styles.stateButton} onPress={handleStateButton.bind(this, item.stateName)} >
+                                <Text style={styles.stateText} >{item.stateName}</Text>
+                            </TouchableOpacity>
+                        )}
+                    />
+                </View>
+            </SafeAreaView>
+        </TouchableWithoutFeedback>
     )
 };
 
@@ -72,9 +89,9 @@ const styles = StyleSheet.create({
     listContainer: {
         width: '80%',
         marginVertical: 20,
-        maxHeight: '80%',
+        height: '80%',
         borderColor: mediumGrey,
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: 10,
         backgroundColor: lightGrey,
     },
