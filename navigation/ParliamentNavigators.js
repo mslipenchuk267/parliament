@@ -8,11 +8,17 @@ import HomeScreen from '../screens/home/HomeScreen';
 import DiagnosisScreen from '../screens/diagnosis/DiagnosisScreen';
 import NotificationsScreen from '../screens/notifications/NotificationsScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
+import QRScanningScreen from '../screens/diagnosis/QRScanningScreen';
+import QRResultsScreen from '../screens/diagnosis/QRResultsScreen';
+import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
+
 // AuthNavigator screens
 import AuthScreen from '../screens/auth/AuthScreen';
 import SignInScreen from '../screens/auth/SignInScreen';
 import SignUpScreen from '../screens/auth/SignUpScreen';
 
+// Design imports
+import { blue } from '../constants/colors';
 
 // UserNavigator Bottom Tab Component
 const UserTabNavigator = createBottomTabNavigator();
@@ -21,15 +27,9 @@ const HomeStackNavigator = createStackNavigator();
 const DiagnosisStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
-
 // AuthNavigator Stack Component 
 const AuthStackNavigator = createStackNavigator();
 
-// DiagnosisScreen -> StateSelector Screen
-import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
-import { blue } from '../constants/colors';
-import QRScanningScreen from '../screens/diagnosis/QRScanningScreen';
-import QRResultsScreen from '../screens/diagnosis/QRResultsScreen';
 
 /**
  * The AuthNavigator is a stack navigator
@@ -96,30 +96,30 @@ export const HomeNavigator = () => {
 export const DiagnosisNavigator = () => {
     return (
         <DiagnosisStackNavigator.Navigator>
-
             <DiagnosisStackNavigator.Screen
                 name="Submission"
                 component={DiagnosisScreen}
             />
-
             <DiagnosisStackNavigator.Screen
                 name="StateSelector"
                 component={StateSelectorScreen}
                 options={{ headerTitle: "US State News", headerBackTitleVisible: false }}
             />
-
             <DiagnosisStackNavigator.Screen
                 name="QRScanning"
                 component={QRScanningScreen}
-                options={{ headerTitle: "QR Scanner", headerTitleStyle: {color: 'white'}, headerTransparent: true, headerBackTitleVisible: false }}
-            />            
-
+                options={{
+                    headerTitle: "QR Scanner",
+                    headerTitleStyle: { color: 'white' },
+                    headerTransparent: true,
+                    headerBackTitleVisible: false
+                }}
+            />
             <DiagnosisStackNavigator.Screen
-                name="QRResults" 
+                name="QRResults"
                 component={QRResultsScreen}
-                options={{ headerTitle: "QRResultsScreen header title", headerBackTitleVisible: false }}
-            />  
-
+                options={{ headerTitle: "QR Result", headerBackTitleVisible: false }}
+            />
         </DiagnosisStackNavigator.Navigator>
     )
 }
