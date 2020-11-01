@@ -8,7 +8,7 @@ import {
     UNAUTHENTICATE,
     REFRESH_TOKENS,
     SET_DEVICE_TOKEN,
-    ADD_TEMP_ID
+    ADD_TEMP_ID,
     UPDATE_NOTIFICATION_HISTORY
 } from '../../constants/ActionTypes';
 
