@@ -1,17 +1,22 @@
 import React, { useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { Notifications } from 'react-native-notifications';
-import { useDispatch } from 'react-redux';
-import { setDeviceToken } from '../store/actions/user';
+import { useDispatch, useSelector } from 'react-redux';
+import * as userActions from '../store/actions/user';
+import { parsingToken } from './ParsingToken';
+
+
 
 const PushNotificationManager = (props) => {
   const dispatch = useDispatch();
+  const contactedIDs = useSelector(state => state.user.contactedIDs);
+  
 
   useEffect(() => {
     registerDevice = () => {
       Notifications.events().registerRemoteNotificationsRegistered(event => {
         // Set the device token state
-        dispatch(setDeviceToken(event.deviceToken));
+        dispatch(userActions.setDeviceToken(event.deviceToken));
         console.log('Device Token Received', event.deviceToken)
 
       })
@@ -20,10 +25,12 @@ const PushNotificationManager = (props) => {
       })
       Notifications.registerRemoteNotifications()
     }
-
+ 
     registerNotificationEvents = () => {
       Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
         console.log('Notification Received - Foreground', notification)
+        const matchedContacts = parsingToken(notification,contactedIDs);
+        dispatch(userActions.updateNotificationHistory(matchedContacts));
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
         completion({ alert: true, sound: false, badge: true })
       })
