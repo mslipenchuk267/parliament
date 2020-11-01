@@ -8,6 +8,7 @@ import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.reactnativecommunity.rnpermissions.RNPermissionsPackage;
 import org.reactnative.camera.RNCameraPackage;
+import com.BV.LinearGradient.LinearGradientPackage;
 import com.reactnative.peripheral.RnBlePeripheralPackage;
 import com.polidea.reactnativeble.BlePackage;
 import com.facebook.react.ReactInstanceManager;

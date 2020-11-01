@@ -18,6 +18,7 @@ target 'parliament' do
 
 
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
 
   target 'parliamentTests' do
     inherit! :complete

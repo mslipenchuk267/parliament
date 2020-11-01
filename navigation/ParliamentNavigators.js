@@ -140,6 +140,7 @@ export const NotificationsNavigator = () => {
             <NotificationStackNavigator.Screen
                 name="NotificationHistory"
                 component={NotificationsScreen}
+                options={{ headerTitle: "Notifications" }}
             />
         </NotificationStackNavigator.Navigator>
     )
