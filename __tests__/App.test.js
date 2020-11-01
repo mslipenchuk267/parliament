@@ -1,8 +1,7 @@
 import React from 'react';
 import App from '../App';
 // Note: test renderer must be required after react-native.
-import renderer from 'react-test-renderer';
-
+import { fireEvent, render } from '@testing-library/react-native'
 
 import {
   UPDATE_ACCESS_TOKEN
@@ -12,10 +11,9 @@ import { linkToSite } from '../helpers/deepLinkHelper';
 
 /*
 it('renders correctly', () => {
-  renderer.create(<App />);
+  const renderedApp = render(<App />);
 });
 */
-
 
 describe('Deep Linking', () => {
   it('should open correctly formatted url', async () => {
@@ -23,7 +21,6 @@ describe('Deep Linking', () => {
     await expect(linkToSite(site)).resolves.not.toThrow()
   })
 })
-
 
 describe('Redux Store Updates', () => {
   it('should create an action to update accessToken and accessTokenExpiration', () => {

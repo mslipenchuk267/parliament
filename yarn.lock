@@ -1231,7 +1231,7 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
-"@testing-library/react-native@^7.0.2":
+"@testing-library/react-native@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@testing-library/react-native/-/react-native-7.1.0.tgz#6b168aac21522c8a5175461b350336fd79612ac9"
   integrity sha512-ljVM9KZqG7BT/NFN6CHzdF6MNmM28+k7MEybFJ7FW1wVrhpiY4+hU9ypZ+hboO+MG3KpE2aFBzP4od3gu+Zzdg==
