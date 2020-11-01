@@ -17,37 +17,51 @@ const Notification = (props) => {
                     angleCenter={{ x: 0.5, y: 0.5 }}
                 >
                     <LinearGradient
-                        colors={['#d8e0d5', '#C5CFC1', '#B7C8B0', '#9DAF93']}
+                        colors={['#ffffff', '#7E898B']}
                         style={{
-                            paddingVertical: 18,
-                            paddingHorizontal: 15,
+                            paddingVertical: 2,
+                            paddingHorizontal: 2,
                             borderRadius: 15,
-                            borderWidth: 1,
-                            borderColor: '#8E9896',
+                            minHeight: 100,
                         }}
                         useAngle={true}
                         angle={145}
                         angleCenter={{ x: 0.5, y: 0.5 }}
                     >
-                        <View style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'flex-end'
-                        }}
-                        >
-                            <Text style={{ ...styles.label, textAlign: 'left' }}>potential exposure</Text>
-                            <Text style={{ ...styles.label, textAlign: 'right' }}>signal <Icon name="signal" size={14} color="black" /></Text>
-                        </View>
-                        <View
+                        <LinearGradient
+                            colors={['#d8e0d5', '#C5CFC1', '#B7C8B0', '#9DAF93']}
                             style={{
+                                paddingVertical: 18,
+                                paddingHorizontal: 15,
+                                borderRadius: 15,
+                                borderWidth: 1,
+                                borderColor: '#8E9896',
+
+                            }}
+                            useAngle={true}
+                            angle={145}
+                            angleCenter={{ x: 0.5, y: 0.5 }}
+                        >
+                            <View style={{
                                 flexDirection: 'row',
                                 justifyContent: 'space-between',
-                                alignItems: 'baseline'
+                                alignItems: 'flex-end',
                             }}
-                        >
-                            <Text style={styles.date}>{date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()}</Text>
-                            <Text style={styles.averageRssi}>{props.averageRssi}</Text>
-                        </View>
+                            >
+                                <Text style={{ ...styles.label, textAlign: 'left' }}>potential exposure</Text>
+                                <Text style={{ ...styles.label, textAlign: 'right' }}>signal <Icon name="signal" size={14} color="black" /></Text>
+                            </View>
+                            <View
+                                style={{
+                                    flexDirection: 'row',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'baseline'
+                                }}
+                            >
+                                <Text style={styles.date}>{date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()}</Text>
+                                <Text style={styles.averageRssi}>{props.averageRssi}</Text>
+                            </View>
+                        </LinearGradient>
                     </LinearGradient>
                 </LinearGradient>
             </View>
@@ -88,6 +102,17 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontFamily: 'Helvetica',
         textAlign: 'right',
+    },
+    inset: {
+        margin: 10,
+        flex: 1,
+        backgroundColor: 'transparent',
+        borderColor: 'white',
+        borderWidth: 30,
+        overflow: 'hidden',
+        shadowColor: 'black',
+        shadowRadius: 10,
+        shadowOpacity: 1,
     }
 });
 
