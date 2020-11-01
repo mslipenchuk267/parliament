@@ -1,9 +1,13 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, View, StyleSheet, SafeAreaView, Button, Alert, ScrollView } from 'react-native'
-import CustomButton from '../../Components/CustomButton';
+
 import InvalidResponse from '../../Components/InvalidResponse';
 import NegativeResponse from '../../Components/NegativeResponse';
 import PositiveResponse from '../../Components/PositiveResponse';
+import * as userActions from '../../store/actions/user';
+import { uploadTempIDs } from '../../helpers/submissionHelper';
+import { isRefreshNeeded } from '../../helpers/authHelper';
 
 /**
  * The QRPositiveScreen component houses the UI components 
@@ -13,19 +17,29 @@ import PositiveResponse from '../../Components/PositiveResponse';
  * )
  */
 const QRResultsScreen = (props) => {
+  const tempIDs = useSelector(state => state.user.tempIDs);
+  const accessToken = useSelector(state => state.user.accessToken);
+  const accessTokenExpiration = useSelector(state => state.user.accessTokenExpiration);
+
   // set qrResult from props
   const qrResult = props.route.params?.result ?? "none";
 
-  const handleVolunteerDataPress = () => {
+  const handleVolunteerDataPress = async () => {
     Alert.alert(
-      "Results: Positive",//title of Alert Message
-      "Would you like to submit your data to us?", //Message under title
+      "Volunteer Data", //title of Alert Message
+      "Are you sure you want to submit your data?", //Message under title
       [
         {
-          text: "No", onPress: () => console.log("Pressed No")
+          text: "No", onPress: () => console.log("QRResultsScreen.js/handleVolunteerDataPress() - User Pressed No")
         },
         {
-          text: "Yes", onPress: () => console.log("Pressed Yes")
+          text: "Yes", onPress: async () => {
+            if (isRefreshNeeded(accessTokenExpiration)) {
+              await dispatch(userActions.refreshTokens())
+            }
+            console.log("QRResultsScreen.js/handleVolunteerDataPress() - User Pressed Yes")
+            await uploadTempIDs(tempIDs, accessToken);
+          }
         }
       ],
       { cancelable: false }
