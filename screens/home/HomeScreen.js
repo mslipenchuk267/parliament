@@ -99,6 +99,8 @@ const HomeScreen = () => {
             //    await Peripheral.stopAdvertising()
             //}
             const tempID = generateTempID();
+            // add tempID to redux state
+            await dispatch(userActions.storeTempID(tempID));
             const ch = new Characteristic({
                 uuid: tempID,
                 value: '', // Base64-encoded string

@@ -7,7 +7,8 @@ import {
     AUTHENTICATE,
     UNAUTHENTICATE,
     REFRESH_TOKENS,
-    SET_DEVICE_TOKEN
+    SET_DEVICE_TOKEN,
+    ADD_TEMP_ID
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -29,6 +30,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 contactedIDs: action.contactedIDs
+            }
+        case ADD_TEMP_ID:
+            return {
+                ...state,
+                tempIDs: state.tempIDs.concat(action.tempID)
             }
         case ADD_CONTACT:
             return {

@@ -7,11 +7,18 @@ import {
     AUTHENTICATE,
     UNAUTHENTICATE,
     REFRESH_TOKENS,
-    SET_DEVICE_TOKEN
+    SET_DEVICE_TOKEN,
+    ADD_TEMP_ID
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
 import { uploadDeviceToken } from '../../helpers/authHelper';
+
+
+export const storeTempID = (tempID) => {
+    return { type: ADD_TEMP_ID, tempID: tempID }
+}
+
 export const setContactIDs = (contactedIDs) => {
     return { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
 }
