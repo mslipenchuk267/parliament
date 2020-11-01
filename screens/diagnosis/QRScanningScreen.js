@@ -13,6 +13,11 @@ import { StackActions } from '@react-navigation/native';
  */
 const QRScanningScreen = (props) => {
 
+    /**
+     * Parse the result of the QR scanner and navigate to QR Result screen if scans are 
+     * either Positive or Negative.
+     * @param {json} result the json returned by the QR scanner upon scanning a qr code
+     */
     const handleScan = (result) => {
         // Extract result data
         qrResult = result.data;
