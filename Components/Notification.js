@@ -10,14 +10,14 @@ const Notification = (props) => {
         <View style={styles.buttonOuter}>
             <View style={styles.buttonInner}>
                 <LinearGradient
-                    colors={['#ffffff', '#e3e3e3']}
+                    colors={['#fbfbfb', '#e3e3e3']}
                     style={styles.linearGradient}
                     useAngle={true}
                     angle={145}
-                    angleCenter={{ x: 0.5, y: 0.5 }}
+                    angleCenter={{ x: 0.4, y: 0.4 }}
                 >
                     <LinearGradient
-                        colors={['#ffffff', '#7E898B']}
+                        colors={['#ffffff', '#a5acae']}
                         style={{
                             paddingVertical: 2,
                             paddingHorizontal: 2,
@@ -31,9 +31,9 @@ const Notification = (props) => {
                         <LinearGradient
                             colors={['#d8e0d5', '#C5CFC1', '#B7C8B0', '#9DAF93']}
                             style={{
-                                paddingVertical: 18,
+                                paddingVertical: 15,
                                 paddingHorizontal: 15,
-                                borderRadius: 15,
+                                borderRadius: 14,
                                 borderWidth: 1,
                                 borderColor: '#8E9896',
 
