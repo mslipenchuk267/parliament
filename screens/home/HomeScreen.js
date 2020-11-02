@@ -36,7 +36,7 @@ const bleManager = new BleManager();
 
 const HomeScreen = () => {
     const dispatch = useDispatch();
-    const [tempID, setTempID] = useState();
+    const [tempID, setTempID] = useState(null);
 
     /**
      * Begin scanning for devices and handle each device
@@ -175,7 +175,7 @@ const HomeScreen = () => {
             <SafeAreaView style={{ width: '80%' }}>
                 <View style={{padding: 10}} />
                 <CustomTextInput
-                    placeholder={tempID.substring(tempID.length - 12) || "No temp ID set"}
+                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "No temp ID set"}
                 />
                 <CustomButton title='Start Scanning' handlePress={handleStartContactTracing} />
                 <CustomButton title='Stop Scanning' handlePress={handleStopContactTracing} />
