@@ -88,6 +88,7 @@ const HomeScreen = () => {
             //BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fa', true);
             const tempID = generateTempID();
             setTempID(tempID);
+            dispatch(userActions.storeTempID(tempID));
             BLEPeripheral.addCharacteristicToService(PARLIAMENT_SERVICE_UUID, tempID, 16 | 1, 8)
 
             BLEPeripheral.start()
@@ -102,6 +103,7 @@ const HomeScreen = () => {
             //}
             const tempID = generateTempID();
             setTempID(tempID);
+            dispatch(userActions.storeTempID(tempID));
             // add tempID to redux state
             await dispatch(userActions.storeTempID(tempID));
             const ch = new Characteristic({
