@@ -70,7 +70,7 @@
       "./jest/setup.js"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|react-native-vector-icons/Entypo|expo-secure-store|react-native-ble-plx|@unimodules|react-native-peripheral|react-navigation|@react-navigation/.*))"
+      "node_modules/(?!((jest-)?react-native|@react-native-community/datetimepicker|react-native-vector-icons/Entypo|expo-secure-store|react-native-ble-plx|@unimodules|react-native-peripheral|react-navigation|@react-navigation/.*))"
     ]
   }
 }
