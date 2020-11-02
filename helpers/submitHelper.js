@@ -40,20 +40,3 @@ export const uploadTempIDs = async (tempIDs, accessToken) => {
     }
 
 }
-
-import jwt from "react-native-pure-jwt";
-
-const convertToJWTs = async (tempIDs) => {
-    // Encode the provided tempIDs
-    var userJWTtempIDs = []
-    for (var tempID in tempIDs) {
-        var payload = { temp_id: tempID };
-        var tempIDJWT = await jwt.sign(payload,"s3cr3t",{alg: "HS256"})
-        userJWTtempIDs.push(tempIDJWT);
-        console.log("Encoded tempID:",tempID," | JWT:",tempIDJWT);
-
-    }
-    console.log("submitHelper.js/convertToJWTs() - Converted user's tempIDs to JWTs:", userJWTtempIDs)
-    // Return the JWT array
-    return userJWTtempIDs;
-}
