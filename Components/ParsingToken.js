@@ -23,13 +23,14 @@ export const infectedIDComparison = (contactedIDs, payLoadFCMInfectedIDs) => {
 
     //Initial new array contains InfectedIDs whose average RSSI is <= 70
     var FilterArray = [];
-
+    console.log("notification payload: ", payLoadFCMInfectedIDs)
+    console.log("contacted ids: ", contactedIDs)
     for (let i = 0; i < payLoadInfectedIDsLength; i++) {
         for (let j = 0; j < contactedIDsLength; j++) {
             //Debug code; remove "//" to test
-            // console.log("----------------------------");
-            // console.log(payLoadFCMInfectedIDs[i].temp_id);
-            // console.log(contactedIDs[j].tempID);
+            console.log("----------------------------");
+            console.log(payLoadFCMInfectedIDs[i].temp_id);
+            console.log(contactedIDs[j].tempID);
             //Logic 
             if (getTokenFromFCMTemp_id(payLoadFCMInfectedIDs, i) === getContactedIDsTempID(contactedIDs, j) && getContactedIDsAverageRssi(contactedIDs, j) <= 70) {
                 const newNotification = new Notification(getContactedIDsCreatedDate(contactedIDs, j), getContactedIDsAverageRssi(contactedIDs, j))

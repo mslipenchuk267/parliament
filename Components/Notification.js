@@ -36,7 +36,6 @@ const Notification = (props) => {
                                 borderRadius: 14,
                                 borderWidth: 1,
                                 borderColor: '#8E9896',
-
                             }}
                             useAngle={true}
                             angle={145}

@@ -10,7 +10,7 @@ import { parsingToken } from './ParsingToken';
 const PushNotificationManager = (props) => {
   const dispatch = useDispatch();
   const contactedIDs = useSelector(state => state.user.contactedIDs);
-  
+
 
   useEffect(() => {
     registerDevice = () => {
@@ -25,11 +25,11 @@ const PushNotificationManager = (props) => {
       })
       Notifications.registerRemoteNotifications()
     }
- 
+
     registerNotificationEvents = () => {
       Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
         console.log('Notification Received - Foreground', notification)
-        const matchedContacts = parsingToken(notification,contactedIDs);
+        const matchedContacts = parsingToken(notification, contactedIDs);
         dispatch(userActions.updateNotificationHistory(matchedContacts));
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
         completion({ alert: true, sound: false, badge: true })
@@ -43,7 +43,8 @@ const PushNotificationManager = (props) => {
 
       Notifications.events().registerNotificationReceivedBackground((notification, completion) => {
         console.log('Notification Received - Background', notification)
-
+        const matchedContacts = parsingToken(notification, contactedIDs);
+        dispatch(userActions.updateNotificationHistory(matchedContacts));
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
         completion({ alert: true, sound: true, badge: false })
       })
@@ -57,7 +58,7 @@ const PushNotificationManager = (props) => {
 
     registerDevice()
     registerNotificationEvents()
-  }, [dispatch])
+  }, [dispatch, contactedIDs])
 
   return (
     <View style={{ flex: 1 }}>

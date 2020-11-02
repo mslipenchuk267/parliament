@@ -141,7 +141,7 @@ const HomeScreen = () => {
             setTempID("None");
         } else {
             if (Peripheral.isAdvertising()) {
-                return await Peripheral.stopAdvertising();
+                await Peripheral.stopAdvertising();
                 setTempID("None");
             }
         }
@@ -153,7 +153,7 @@ const HomeScreen = () => {
             const granted = PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
                 {
-                    title: 'Permission Localisation Bluetooth',
+                    title: 'Permission Localization Bluetooth',
                     message: 'Requirement for Bluetooth',
                     buttonNeutral: 'Later',
                     buttonNegative: 'Cancel',
@@ -177,7 +177,7 @@ const HomeScreen = () => {
             <SafeAreaView style={{ width: '80%' }}>
                 <View style={{padding: 10}} />
                 <CustomTextInput
-                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "No temp ID set"}
+                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "None"}
                 />
                 <CustomButton title='Start Scanning' handlePress={handleStartContactTracing} />
                 <CustomButton title='Stop Scanning' handlePress={handleStopContactTracing} />

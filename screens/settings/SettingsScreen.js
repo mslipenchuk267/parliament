@@ -46,8 +46,8 @@ const SettingsScreen = () => {
 
     const addDeviceButtonHandler = () => {
         if (deviceID.length === 12 && date) {
-            console.log("SettingsScreen.js/addDeviceButtonHandler() - Pressed Add Device button with valid ID:", deviceID);
-            dispatch(userActions.addFakeContact(deviceID, date))
+            console.log("SettingsScreen.js/addDeviceButtonHandler() - Pressed Add Device button with valid ID:", "00000000-0000-0000-0000-" + deviceID);
+            dispatch(userActions.addFakeContact("00000000-0000-0000-0000-" + deviceID, date))
         } else {
             if (!date) {
                 console.log("SettingsScreen.js/addDeviceButtonHandler() - Pressed Add Device button with no date", deviceID);
