@@ -41,11 +41,13 @@ const StateSelectorScreen = () => {
             }}
         >
             <SafeAreaView style={styles.container}>
-                <CustomTextInput
-                    placeholder="Look up your state"
-                    onChangeText={(text) => handleSearchInput(text)}
-                    testID="stateSearchBar"
-                />
+                <View style={{width: '80%'}}>
+                    <CustomTextInput
+                        placeholder="Look up your state"
+                        onChangeText={(text) => handleSearchInput(text)}
+                        testID="stateSearchBar"
+                    />
+                </View>
                 <View style={styles.listContainer}>
                     <FlatList
                         showsVerticalScrollIndicator={false}

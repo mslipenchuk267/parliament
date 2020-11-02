@@ -57,6 +57,26 @@ export const setDidTryAutoLogin = () => {
     return { type: SET_DID_TRY_AUTO_LOGIN };
 }
 
+export const addFakeContact = (tempID) => {
+    return async (dispatch, getState) => {
+        const savedContactIndex = getState().user.contactedIDs.findIndex(savedContact => savedContact.tempID === tempID)
+        // Determine if we add a new contact or update an existing one
+        if (savedContactIndex >= 0) { // if the savedContactIndex exists, it's already been scanned before
+            alert("This ID has already been added")
+        } else {
+            let newContact = new Contact(
+                tempID,
+                11.11,
+                new Date(),
+                new Date(),
+                1 // first scan
+            )
+            dispatch({ type: ADD_CONTACT, newContact: newContact });
+        }
+
+    }
+}
+
 /**
  * This action creator determines if the passed in tempID
  * is already in the contactedIDs user state and then either

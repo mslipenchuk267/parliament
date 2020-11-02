@@ -19,15 +19,21 @@ const SignInScreen = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <CustomTextInput
-                placeholder="Username"
-                onChangeText={(text) => setUsername(text)} />
-            <View style={{ padding: 10 }}></View>
-            <CustomTextInput
-                placeholder="Password"
-                onChangeText={(text) => setPassword(text)}
-                secureTextEntry={true} />
-            <View style={{ padding: 30 }}></View>
+            <View style={{ width: '70%' }}>
+                <CustomTextInput
+                    placeholder="Username"
+                    onChangeText={(text) => setUsername(text)}
+                />
+            </View>
+            <View style={{ padding: 10 }}/>
+            <View style={{ width: '70%' }}>
+                <CustomTextInput
+                    placeholder="Password"
+                    onChangeText={(text) => setPassword(text)}
+                    secureTextEntry={true}
+                />
+            </View>
+            <View style={{ padding: 10 }}/>
             <CustomButton title="Login" handlePress={signInButtonHandler} />
         </SafeAreaView>
     );

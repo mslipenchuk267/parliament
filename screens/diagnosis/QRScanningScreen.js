@@ -32,7 +32,6 @@ const QRScanningScreen = (props) => {
                 break
             case 'Negative':
                 console.log("QRScanningScreen has scanned a negative result");
-                //Alert user on component to keep staying safe
                 // Replace screen in stack to stop qr scanner from still being in focus
                 //  this fixes issue of qr scanner still scanning even if we just navigate to another screen
                 props.navigation.dispatch(
@@ -40,6 +39,7 @@ const QRScanningScreen = (props) => {
                 );
                 break
             default:
+                //Alert user on component to keep staying safe
                 Alert.alert("QR Code was invalid, try again.");
                 break;
         }
