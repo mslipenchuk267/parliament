@@ -7,11 +7,23 @@ import {
     AUTHENTICATE,
     UNAUTHENTICATE,
     REFRESH_TOKENS,
-    SET_DEVICE_TOKEN
+    SET_DEVICE_TOKEN,
+    ADD_TEMP_ID,
+    UPDATE_NOTIFICATION_HISTORY,
+    CLEAR_CONTACTED_IDS
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
 import { uploadDeviceToken } from '../../helpers/authHelper';
+
+export const storeTempID = (tempID) => {
+    return { type: ADD_TEMP_ID, tempID: tempID }
+}
+
+export const updateNotificationHistory = (matchedContacts) => {
+    return { type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts }
+}
+
 export const setContactIDs = (contactedIDs) => {
     return { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
 }
@@ -44,6 +56,32 @@ export const updateAccessToken = (newAccessToken, newAccessTokenExpiration) => {
  */
 export const setDidTryAutoLogin = () => {
     return { type: SET_DID_TRY_AUTO_LOGIN };
+}
+
+export const addFakeContact = (tempID, date) => {
+    return async (dispatch, getState) => {
+        const savedContactIndex = getState().user.contactedIDs.findIndex(savedContact => savedContact.tempID === tempID)
+        // Determine if we add a new contact or update an existing one
+        if (savedContactIndex >= 0) { // if the savedContactIndex exists, it's already been scanned before
+            alert("This ID has already been added")
+        } else {
+            let newContact = new Contact(
+                tempID,
+                11.11,
+                date,
+                date,
+                1 // first scan
+            )
+            dispatch({ type: ADD_CONTACT, newContact: newContact });
+        }
+        await deleteContactedIDs();
+        const contactedIDs = [...getState().user.contactedIDs];
+        await saveContactedIDs(contactedIDs);
+    }
+}
+
+export const clearContactedIDs = () => {
+    return { type: CLEAR_CONTACTED_IDS }
 }
 
 /**

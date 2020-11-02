@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
@@ -10,7 +10,7 @@ import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
 import { generateTempID, PARLIAMENT_SERVICE_UUID } from '../../helpers/uuidHelper';
 import CustomButton from '../../Components/CustomButton';
-
+import CustomTextInput from '../../Components/CustomTextInput';
 const bleManager = new BleManager();
 
 // const bleManager = new BleManager({
@@ -36,6 +36,7 @@ const bleManager = new BleManager();
 
 const HomeScreen = () => {
     const dispatch = useDispatch();
+    const [tempID, setTempID] = useState(null);
 
     /**
      * Begin scanning for devices and handle each device
@@ -86,6 +87,7 @@ const HomeScreen = () => {
             // The 
             //BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fa', true);
             const tempID = generateTempID();
+            setTempID(tempID);
             BLEPeripheral.addCharacteristicToService(PARLIAMENT_SERVICE_UUID, tempID, 16 | 1, 8)
 
             BLEPeripheral.start()
@@ -99,6 +101,9 @@ const HomeScreen = () => {
             //    await Peripheral.stopAdvertising()
             //}
             const tempID = generateTempID();
+            setTempID(tempID);
+            // add tempID to redux state
+            await dispatch(userActions.storeTempID(tempID));
             const ch = new Characteristic({
                 uuid: tempID,
                 value: '', // Base64-encoded string
@@ -131,9 +136,11 @@ const HomeScreen = () => {
     const handleStopAdvertising = async () => {
         if (Platform.OS === 'android') {
             await BLEPeripheral.stop()
+            setTempID("None");
         } else {
             if (Peripheral.isAdvertising()) {
                 return await Peripheral.stopAdvertising();
+                setTempID("None");
             }
         }
     }
@@ -155,12 +162,28 @@ const HomeScreen = () => {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container} >
-            <CustomButton title='Start Scanning' handlePress={handleStartContactTracing} />
-            <CustomButton title='Stop Scanning' handlePress={handleStopContactTracing} />
-            <CustomButton title='Start Advertising' handlePress={handleStartAdvertising} />
-            <CustomButton title='Stop Advertising' handlePress={handleStopAdvertising} />
-        </SafeAreaView>
+        <ScrollView
+            style={{
+                flex: 1,
+                backgroundColor: 'white',
+            }}
+            contentContainerStyle={{
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
+        >
+            <SafeAreaView style={{ width: '80%' }}>
+                <View style={{padding: 10}} />
+                <CustomTextInput
+                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "No temp ID set"}
+                />
+                <CustomButton title='Start Scanning' handlePress={handleStartContactTracing} />
+                <CustomButton title='Stop Scanning' handlePress={handleStopContactTracing} />
+                <CustomButton title='Start Advertising' handlePress={handleStartAdvertising} />
+                <CustomButton title='Stop Advertising' handlePress={handleStopAdvertising} />
+            </SafeAreaView>
+        </ScrollView>
+
     )
 };
 

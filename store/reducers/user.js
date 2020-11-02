@@ -7,7 +7,10 @@ import {
     AUTHENTICATE,
     UNAUTHENTICATE,
     REFRESH_TOKENS,
-    SET_DEVICE_TOKEN
+    SET_DEVICE_TOKEN,
+    ADD_TEMP_ID,
+    UPDATE_NOTIFICATION_HISTORY,
+    CLEAR_CONTACTED_IDS
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -30,6 +33,11 @@ export default (state = initialState, action) => {
                 ...state,
                 contactedIDs: action.contactedIDs
             }
+        case ADD_TEMP_ID:
+            return {
+                ...state,
+                tempIDs: state.tempIDs.concat(action.tempID)
+            }
         case ADD_CONTACT:
             return {
                 ...state,
@@ -47,6 +55,33 @@ export default (state = initialState, action) => {
                     ...state,
                     contactedIDs: updatedContactIDs
                 }
+            }
+        case CLEAR_CONTACTED_IDS:
+            return {
+                ...state,
+                contactedIDs: []
+            }
+        case UPDATE_NOTIFICATION_HISTORY:
+            // Filter out notifications that are already in history
+            var uniqueNotifications = []
+            console.log("In the reducer with the matchedCOntacts:", action.matchedContacts)
+            for (var matchedContactIndex in action.matchedContacts) {
+                const notificationIndex = state.notificationHistory.findIndex(notification => notification.date === action.matchedContacts[matchedContactIndex].date)
+                if (notificationIndex >= 0) {
+                    // ignore
+                } else {
+                    console.log("Unique Notification in Reducer: ", action.matchedContacts[matchedContactIndex])
+                    uniqueNotifications.push(action.matchedContacts[matchedContactIndex])
+                }
+            }
+            // Check if we have a new unique notifications to add to notificationHistory
+            if (uniqueNotifications.length > 0) {
+                return {
+                    ...state,
+                    notificationHistory: state.notificationHistory.concat(uniqueNotifications)
+                }
+            } else { // no new notifications to add
+                return state;
             }
         case SET_DID_TRY_AUTO_LOGIN:
             return {

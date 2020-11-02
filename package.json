@@ -6,12 +6,13 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
-    "test": "jest",
+    "test": "jest --silent --verbose",
     "lint": "eslint .",
     "docs": "jsdoc -c jsdoc.conf.json",
     "prepare": "patch-package"
   },
   "dependencies": {
+    "@react-native-community/datetimepicker": "^3.0.4",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-navigation/bottom-tabs": "^5.9.1",
     "@react-navigation/native": "^5.7.5",
@@ -24,9 +25,14 @@
     "react-native": "0.63.2",
     "react-native-ble-peripheral": "^2.0.1",
     "react-native-ble-plx": "^2.0.1",
+    "react-native-camera": "^3.40.0",
     "react-native-gesture-handler": "^1.8.0",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-modal-datetime-picker": "^9.0.0",
     "react-native-notifications": "^3.3.4",
     "react-native-peripheral": "^0.0.3",
+    "react-native-permissions": "^2.2.2",
+    "react-native-qrcode-scanner": "^1.4.1",
     "react-native-reanimated": "^1.13.1",
     "react-native-safe-area-context": "^3.1.8",
     "react-native-screens": "^2.11.0",
@@ -41,7 +47,7 @@
     "@babel/core": "^7.11.6",
     "@babel/runtime": "^7.11.2",
     "@react-native-community/eslint-config": "^2.0.0",
-    "@testing-library/react-native": "^7.0.2",
+    "@testing-library/react-native": "^7.1.0",
     "babel-jest": "^26.3.0",
     "eslint": "^7.10.0",
     "jest": "^26.4.2",
@@ -64,7 +70,7 @@
       "./jest/setup.js"
     ],
     "transformIgnorePatterns": [
-      "node_modules/(?!((jest-)?react-native|react-native-vector-icons/Entypo|expo-secure-store|react-native-ble-plx|@unimodules|react-native-peripheral|react-navigation|@react-navigation/.*))"
+      "node_modules/(?!((jest-)?react-native|@react-native-community/datetimepicker|react-native-vector-icons/Entypo|expo-secure-store|react-native-ble-plx|@unimodules|react-native-peripheral|react-navigation|@react-navigation/.*))"
     ]
   }
 }

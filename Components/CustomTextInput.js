@@ -10,7 +10,10 @@ const CustomTextInput = (props) => {
             style={styles.textInput}
             autoCapitalize='none'
             placeholderTextColor='grey'
+            autoCompleteType='off'
             onChangeText={props.onChangeText}
+            clearButtonMode='while-editing'
+            testID={props.testID || null}
         />
     );
 }
@@ -24,7 +27,7 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 15,
         borderRadius: 10,
-        width: '75%',
+        //minWidth: '80%',
         fontSize: 16
     },
 });
