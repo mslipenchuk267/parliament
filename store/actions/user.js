@@ -9,7 +9,8 @@ import {
     REFRESH_TOKENS,
     SET_DEVICE_TOKEN,
     ADD_TEMP_ID,
-    UPDATE_NOTIFICATION_HISTORY
+    UPDATE_NOTIFICATION_HISTORY,
+    CLEAR_CONTACTED_IDS
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
@@ -57,7 +58,7 @@ export const setDidTryAutoLogin = () => {
     return { type: SET_DID_TRY_AUTO_LOGIN };
 }
 
-export const addFakeContact = (tempID) => {
+export const addFakeContact = (tempID, date) => {
     return async (dispatch, getState) => {
         const savedContactIndex = getState().user.contactedIDs.findIndex(savedContact => savedContact.tempID === tempID)
         // Determine if we add a new contact or update an existing one
@@ -67,14 +68,20 @@ export const addFakeContact = (tempID) => {
             let newContact = new Contact(
                 tempID,
                 11.11,
-                new Date(),
-                new Date(),
+                date,
+                date,
                 1 // first scan
             )
             dispatch({ type: ADD_CONTACT, newContact: newContact });
         }
-
+        await deleteContactedIDs();
+        const contactedIDs = [...getState().user.contactedIDs];
+        await saveContactedIDs(contactedIDs);
     }
+}
+
+export const clearContactedIDs = () => {
+    return { type: CLEAR_CONTACTED_IDS }
 }
 
 /**
