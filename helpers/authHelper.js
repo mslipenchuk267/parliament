@@ -52,6 +52,7 @@ export const uploadDeviceToken = async (deviceToken, accessToken) => {
         console.log("authHelper.js/uploadDeviceToken() - Device Token Post Successful");
     } else {
         console.log("authHelper.js/uploadDeviceToken() - User does not have a deviceToken or accessToken")
+        throw new Error("Please restart application")
     }
 
 }

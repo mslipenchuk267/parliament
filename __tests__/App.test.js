@@ -15,14 +15,14 @@ it('renders correctly', () => {
 });
 */
 
-describe('Deep Linking', () => {
+describe('Deep Linking Smoke Test', () => {
   it('should open correctly formatted url', async () => {
     const site = "https://gooogle.com"
     await expect(linkToSite(site)).resolves.not.toThrow()
   })
 })
 
-describe('Redux Store Updates', () => {
+describe('Redux Store Smoke Test', () => {
   it('should create an action to update accessToken and accessTokenExpiration', () => {
     const accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
     const accessTokenExpiration = new Date()
