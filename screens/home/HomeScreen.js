@@ -17,7 +17,7 @@ import LCDView from '../../components/LCDView';
 import NeumorphView from '../../components/NeumorphView';
 import { offWhite } from '../../constants/colors';
 import BackgroundService from 'react-native-background-actions'
-import { startAllBackground, stopAllBackground} from '../../helpers/backgroundHelper';
+import { startAllBackground, stopAllBackground } from '../../helpers/backgroundHelper';
 
 const bleManager = new BleManager();
 
@@ -188,7 +188,7 @@ const HomeScreen = () => {
             console.log('bleManager not start scanning for devices', { error })
         }
         console.log("Start Scanning on ", Platform.OS)
-        
+
         if (Platform.OS === 'android') {
             if (BLEPeripheral.isAdvertising()) {
                 BLEPeripheral.stop()
@@ -240,7 +240,7 @@ const HomeScreen = () => {
             console.log("Started Advertising on iOS: ", tempID)
 
         }
-    
+
         console.log("Background Tasks Started");
     };
 
@@ -250,7 +250,7 @@ const HomeScreen = () => {
 
     const handleStopBLE = async () => {
         bleManager.stopDeviceScan();
-    
+
         if (Platform.OS === 'android') {
             await BLEPeripheral.stop()
             setTempID("None");
@@ -283,70 +283,83 @@ const HomeScreen = () => {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar barStyle='dark-content' />
-            <View style={{ padding: 10 }} />
-            <View>
-                <NeumorphView
-                    style={styles.linearGradient}
-                >
-                    <LCDView>
-                        <View style={{ flexBasis: 'auto', height: 130, paddingHorizontal: '2%' }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1}}>
-                                <Text style={styles.lcdLabel}>scanned device</Text>
-                                <Text style={styles.lcdLabel}>signal <Icon name="signal" size={14} color="black" /></Text>
+        <SafeAreaView style={{backgroundColor: offWhite}}>
+            <ScrollView
+                style={styles.container}
+                contentContainerStyle={{
+                    alignItems: 'center',
+                    backgroundColor: offWhite,
+                }}
+            >
+                <StatusBar barStyle='dark-content' />
+                <View style={{ marginTop: 30 }} >
+                    <NeumorphView
+                        style={styles.linearGradient}
+                    >
+                        <LCDView>
+                            <View style={{ flexBasis: 'auto', height: 130, paddingHorizontal: '2%' }}>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1 }}>
+                                    <Text style={styles.lcdLabel}>scanned device</Text>
+                                    <Text style={styles.lcdLabel}>signal <Icon name="signal" size={14} color="black" /></Text>
+                                </View>
+                                <FlatList
+                                    data={contactedIDs}
+                                    keyExtractor={(item) => item.tempID}
+                                    renderItem={({ item }) => (
+                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} >
+                                            <Text>{item.tempID.substring(item.tempID.length - 12)}</Text>
+                                            <Text>{item.averageRssi}</Text>
+                                        </View>
+                                    )}
+                                />
                             </View>
-                            <FlatList
-                                data={contactedIDs}
-                                keyExtractor={(item) => item.tempID}
-                                renderItem={({ item }) => (
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3}} >
-                                        <Text>{item.tempID.substring(item.tempID.length - 12)}</Text>
-                                        <Text>{item.averageRssi}</Text>
-                                    </View>
-                                )}
-                            />
+                        </LCDView>
+                    </NeumorphView>
+                    <View style={{ padding: 20 }} />
+                    <CustomTextView
+                        placeholder={tempID ? tempID.substring(tempID.length - 12) : "Not Advertising"}
+                        value={tempID ? tempID.substring(tempID.length - 12) : ""}
+                    />
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 30 }}>
+                        <View style={{ alignItems: 'center' }}>
+                            <Text style={styles.label}>advertising</Text>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='Start' handlePress={handleStartAdvertising} />
+                            </View>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='Stop' handlePress={handleStopAdvertising} />
+                            </View>
                         </View>
-                    </LCDView>
-                </NeumorphView>
-                <View style={{ padding: 20 }} />
-                <CustomTextView
-                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "Not Advertising"}
-                    value={tempID ? tempID.substring(tempID.length - 12) : ""}
-                />
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 30 }}>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={styles.label}>advertising</Text>
-                        <View style={{ margin: 10 }}>
-                            <CustomButton title='Start' handlePress={handleStartAdvertising} />
-                        </View>
-                        <View style={{ margin: 10 }}>
-                            <CustomButton title='Stop' handlePress={handleStopAdvertising} />
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={styles.label}>scanning</Text>
-                        <View style={{ margin: 10 }}>
-                            <CustomButton title='Start' handlePress={handleStartContactTracing} />
-                        </View>
-                        <View style={{ margin: 10 }}>
-                            <CustomButton title='Stop' handlePress={handleStopContactTracing} />
+                        <View style={{ alignItems: 'center' }}>
+                            <Text style={styles.label}>scanning</Text>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='Start' handlePress={handleStartContactTracing} />
+                            </View>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='Stop' handlePress={handleStopContactTracing} />
+                            </View>
                         </View>
                     </View>
                 </View>
-            </View>
-            <CustomButton title='Start Background' handlePress={handleStartBLE} />
-            <CustomButton title='Stop Background' handlePress={handleStopBLE} />
+                <View style={{ padding: 10 }} />
+                <Text style={styles.label}>background</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                    <View style={{ margin: 10 }}>
+                        <CustomButton title='Start' handlePress={handleStartBLE} />
+                    </View>
+                    <View style={{ margin: 10 }}>
+                        <CustomButton title='Stop' handlePress={handleStopBLE} />
+                    </View>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     )
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: '100%',
         backgroundColor: offWhite,
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     label: {
         fontSize: 18,
