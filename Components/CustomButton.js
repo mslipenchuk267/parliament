@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { View, Text, StyleSheet, Pressable, ImageBackground, TouchableOpacity } from 'react-native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, Pressable, ImageBackground, TouchableOpacity, Platform } from 'react-native';
 import { blue } from '../constants/colors';
 import NeumorphView from './NeumorphView';
 
@@ -16,21 +15,24 @@ const CustomButton = (props) => {
 
     const gradColors = isDown ? ['#E8E8E8', '#F3F3F3'] : ['#ffffff', '#E8E8E8'];
 
+    const TouchComponent = Platform.OS === 'ios' ? TouchableOpacity : Pressable
+
     return (
+        <TouchComponent
+            activeOpacity={0.25}
+            onPress={props.handlePress}
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
+        >
+            <View>
+                <NeumorphView style={styles.button} colors={gradColors} >
+                    <Text style={styles.buttonText}>
+                        {props.title}
+                    </Text>
+                </NeumorphView>
+            </View>
 
-                <TouchableOpacity
-                    activeOpacity={0.25}
-                    onPress={props.handlePress}
-                    onPressIn={handlePressIn}
-                    onPressOut={handlePressOut}
-                >
-                    <NeumorphView style={styles.button} colors={gradColors} >
-                        <Text style={styles.buttonText}>
-                            {props.title}
-                        </Text>
-                    </NeumorphView>
-
-                </TouchableOpacity>
+        </TouchComponent>
 
     );
 }
@@ -43,6 +45,7 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
         paddingHorizontal: 40,
         alignItems: 'center',
+        overflow: 'hidden',
         // shadow
         shadowColor: "#000",
         shadowOffset: {
@@ -51,7 +54,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.32,
         shadowRadius: 5.46,
-        elevation: 9,
+        elevation: 7,
     },
     buttonText: {
         fontSize: 18,
