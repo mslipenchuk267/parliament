@@ -52,12 +52,12 @@ export const AuthNavigator = () => {
             <AuthStackNavigator.Screen
                 name="SignIn"
                 component={SignInScreen}
-                options={{ headerBackTitle: false, headerTitle: "Sign In" }}
+                options={{ headerBackTitle: false, headerTitle: "", headerTransparent: true }}
             />
             <AuthStackNavigator.Screen
                 name="SignUp"
                 component={SignUpScreen}
-                options={{ headerBackTitle: false, headerTitle: "Sign Up" }}
+                options={{ headerBackTitle: false, headerTitle: "", headerTransparent: true  }}
             />
         </AuthStackNavigator.Navigator>
     )
@@ -79,6 +79,7 @@ export const HomeNavigator = () => {
             <HomeStackNavigator.Screen
                 name="Home"
                 component={HomeScreen}
+                options={{ headerShown: false }}
             />
         </HomeStackNavigator.Navigator>
     )

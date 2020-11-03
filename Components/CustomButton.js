@@ -22,8 +22,7 @@ const styles = StyleSheet.create({
         elevation: 10,
         borderRadius: 20,
         paddingVertical: 20,
-        paddingHorizontal: 50,
-        marginVertical: 20,
+        paddingHorizontal: 40,
         alignItems: 'center',
         // shadow
         shadowColor: "#000",

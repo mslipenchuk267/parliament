@@ -11,6 +11,7 @@ import { handleDevice } from '../../helpers/scanHelper';
 import { generateTempID, PARLIAMENT_SERVICE_UUID } from '../../helpers/uuidHelper';
 import CustomButton from '../../Components/CustomButton';
 import CustomTextInput from '../../Components/CustomTextInput';
+import CustomTextView from '../../Components/CustomTextView';
 const bleManager = new BleManager();
 
 // const bleManager = new BleManager({
@@ -138,11 +139,11 @@ const HomeScreen = () => {
     const handleStopAdvertising = async () => {
         if (Platform.OS === 'android') {
             await BLEPeripheral.stop()
-            setTempID("None");
+            setTempID("");
         } else {
             if (Peripheral.isAdvertising()) {
                 await Peripheral.stopAdvertising();
-                setTempID("None");
+                setTempID("");
             }
         }
     }
@@ -164,28 +165,35 @@ const HomeScreen = () => {
     }, []);
 
     return (
-        <ScrollView
-            style={{
-                flex: 1,
-                backgroundColor: 'white',
-            }}
-            contentContainerStyle={{
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
-        >
-            <SafeAreaView style={{ width: '80%' }}>
-                <View style={{padding: 10}} />
-                <CustomTextInput
-                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "None"}
+        <SafeAreaView style={styles.container}>
+            <View style={{ padding: 10 }} />
+            <View>
+                <CustomTextView
+                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "Not Advertising"}
+                    value={tempID ? tempID.substring(tempID.length - 12) : ""}
                 />
-                <CustomButton title='Start Scanning' handlePress={handleStartContactTracing} />
-                <CustomButton title='Stop Scanning' handlePress={handleStopContactTracing} />
-                <CustomButton title='Start Advertising' handlePress={handleStartAdvertising} />
-                <CustomButton title='Stop Advertising' handlePress={handleStopAdvertising} />
-            </SafeAreaView>
-        </ScrollView>
-
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 20 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.label}>Advertising</Text>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='Start' handlePress={handleStartAdvertising} />
+                        </View>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='Stop' handlePress={handleStopAdvertising} />
+                        </View>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.label}>Scanning</Text>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='Start' handlePress={handleStartContactTracing} />
+                        </View>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='Stop' handlePress={handleStopContactTracing} />
+                        </View>
+                    </View>
+                </View>
+            </View>
+        </SafeAreaView>
     )
 };
 
@@ -195,6 +203,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    label: {
+        fontSize: 18,
+        fontWeight: 'bold'
     }
 });
 

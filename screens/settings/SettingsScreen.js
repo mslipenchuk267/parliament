@@ -91,6 +91,7 @@ const SettingsScreen = () => {
             <SafeAreaView>
                 <View style={{ marginHorizontal: '22%', marginTop: 20 }}>
                     <CustomButton title="Logout" handlePress={logoutButtonHandler} />
+                    <View style={{padding: 10}}/>
                     <CustomButton title="Delete Account" handlePress={deleteAccountButtonHandler} />
                 </View>
                 <View style={{ marginTop: 20, marginBottom: 10, alignItems: 'center', borderColor: '#a5acae', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%' }}>
@@ -119,13 +120,13 @@ const SettingsScreen = () => {
                 <View style={{ marginTop: 20, marginBottom: 10, marginHorizontal: '22%' }}>
                     <Text style={{ textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>{date.toLocaleString() || "Set date below"}</Text>
                 </View>
-                <View style={{ marginHorizontal: '22%' }} >
+                <View style={{ marginHorizontal: '22%', marginVertical: 10 }} >
                     <CustomButton title={"Set Date"} handlePress={showDatePicker} />
                 </View>
-                <View style={{ marginHorizontal: '22%'}} >
+                <View style={{ marginHorizontal: '22%', marginVertical: 20 }} >
                     <CustomButton title="Add Device" handlePress={addDeviceButtonHandler} />
                 </View>
-                <View style={{ marginHorizontal: '22%', marginBottom: 20 }} >
+                <View style={{ marginHorizontal: '22%', marginTop: 10, marginBottom: 20 }} >
                     <CustomButton title="Clear Devices" handlePress={clearDevicesButtonHandler} />
                 </View>
             </SafeAreaView>
