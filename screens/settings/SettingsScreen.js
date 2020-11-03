@@ -113,6 +113,7 @@ const SettingsScreen = () => {
                 </View>
                 <DateTimePickerModal
                     isVisible={isDatePickerVisible}
+                    isDarkModeEnabled={true}
                     mode="date"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}

@@ -2,19 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from '../node_modules/react-native-vector-icons/Entypo';
+import NeumorphView from './NeumorphView';
 
 const Notification = (props) => {
     const date = new Date(props.date)
 
     return (
-        <View style={styles.buttonOuter}>
-            <View style={styles.buttonInner}>
-                <LinearGradient
-                    colors={['#fbfbfb', '#e3e3e3']}
+        <View style={styles.viewOuter}>
+            <View style={styles.viewInner}>
+                <NeumorphView
                     style={styles.linearGradient}
-                    useAngle={true}
-                    angle={145}
-                    angleCenter={{ x: 0.4, y: 0.4 }}
                 >
                     <LinearGradient
                         colors={['#ffffff', '#a5acae']}
@@ -62,7 +59,7 @@ const Notification = (props) => {
                             </View>
                         </LinearGradient>
                     </LinearGradient>
-                </LinearGradient>
+                </NeumorphView>
             </View>
         </View>
     );
@@ -75,14 +72,14 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         minHeight: 100,
     },
-    buttonOuter: {
+    viewOuter: {
         marginTop: 30,
         shadowOffset: { width: 10, height: 10 },
         shadowRadius: 10,
         shadowColor: '#d6d6d6',
         shadowOpacity: 1.0,
     },
-    buttonInner: {
+    viewInner: {
         shadowOffset: { width: -10, height: -10 },
         shadowRadius: 10,
         shadowColor: '#ffffff',

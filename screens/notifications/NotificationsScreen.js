@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, SafeAreaView, FlatList, StatusBar } from 'react
 import { useSelector } from 'react-redux';
 import CustomListEmptyComponent from '../../components/CustomListEmptyComponent';
 import Notification from '../../components/Notification';
+import NotificationClass from '../../models/notification';
 
 /**
  * The NotificationsScreen component houses the UI components 
@@ -21,7 +22,7 @@ const NotificationsScreen = () => {
             <StatusBar barStyle='dark-content'/>
             <FlatList
                 contentContainerStyle={styles.sectionContainer}
-                data={notificationHistory} // notificationHistory
+                data={[new NotificationClass("2020-11-02T18:23:24.731Z", 10), new NotificationClass("2020-11-01T18:23:24.731Z", 9)]} // notificationHistory
                 keyExtractor={(item) => item.date}
                 renderItem={({ item }) => (
                     <Notification date={item.date} averageRssi={item.averageRssi} />
