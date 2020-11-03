@@ -1,8 +1,8 @@
 import React from 'react'
 import { Text, View, StyleSheet, SafeAreaView, FlatList, StatusBar } from 'react-native'
 import { useSelector } from 'react-redux';
-import CustomListEmptyComponent from '../../Components/CustomListEmptyComponent';
-import Notification from '../../Components/Notification';
+import CustomListEmptyComponent from '../../components/CustomListEmptyComponent';
+import Notification from '../../components/Notification';
 
 /**
  * The NotificationsScreen component houses the UI components 

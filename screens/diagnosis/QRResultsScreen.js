@@ -2,9 +2,9 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Text, View, StyleSheet, SafeAreaView, Button, Alert, ScrollView } from 'react-native'
 
-import InvalidResponse from '../../Components/InvalidResponse';
-import NegativeResponse from '../../Components/NegativeResponse';
-import PositiveResponse from '../../Components/PositiveResponse';
+import InvalidResponse from '../../components/InvalidResponse';
+import NegativeResponse from '../../components/NegativeResponse';
+import PositiveResponse from '../../components/PositiveResponse';
 import * as userActions from '../../store/actions/user';
 import { uploadTempIDs } from '../../helpers/submissionHelper';
 import { isRefreshNeeded } from '../../helpers/authHelper';

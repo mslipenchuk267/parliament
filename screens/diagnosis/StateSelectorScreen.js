@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
-import CustomListEmptyComponent from '../../Components/CustomListEmptyComponent';
-import CustomTextInput from '../../Components/CustomTextInput';
+import CustomListEmptyComponent from '../../components/CustomListEmptyComponent';
+import CustomTextInput from '../../components/CustomTextInput';
 import { blue, lightGrey, mediumGrey } from '../../constants/colors';
 import { states, newsSiteLink } from '../../constants/states';
 import { linkToSite } from '../../helpers/deepLinkHelper';

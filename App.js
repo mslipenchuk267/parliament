@@ -15,7 +15,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 
 import userReducer from './store/reducers/user';
 import AppNavigator from './navigation/AppNavigator';
-import PushNotificationManager from './Components/PushNotificationManager';
+import PushNotificationManager from './components/PushNotificationManager';
 
 LogBox.ignoreLogs([
   'Require cycle:', // issued by the fetch() function -> doesn't affect anything

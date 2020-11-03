@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, StatusBar, Image, SafeAreaView } from 'react-na
 import { CommonActions } from '@react-navigation/native';
 
 import { owlImage } from '../../helpers/imageHelper';
-import CustomButton from '../../Components/CustomButton';
+import CustomButton from '../../components/CustomButton';
 
 
 const AuthScreen = (props) => {

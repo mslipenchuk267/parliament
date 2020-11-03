@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 
-import CustomButton from '../../Components/CustomButton';
-import CustomTextInput from '../../Components/CustomTextInput';
+import CustomButton from '../../components/CustomButton';
+import CustomTextInput from '../../components/CustomTextInput';
 import { isRefreshNeeded } from '../../helpers/authHelper';
 import * as userActions from '../../store/actions/user';
 import { deleteContactedIDs } from '../../helpers/secureStoreHelper';

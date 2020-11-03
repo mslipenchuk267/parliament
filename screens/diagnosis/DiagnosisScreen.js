@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, SafeAreaView, View } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 
-import CustomButton from '../../Components/CustomButton';
+import CustomButton from '../../components/CustomButton';
 
 /**
  * The DiagnosisScreen component houses the UI components 

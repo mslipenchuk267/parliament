@@ -9,9 +9,9 @@ import { Mutex } from 'async-mutex';
 import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
 import { generateTempID, PARLIAMENT_SERVICE_UUID } from '../../helpers/uuidHelper';
-import CustomButton from '../../Components/CustomButton';
-import CustomTextInput from '../../Components/CustomTextInput';
-import CustomTextView from '../../Components/CustomTextView';
+import CustomButton from '../../components/CustomButton';
+import CustomTextInput from '../../components/CustomTextInput';
+import CustomTextView from '../../components/CustomTextView';
 const bleManager = new BleManager();
 
 // const bleManager = new BleManager({
