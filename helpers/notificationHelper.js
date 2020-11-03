@@ -2,8 +2,9 @@ import Notification from '../models/notification';
 
 export const handleNotification = (notification, contactedIDs) => {
     const infectedIDs = getInfectedIDs(notification);
-    const matchingInfectedIDs = getNotifications(contactedIDs, infectedIDs);
-    return matchingInfectedIDs;
+    const notifications = getNotifications(contactedIDs, infectedIDs);
+    const uniqueNotifications = removeDuplicateNotification(notifications)
+    return uniqueNotifications;
 }
 
 export const getInfectedIDs = (notification) => {

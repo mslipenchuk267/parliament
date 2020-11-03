@@ -1,6 +1,28 @@
 import Notification from '../models/notification';
 import { getNotifications, handleNotification, getInfectedIDs, removeDuplicateNotification, onSameDay } from '../helpers/notificationHelper';
 
+
+describe('handleNotification', () => {
+    it('should handle notification payload and return the correct unique notifications', () => {
+        const mockNotification = {
+            "payload": {
+                "infectedIDs": "[{\"temp_id\":\"00000000-0000-0000-0000-905f5a19f5e9\",\"created_at\":\"2020-11-01T18:23:24.731Z\"},{\"temp_id\":\"00000000-0000-0000-0000-80df5b1111f2\",\"created_at\":\"2020-11-02T18:23:24.731Z\"},{\"temp_id\":\"00000000-0000-0000-0000-711fabfa2122\",\"created_at\":\"2020-11-03T18:23:24.731Z\"}]"
+            }
+        }
+        const contactedIDs = [
+            { "averageRssi": 80, "createdDate": "2020-11-03T18:23:24.731Z", "lastContactDate": "2020-11-03T18:23:24.731Z", "tempID": "00000000-0000-0000-0000-711fabfa2122", "totalScans": 1 },
+            { "averageRssi": 20, "createdDate": "2020-11-02T18:23:24.731Z", "lastContactDate": "2020-11-02T18:23:24.731Z", "tempID": "00000000-0000-0000-0000-80df5b1111f2", "totalScans": 1 },
+            { "averageRssi": 10, "createdDate": "2020-11-02T18:23:24.731Z", "lastContactDate": "2020-11-02T18:23:24.731Z", "tempID": "00000000-0000-0000-0000-80df5b1111f2", "totalScans": 1 },
+            { "averageRssi": 9, "createdDate": "2020-11-01T18:23:24.731Z", "lastContactDate": "2020-11-01T18:23:24.731Z", "tempID": "00000000-0000-0000-0000-905f5a19f5e9", "totalScans": 1 },
+            { "averageRssi": 21, "createdDate": "2020-11-01T18:23:24.731Z", "lastContactDate": "2020-11-01T18:23:24.731Z", "tempID": "00000000-0000-0000-0000-905f5a19f5e9", "totalScans": 1 }
+        ]
+        const result = handleNotification(mockNotification, contactedIDs);
+        expectedResult = [new Notification("2020-11-02T18:23:24.731Z", 10), new Notification("2020-11-01T18:23:24.731Z", 9)];
+        expect(result).toEqual(expectedResult)
+    })
+
+})
+
 describe('getInfectedIDs', () => {
     it('should correctly parse stringified infectedIDs inside the payload of a notification', () => {
         const mockNotification = {
@@ -65,19 +87,19 @@ describe('removeDuplicateNotifications', () => {
     })
 
     it('should update a unique notification\'s averagRssi if the duplicate\'s averageRssi is smaller', () => {
-        const duplicatedNotifications = [new Notification("2020-11-02T18:23:24.731Z", 10.10), new Notification("2020-11-01T15:23:24.731Z", 22.22),  new Notification("2020-11-02T15:23:24.731Z", 11.11),]
+        const duplicatedNotifications = [new Notification("2020-11-02T18:23:24.731Z", 10.10), new Notification("2020-11-01T15:23:24.731Z", 22.22), new Notification("2020-11-02T15:23:24.731Z", 11.11),]
         const result = removeDuplicateNotification(duplicatedNotifications)
         expect(result[0].averageRssi).toEqual(10.10)
     })
 
     it('should keep a unique notification\'s averagRssi if the duplicate\'s averageRssi is larger', () => {
-        const duplicatedNotifications = [new Notification("2020-11-02T18:23:24.731Z", 9.9), new Notification("2020-11-01T15:23:24.731Z", 22.22),  new Notification("2020-11-02T15:23:24.731Z", 10.10),]
+        const duplicatedNotifications = [new Notification("2020-11-02T18:23:24.731Z", 9.9), new Notification("2020-11-01T15:23:24.731Z", 22.22), new Notification("2020-11-02T15:23:24.731Z", 10.10),]
         const result = removeDuplicateNotification(duplicatedNotifications)
         expect(result[0].averageRssi).toEqual(9.9)
     })
 
     it('should keep a unique notification\'s averagRssi if the duplicate\'s averageRssi is equal', () => {
-        const duplicatedNotifications = [new Notification("2020-11-02T18:23:24.731Z", 10.10), new Notification("2020-11-01T15:23:24.731Z", 22.22),  new Notification("2020-11-02T15:23:24.731Z", 10.10),]
+        const duplicatedNotifications = [new Notification("2020-11-02T18:23:24.731Z", 10.10), new Notification("2020-11-01T15:23:24.731Z", 22.22), new Notification("2020-11-02T15:23:24.731Z", 10.10),]
         const result = removeDuplicateNotification(duplicatedNotifications)
         expect(result[0].averageRssi).toEqual(10.10)
     })

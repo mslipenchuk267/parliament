@@ -53,7 +53,7 @@ const PushNotificationManager = (props) => {
         .then(notification => {
           console.log('Initial notification was:', notification || 'N/A')
         })
-        .catch(err => console.error('getInitialNotifiation() failed', err))
+        .catch(err => console.error('getInitialNotification() failed', err))
     }
 
     registerDevice()
