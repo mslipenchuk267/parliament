@@ -343,7 +343,7 @@ const HomeScreen = () => {
                 </View>
                 <View style={{ padding: 10 }} />
                 <Text style={styles.label}>background</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginBottom: 20 }}>
                     <View style={{ margin: 10 }}>
                         <CustomButton title='Start' handlePress={handleStartBLE} />
                     </View>
