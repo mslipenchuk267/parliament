@@ -22,7 +22,7 @@ const NotificationsScreen = () => {
             <StatusBar barStyle='dark-content'/>
             <FlatList
                 contentContainerStyle={styles.sectionContainer}
-                data={[new NotificationClass("2020-11-02T18:23:24.731Z", 10), new NotificationClass("2020-11-01T18:23:24.731Z", 9)]} // notificationHistory
+                data={notificationHistory} // notificationHistory [new NotificationClass("2020-11-02T18:23:24.731Z", 10), new NotificationClass("2020-11-01T18:23:24.731Z", 9)]
                 keyExtractor={(item) => item.date}
                 renderItem={({ item }) => (
                     <Notification date={item.date} averageRssi={item.averageRssi} />
