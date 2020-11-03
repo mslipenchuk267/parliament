@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
-import CustomListEmptyComponent from '../../Components/CustomListEmptyComponent';
-import CustomTextInput from '../../Components/CustomTextInput';
-import { blue, lightGrey, mediumGrey } from '../../constants/colors';
+import CustomListEmptyComponent from '../../components/CustomListEmptyComponent';
+import CustomTextInput from '../../components/CustomTextInput';
+import { blue, lightGrey, mediumGrey, offWhite } from '../../constants/colors';
 import { states, newsSiteLink } from '../../constants/states';
 import { linkToSite } from '../../helpers/deepLinkHelper';
 import { filterStates } from '../../helpers/filterHelper';
@@ -76,7 +76,7 @@ const StateSelectorScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: offWhite,
         justifyContent: 'center',
         alignItems: 'center'
     },

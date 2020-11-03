@@ -1,18 +1,39 @@
-import React from 'react';
-import { View, Text, StyleSheet, Pressable, ImageBackground, TouchableOpacity } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { View, Text, StyleSheet, Pressable, ImageBackground, TouchableOpacity, Platform } from 'react-native';
 import { blue } from '../constants/colors';
+import NeumorphView from './NeumorphView';
 
 
 const CustomButton = (props) => {
+    const [isDown, setDown] = useState(false);
+    const handlePressIn = useCallback(() => {
+        setDown(true);
+    }, [setDown]);
+    const handlePressOut = useCallback(() => {
+        setDown(false);
+    }, [setDown]);
+
+    const gradColors = isDown ? ['#E8E8E8', '#F3F3F3'] : ['#ffffff', '#E8E8E8'];
+
+    const TouchComponent = Platform.OS === 'ios' ? TouchableOpacity : Pressable
+
     return (
-        <TouchableOpacity
+        <TouchComponent
+            activeOpacity={0.25}
             onPress={props.handlePress}
-            style={styles.button}
+            onPressIn={handlePressIn}
+            onPressOut={handlePressOut}
         >
-            <Text style={styles.buttonText}>
-                {props.title}
-            </Text>
-        </TouchableOpacity>
+            <View>
+                <NeumorphView style={styles.button} colors={gradColors} >
+                    <Text style={styles.buttonText}>
+                        {props.title}
+                    </Text>
+                </NeumorphView>
+            </View>
+
+        </TouchComponent>
+
     );
 }
 
@@ -22,9 +43,9 @@ const styles = StyleSheet.create({
         elevation: 10,
         borderRadius: 20,
         paddingVertical: 20,
-        paddingHorizontal: 50,
-        marginVertical: 20,
+        paddingHorizontal: 40,
         alignItems: 'center',
+        overflow: 'hidden',
         // shadow
         shadowColor: "#000",
         shadowOffset: {
@@ -33,7 +54,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.32,
         shadowRadius: 5.46,
-        elevation: 9,
+        elevation: 7,
     },
     buttonText: {
         fontSize: 18,

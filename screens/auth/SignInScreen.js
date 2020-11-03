@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 
-import CustomTextInput from '../../Components/CustomTextInput';
+import CustomTextInput from '../../components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
-import CustomButton from '../../Components/CustomButton';
+import CustomButton from '../../components/CustomButton';
 
 
 const SignInScreen = () => {
