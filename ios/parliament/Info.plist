@@ -2,12 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSCameraUsageDescription</key>
-	<string>We only use your camera to let you scan QR codes.</string>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Entypo.ttf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -47,8 +41,14 @@
 	<string>Our application will do bluetooth contact tracing in foreground and background if you accept.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>We use bluetooth for contact tracing at your request.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We only use your camera to let you scan QR codes.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Entypo.ttf</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>

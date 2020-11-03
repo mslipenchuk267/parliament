@@ -30,7 +30,7 @@ export const uploadTempIDs = async (tempIDs, accessToken) => {
             alert(resData.error)
             return;
         } else if (resData.result) {
-            Alert.alert("Successfully uploaded Data!")
+            Alert.alert("Successfully uploaded Data")
             console.log("submitHelper.js/uploadTempIDs() - Received result from server:", resData.result)
         } else {
             console.log("submitHelper.js/uploadTempIDs() - Received unexpected result from server:", resData)

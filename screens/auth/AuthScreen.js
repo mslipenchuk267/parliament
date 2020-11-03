@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, StatusBar, Image, SafeAreaView } from 'react-na
 import { CommonActions } from '@react-navigation/native';
 
 import { owlImage } from '../../helpers/imageHelper';
-import CustomButton from '../../Components/CustomButton';
+import CustomButton from '../../components/CustomButton';
 
 
 const AuthScreen = (props) => {
@@ -31,8 +31,12 @@ const AuthScreen = (props) => {
             <Image source={owlImage} style={styles.image} />
             <Text style={styles.titleText}>Welcome to Parliament</Text>
             <View style={styles.buttonContainer}>
-                <CustomButton title="Login" handlePress={handleLoginButtonPress} />
-                <CustomButton title="Sign Up" handlePress={handleSignUpButtonPress} />
+                <View style={{ margin: 10 }}>
+                    <CustomButton title="Login" handlePress={handleLoginButtonPress} />
+                </View>
+                <View style={{ margin: 10 }}>
+                    <CustomButton title="Sign Up" handlePress={handleSignUpButtonPress} />
+                </View>
             </View>
         </SafeAreaView>
     );
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonContainer: {
-        alignItems: "center",
+        //alignItems: "center",
         justifyContent: "center",
     },
     titleContainer: {

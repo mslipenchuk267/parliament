@@ -22,7 +22,7 @@ const PositiveResponse = (props) => {
           Help make your community safer by volunteering your anonymous temporary IDs over the past 14 days.
         </Text>
       </View>
-      <View style={styles.textContainer} >
+      <View style={{...styles.textContainer, marginHorizontal: '15%'}} >
         <CustomButton title={"Volunteer Data"} handlePress={props.handlePress} />
       </View>
       <View style={styles.textContainer}>

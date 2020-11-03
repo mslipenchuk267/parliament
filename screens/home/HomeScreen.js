@@ -1,19 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView, ScrollView, FlatList, StatusBar } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
 import { Mutex } from 'async-mutex';
+import Icon from '../../node_modules/react-native-vector-icons/Entypo';
 
 import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
 import { generateTempID, PARLIAMENT_SERVICE_UUID } from '../../helpers/uuidHelper';
-import CustomButton from '../../Components/CustomButton';
-import CustomTextInput from '../../Components/CustomTextInput';
-
+import CustomButton from '../../components/CustomButton';
+import CustomTextInput from '../../components/CustomTextInput';
+import CustomTextView from '../../components/CustomTextView';
+import LCDView from '../../components/LCDView';
+import NeumorphView from '../../components/NeumorphView';
+import { offWhite } from '../../constants/colors';
 import BackgroundService from 'react-native-background-actions'
 import { startAllBackground, stopAllBackground} from '../../helpers/backgroundHelper';
+
 const bleManager = new BleManager();
 
 // const bleManager = new BleManager({
@@ -38,6 +43,7 @@ const bleManager = new BleManager();
  */
 
 const HomeScreen = () => {
+    const contactedIDs = useSelector(state => state.user.contactedIDs);
     const dispatch = useDispatch();
     const [tempID, setTempID] = useState(null);
 
@@ -91,6 +97,7 @@ const HomeScreen = () => {
             //BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fa', true);
             const tempID = generateTempID();
             setTempID(tempID);
+            dispatch(userActions.storeTempID(tempID));
             BLEPeripheral.addCharacteristicToService(PARLIAMENT_SERVICE_UUID, tempID, 16 | 1, 8)
 
             BLEPeripheral.start()
@@ -105,6 +112,7 @@ const HomeScreen = () => {
             //}
             const tempID = generateTempID();
             setTempID(tempID);
+            dispatch(userActions.storeTempID(tempID));
             // add tempID to redux state
             await dispatch(userActions.storeTempID(tempID));
             const ch = new Characteristic({
@@ -139,11 +147,11 @@ const HomeScreen = () => {
     const handleStopAdvertising = async () => {
         if (Platform.OS === 'android') {
             await BLEPeripheral.stop()
-            setTempID("None");
+            setTempID("");
         } else {
             if (Peripheral.isAdvertising()) {
-                return await Peripheral.stopAdvertising();
-                setTempID("None");
+                await Peripheral.stopAdvertising();
+                setTempID("");
             }
         }
     }
@@ -264,7 +272,7 @@ const HomeScreen = () => {
             const granted = PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
                 {
-                    title: 'Permission Localisation Bluetooth',
+                    title: 'Permission Localization Bluetooth',
                     message: 'Requirement for Bluetooth',
                     buttonNeutral: 'Later',
                     buttonNegative: 'Cancel',
@@ -275,40 +283,84 @@ const HomeScreen = () => {
     }, []);
 
     return (
-        <ScrollView
-            style={{
-                flex: 1,
-                backgroundColor: 'white',
-            }}
-            contentContainerStyle={{
-                alignItems: 'center',
-                justifyContent: 'center'
-            }}
-        >
-            <SafeAreaView style={{ width: '80%' }}>
-                <View style={{padding: 10}} />
-                <CustomTextInput
-                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "No temp ID set"}
+        <SafeAreaView style={styles.container}>
+            <StatusBar barStyle='dark-content' />
+            <View style={{ padding: 10 }} />
+            <View>
+                <NeumorphView
+                    style={styles.linearGradient}
+                >
+                    <LCDView>
+                        <View style={{ flexBasis: 'auto', height: 130, paddingHorizontal: '2%' }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1}}>
+                                <Text style={styles.lcdLabel}>scanned device</Text>
+                                <Text style={styles.lcdLabel}>signal <Icon name="signal" size={14} color="black" /></Text>
+                            </View>
+                            <FlatList
+                                data={contactedIDs}
+                                keyExtractor={(item) => item.tempID}
+                                renderItem={({ item }) => (
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3}} >
+                                        <Text>{item.tempID.substring(item.tempID.length - 12)}</Text>
+                                        <Text>{item.averageRssi}</Text>
+                                    </View>
+                                )}
+                            />
+                        </View>
+                    </LCDView>
+                </NeumorphView>
+                <View style={{ padding: 20 }} />
+                <CustomTextView
+                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "Not Advertising"}
+                    value={tempID ? tempID.substring(tempID.length - 12) : ""}
                 />
-                <CustomButton title='Start Scanning' handlePress={handleStartContactTracing} />
-                <CustomButton title='Stop Scanning' handlePress={handleStopContactTracing} />
-                <CustomButton title='Start Advertising' handlePress={handleStartAdvertising} />
-                <CustomButton title='Stop Advertising' handlePress={handleStopAdvertising} />
-                <CustomButton title='Start Background' handlePress={handleStartBLE} />
-                <CustomButton title='Stop Background' handlePress={handleStopBLE} />
-            </SafeAreaView>
-        </ScrollView>
-
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 30 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.label}>advertising</Text>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='Start' handlePress={handleStartAdvertising} />
+                        </View>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='Stop' handlePress={handleStopAdvertising} />
+                        </View>
+                    </View>
+                    <View style={{ alignItems: 'center' }}>
+                        <Text style={styles.label}>scanning</Text>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='Start' handlePress={handleStartContactTracing} />
+                        </View>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='Stop' handlePress={handleStopContactTracing} />
+                        </View>
+                    </View>
+                </View>
+            </View>
+            <CustomButton title='Start Background' handlePress={handleStartBLE} />
+            <CustomButton title='Stop Background' handlePress={handleStopBLE} />
+        </SafeAreaView>
     )
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: offWhite,
         alignItems: 'center',
         justifyContent: 'center'
-    }
+    },
+    label: {
+        fontSize: 18,
+        fontWeight: '500'
+    },
+    linearGradient: {
+        paddingVertical: 1,
+        paddingHorizontal: 1,
+        borderRadius: 15,
+        minHeight: 100,
+    },
+    lcdLabel: {
+        fontSize: 16,
+    },
 });
 
 export default HomeScreen;
