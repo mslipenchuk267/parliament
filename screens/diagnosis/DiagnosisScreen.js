@@ -1,8 +1,9 @@
 import React from 'react'
-import { StyleSheet, SafeAreaView, View } from 'react-native';
+import { StyleSheet, SafeAreaView, View, StatusBar } from 'react-native';
 import { CommonActions } from '@react-navigation/native';
 
 import CustomButton from '../../components/CustomButton';
+import { offWhite } from '../../constants/colors';
 
 /**
  * The DiagnosisScreen component houses the UI components 
@@ -40,6 +41,7 @@ const DiagnosisScreen = (props) => {
 
     return (
         <SafeAreaView style={styles.container} >
+            <StatusBar barStyle='dark-content' />
             <View>
                 <CustomButton title='Find News in Your State' handlePress={handleNewsSiteButton} />
                 <View style={{ padding: 20 }} />
@@ -52,7 +54,7 @@ const DiagnosisScreen = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: offWhite,
         alignItems: 'center',
         justifyContent: 'center'
     }

@@ -30,9 +30,6 @@ export const getNotifications = (contactedIDs, infectedIDs) => {
             }
         }
     })
-
-    console.log("\n AverageRssi <= 70 \n -------------------------------");
-    console.log(newNotifications);
     return newNotifications;
 }
 

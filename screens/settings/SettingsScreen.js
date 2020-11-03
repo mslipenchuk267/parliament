@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, View, Text, Alert } from 'react-native'
+import { StyleSheet, SafeAreaView, View, Text, Alert, Appearance } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -10,6 +10,7 @@ import CustomTextInput from '../../components/CustomTextInput';
 import { isRefreshNeeded } from '../../helpers/authHelper';
 import * as userActions from '../../store/actions/user';
 import { deleteContactedIDs } from '../../helpers/secureStoreHelper';
+import { offWhite } from '../../constants/colors';
 
 
 /**
@@ -89,12 +90,12 @@ const SettingsScreen = () => {
             }}
         >
             <SafeAreaView>
-                <View style={{ marginHorizontal: '22%', marginTop: 20 }}>
+                <View style={{ marginHorizontal: '22%', marginTop: 20, marginBottom: 10 }}>
                     <CustomButton title="Logout" handlePress={logoutButtonHandler} />
                     <View style={{padding: 10}}/>
                     <CustomButton title="Delete Account" handlePress={deleteAccountButtonHandler} />
                 </View>
-                <View style={{ marginTop: 20, marginBottom: 10, alignItems: 'center', borderColor: '#a5acae', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%' }}>
+                <View style={{ marginTop: 20, marginBottom: 10, alignItems: 'center', borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%' }}>
                     <Text style={styles.header} >Bluetooth Mock</Text>
                     <Text style={styles.body}>Enter the last part of the <Text style={{ fontWeight: 'bold' }}>temp ID</Text></Text>
                     <Text style={styles.hint}>( e.g. 00000000-0000-0000-0000-XXXXXXXXXXXX )</Text>
@@ -113,7 +114,7 @@ const SettingsScreen = () => {
                 </View>
                 <DateTimePickerModal
                     isVisible={isDatePickerVisible}
-                    isDarkModeEnabled={true}
+                    isDarkModeEnabled={Appearance.getColorScheme() === 'dark' ? true : false}
                     mode="date"
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
@@ -139,7 +140,7 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
+        backgroundColor: offWhite,
     },
     body: {
         fontSize: 16

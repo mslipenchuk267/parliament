@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, SafeAreaView, FlatList, StatusBar } from 'react
 import { useSelector } from 'react-redux';
 import CustomListEmptyComponent from '../../components/CustomListEmptyComponent';
 import Notification from '../../components/Notification';
+import { offWhite } from '../../constants/colors';
 import NotificationClass from '../../models/notification';
 
 /**
@@ -41,7 +42,7 @@ const NotificationsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fcfcfc',
+        backgroundColor: offWhite,
     },
     sectionContainer: {
         paddingHorizontal: '8%',

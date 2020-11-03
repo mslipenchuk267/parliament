@@ -14,13 +14,12 @@ const CustomButton = (props) => {
         setDown(false);
     }, [setDown]);
 
-    const gradColors = isDown ? ['#E8E8E8', '#F3F3F3'] : ['#ffffff', '#E5E5E5'];
+    const gradColors = isDown ? ['#E8E8E8', '#F3F3F3'] : ['#ffffff', '#E8E8E8'];
 
     return (
-        <View style={styles.buttonOuter}>
-            <View style={styles.buttonInner}>
+
                 <TouchableOpacity
-                    activeOpacity={0.2}
+                    activeOpacity={0.25}
                     onPress={props.handlePress}
                     onPressIn={handlePressIn}
                     onPressOut={handlePressOut}
@@ -32,8 +31,7 @@ const CustomButton = (props) => {
                     </NeumorphView>
 
                 </TouchableOpacity>
-            </View>
-        </View >
+
     );
 }
 
@@ -54,19 +52,6 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.32,
         shadowRadius: 5.46,
         elevation: 9,
-    },
-    buttonOuter: {
-        marginTop: 10,
-        shadowOffset: { width: 10, height: 10 },
-        shadowRadius: 10,
-        shadowColor: '#d6d6d6',
-        shadowOpacity: 1.0,
-    },
-    buttonInner: {
-        shadowOffset: { width: -10, height: -10 },
-        shadowRadius: 10,
-        shadowColor: '#ffffff',
-        shadowOpacity: 1.0
     },
     buttonText: {
         fontSize: 18,

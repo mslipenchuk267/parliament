@@ -8,6 +8,7 @@ import PositiveResponse from '../../components/PositiveResponse';
 import * as userActions from '../../store/actions/user';
 import { uploadTempIDs } from '../../helpers/submissionHelper';
 import { isRefreshNeeded } from '../../helpers/authHelper';
+import { offWhite } from '../../constants/colors';
 
 /**
  * The QRPositiveScreen component houses the UI components 
@@ -70,7 +71,7 @@ const QRResultsScreen = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: offWhite,
     alignItems: 'center',
     justifyContent: 'center'
   },
