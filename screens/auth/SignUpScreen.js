@@ -24,20 +24,19 @@ const SignUpScreen = () => {
         setPasswordValid(passwordInputValidator(passwordInput));
     }
 
-    const signUpButtonHandler = () => {
-        if(username && password){
-            if(usernameValid && passwordValid){
-                dispatch(userActions.signup(username, password))
+    const signUpButtonHandler = async () => {
+        console.log("SignUpScreen.js/signUpButtonHandler() - Pressed Sign Up Button with userNameValid", usernameValid, " and passwordValid", passwordValid);
+        if (username && password) {
+            if (usernameValid && passwordValid.isValid) {
+                await dispatch(userActions.signup(username, password))
             }
-            else{
+            else {
                 Alert.alert("Invalid username or password")
             }
         }
-        else{
-            Alert.alert("Please complete login form")
+        else {
+            Alert.alert("Please complete Sign Up form")
         }
-        console.log("SignInScreen.js/signUpButtonHandler() Pressed Sign Up Button");
-        //dispatch(userActions.signup(username, password))
     }
 
     return (
@@ -47,7 +46,6 @@ const SignUpScreen = () => {
             <View style={{ width: '70%' }}>
                 <CustomTextInput
                     placeholder="Username"
-                    //onChangeText={(text) => setUsername(text)}
                     onChangeText={(text) => handleUserNameInput(text)}
                 />
             </View>
@@ -55,7 +53,6 @@ const SignUpScreen = () => {
             <View style={{ width: '70%' }}>
                 <CustomTextInput
                     placeholder="Password"
-                    //onChangeText={(text) => setPassword(text)}
                     onChangeText={(text) => handlePasswordInput(text)}
                     secureTextEntry={true}
                 />
