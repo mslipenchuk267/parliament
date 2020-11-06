@@ -5,7 +5,7 @@ import { View, StyleSheet, SafeAreaView } from 'react-native';
 import CustomTextInput from '../../components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
 import CustomButton from '../../components/CustomButton';
-import { userNameInputValidator, passwordInputValidator } from '../../inputValidationHelper'
+import { userNameInputValidator, passwordInputValidator } from '../../helpers/inputValidationHelper'
 
 const SignUpScreen = () => {
     const [username, setUsername] = useState('');
@@ -16,7 +16,7 @@ const SignUpScreen = () => {
 
     const handleUserNameInput = (userNameInput) => {
         setUsername(userNameInput);
-        setUsernameValid(userNameInputValidator(usernameInput));
+        setUsernameValid(userNameInputValidator(userNameInput));
     }
 
     const handlePasswordInput = (passwordInput) => {

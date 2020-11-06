@@ -6,7 +6,7 @@ import CustomTextInput from '../../components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
 import CustomButton from '../../components/CustomButton';
 //import { userNameInputValidator, passwordInputValidator } from '../../../../../Downloads/userInputHelper';
-import { userNameInputValidator, passwordInputValidator } from '../../inputValidationHelper'
+import { userNameInputValidator, passwordInputValidator } from '../../helpers/inputValidationHelper'
 
 
 const SignInScreen = () => {
@@ -52,6 +52,7 @@ const SignInScreen = () => {
                     placeholder="Username"
                     //onChangeText={(text) => setUsername(text)}
                     onChangeText={(text) => handleUsernameInput(text)}
+                    testID="usernameInput"
                 />
             </View>
             <View style={{ padding: 10 }}/>
@@ -60,8 +61,8 @@ const SignInScreen = () => {
                     placeholder="Password"
                     //onChangeText={(text) => setPassword(text)}
                     onChangeText={(text) => handlePasswordInput(text)}
-
                     secureTextEntry={true}
+                    testID="passwordInput"
                 />
             </View>
             <View style={{ padding: 10 }}/>
