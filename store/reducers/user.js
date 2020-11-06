@@ -97,7 +97,6 @@ export default (state = initialState, action) => {
         case AUTHENTICATE:
             return {
                 ...state,
-                username: action.username,
                 accessToken: action.accessToken,
                 accessTokenExpiration: action.accessTokenExpiration,
                 refreshToken: action.refreshToken,
@@ -105,6 +104,7 @@ export default (state = initialState, action) => {
             }
         case REFRESH_TOKENS:
             return {
+                ...state,
                 accessToken: action.accessToken,
                 accessTokenExpiration: action.accessTokenExpiration,
                 refreshToken: action.refreshToken,

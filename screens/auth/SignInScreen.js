@@ -13,43 +13,8 @@ const SignInScreen = () => {
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
 
-    //users access and accesstoken exp
-    const accessToken = useSelector(state => state.user.accessToken);
-    const accessTokenExpiration = useSelector(state => state.user.accessTokenExpiration);
-
     const signInButtonHandler = async () => {
         console.log("SignInScreen.js/signInButtonHandler() Pressed Sign In Button");
-        //TODO: capture userAuth , JSON.stringify 
-         var userAuth = 
-            {
-                "accessToken": typeof(accessToken),
-                "accessTokenExpiration": accessTokenExpiration,
-                "refreshToken": "test3",
-                "refeshTokenExpiration": "test4",
-            }
-        
-
-        //TODO: save userAuth data into SecureStore
-        try {
-            await SecureStore.setItemAsync('userAuth', JSON.stringify(userAuth)) //convery to JSON tostring
-            console.log("SignInScreen.js/signInButtonHandler() - Saved userAuth to secure store")
-        } catch (err) {
-            console.log("SignInScreen.js/signInButtonHandler() - Could not save userAuth to secure store, error:", err)
-        }
-
-        //PRINT TEST
-
-        try {
-            var retrievedUserAuth = await SecureStore.getItemAsync('userAuth');
-            if (retrievedUserAuth) {
-                const transformedretrievedUserAuth = JSON.parse(retrievedUserAuth);
-                console.log( transformedretrievedUserAuth );
-            }
-        } catch {
-            console.log("SignInScreen.js/signInButtonHandler() - Could not parse userAuth from secure store, error:", err)
-        }
-
-
         dispatch(userActions.login(username, password))
     }
 

@@ -1,6 +1,36 @@
 import * as SecureStore from 'expo-secure-store';
 
 /**
+ * This function deletes the userAuth json saved in persistent storage
+ * if it exists
+ * @return {Promise<void>} 
+ */
+export const deleteUserAuth = async () => {
+    try {
+        await SecureStore.deleteItemAsync('userAuth')
+        console.log("secureStoreHelper.js/deleteUserAuth() - Deleted userAuth from secure store")
+    } catch (err) {
+        console.log("secureStoreHelper.js/deleteUserAuth() - Could not delete userAuth from secure store, error:", err)
+    }
+}
+
+/**
+ * This function prepares and saves the userAuth json
+ * to the secure store.
+ * @param {Array} userAuth 
+ */
+export const saveUserAuth = async (userAuth) => {
+    try {
+        await SecureStore.setItemAsync('userAuth', JSON.stringify(userAuth))
+        console.log("secureStoreHelper.js/saveUserAuth() - Saved userAuth to secure store")
+    } catch (err) {
+        console.log("secureStoreHelper.js/saveUserAuth() - Could not save userAuth to secure store, error:", err)
+    }
+}
+
+
+
+/**
  * This function deletes the contactedIDs array saved in persistent storage
  * if it exists
  * @return {Promise<void>} 
@@ -11,6 +41,23 @@ export const deleteContactedIDs = async () => {
         console.log("secureStoreHelper.js/deleteContactedIDs() - Deleted contactedIDs from secure store")
     } catch (err) {
         console.log("secureStoreHelper.js/deleteContactedIDs() - Could not delete contactedIDs from secure store, error:", err)
+    }
+}
+
+/**
+ * This function gets the userAuth json saved to the secure store. 
+ * @return {Promise<Array>} contactedIDs - returns contactedIDs saved in redux store
+ */
+export const getUserAuth = async () => {
+    try {
+        const userAuth = await SecureStore.getItemAsync('userAuth');
+        if (userAuth) {
+            const transformedUserAuth = JSON.parse(userAuth);
+            console.log("secureStoreHelper.js/getUserAuth() - Retrieved userAuth from secure store", transformedUserAuth)
+            return transformedUserAuth;
+        }
+    } catch {
+        console.log("secureStoreHelper.js/getUserAuth() - Could not get userAuth from secure store, error:", err)
     }
 }
 
