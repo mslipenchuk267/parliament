@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
 
 import CustomTextInput from '../../components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
@@ -58,7 +58,19 @@ const SignUpScreen = () => {
                 />
             </View>
             <View style={{ padding: 10 }} />
+            <View>
+                <Text style={{ color: passwordValid.lengthValid ? '#34c759' : 'grey', paddingTop: 3 }} >
+                                    10 to 24 characters long
+                </Text>
+                <Text style={{ color: passwordValid.caseValid ? '#34c759' : 'grey', paddingTop: 3 }} >
+                    Mixture of uppercase and lowercase
+                </Text>
+                <Text style={{ color: passwordValid.numberValid ? '#34c759' : 'grey', paddingTop: 3, paddingBottom: 10 }} >
+                    Mixture of letters and numbers
+                </Text>
+            </View>
             <CustomButton title="Sign Up" handlePress={signUpButtonHandler} />
+            
         </SafeAreaView>
     );
 
