@@ -2,20 +2,9 @@ const { userNameInputValidator, passwordInputValidator } = require("../helpers/i
 
 describe('userNameInputValidator', () => {
     //Username check
-    it('should return false if username is less than 4 chars', () => {
-        const result = userNameInputValidator("abc");
-        const expectedResult = false
+    //True 
 
-        expect(result).toEqual(expectedResult)
-    })
-
-    it('should return false if username is greater than 15 chars', () => {
-        const result = userNameInputValidator("asdfghjklqwertyu");
-        const expectedResult = false
-
-        expect(result).toEqual(expectedResult)
-    })
-
+    //Username length equal 4
     it('should return true if username is 4 chars', () => {
         const result = userNameInputValidator("abcd");
         const expectedResult = true
@@ -23,6 +12,7 @@ describe('userNameInputValidator', () => {
         expect(result).toEqual(expectedResult)
     })
 
+    //Username length equal 5
     it('should return true if username is 15 chars', () => {
         const result = userNameInputValidator("asdfghjklqwerty");
         const expectedResult = true
@@ -30,6 +20,7 @@ describe('userNameInputValidator', () => {
         expect(result).toEqual(expectedResult)
     })
 
+    //Username length greater equal to 4 and less equal to 15
     it('should return true if username is between 4 and 15 chars', () => {
         const result = userNameInputValidator("asdfghjkl");
         const expectedResult = true
@@ -37,8 +28,70 @@ describe('userNameInputValidator', () => {
         expect(result).toEqual(expectedResult)
     })
 
-    //Passwords check
+    //Username contains no white space
+    it('should return true if username contains no space', () => {
+        const result = userNameInputValidator("T8D5k2neQWbq");
+        const expectedResult = true
+        expect(result).toEqual(expectedResult)
+    })
 
+    //Username contains no trailing
+    it('should return true if username contains no trailing', () => {
+        const result = userNameInputValidator("T8D5k2neQWbq");
+        const expectedResult = true
+        expect(result).toEqual(expectedResult)
+    })
+
+    //Username doesn't contain special characters
+    it('should return true if username contains no special characters', () => {
+        const result = userNameInputValidator("45m8qWCsdG");
+        const expectedResult = true
+        expect(result).toEqual(expectedResult)
+    })
+
+
+
+    //False 
+    //Username doesn't contain special characters
+    it('should return true if username contains no special characters', () => {
+        const result = userNameInputValidator("%45m8q=WCsdG");
+        const expectedResult = false
+        expect(result).toEqual(expectedResult)
+    })
+
+    //Username has trailing
+    it('should return false if username contains no trailing', () => {
+        const result = userNameInputValidator("_45m8qWCsdG");
+        const expectedResult = false
+        expect(result).toEqual(expectedResult)
+    })
+
+    //Username Contains space 
+    it('should return false if username contains space', () => {
+        const result = userNameInputValidator("T8D5k2ne QWbq");
+        const expectedResult = false;
+        expect(result).toEqual(expectedResult)
+    })
+
+    //Username length less than 4
+    it('should return false if username is less than 4 chars', () => {
+        const result = userNameInputValidator("abc");
+        const expectedResult = false
+
+        expect(result).toEqual(expectedResult)
+    })
+
+    //Username length greater than 15
+    it('should return false if username is greater than 15 chars', () => {
+        const result = userNameInputValidator("asdfghjklqwertyu");
+        const expectedResult = false
+
+        expect(result).toEqual(expectedResult)
+    })
+
+
+
+    //Passwords check
     //True:     
 
     //Passwords == 10
