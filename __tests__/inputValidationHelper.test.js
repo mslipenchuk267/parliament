@@ -1,4 +1,7 @@
-const { userNameInputValidator, passwordInputValidator } = require("../helpers/inputValidationHelper")
+import {
+    userNameInputValidator,
+    passwordInputValidator
+} from "../helpers/inputValidationHelper";
 
 describe('userNameInputValidator', () => {
     //Username check
@@ -88,9 +91,9 @@ describe('userNameInputValidator', () => {
 
         expect(result).toEqual(expectedResult)
     })
+})
 
-
-
+describe('passwordInputValidator', () => {
     //Passwords check
     //True:     
 
