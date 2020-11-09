@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import * as userActions from '../store/actions/user';
-import { deleteUserAuth, getContactedIDs, getUserAuth } from '../helpers/secureStoreHelper';
+import { getContactedIDs, getUserAuth } from '../helpers/secureStoreHelper';
 import { offWhite } from '../constants/colors';
 
 /**

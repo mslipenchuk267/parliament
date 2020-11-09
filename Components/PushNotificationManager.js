@@ -26,7 +26,7 @@ const PushNotificationManager = (props) => {
 
     registerNotificationEvents = () => {
       Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
-        console.log('Notification Received - Foreground', notification)
+        console.log('PushNotificationManager.js/registerNotificationEvents() - Notification Received - Foreground', notification)
         const matchedContacts = handleNotification(notification, contactedIDs);
         dispatch(userActions.updateNotificationHistory(matchedContacts));
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
