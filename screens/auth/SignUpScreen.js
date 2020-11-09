@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 
 import CustomTextInput from '../../components/CustomTextInput';
 import * as userActions from '../../store/actions/user';
 import CustomButton from '../../components/CustomButton';
+import { getDeviceToken } from '../../helpers/notificationHelper';
 
 const SignUpScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const deviceToken = useSelector(state => state.user.deviceToken)
     const dispatch = useDispatch();
 
-    const signUpButtonHandler = () => {
+    const signUpButtonHandler = async () => {
         console.log("SignInScreen.js/signUpButtonHandler() Pressed Sign Up Button");
-        dispatch(userActions.signup(username, password))
+        if (deviceToken) {
+            dispatch(userActions.signup(username, password))
+        } else {
+            const newDeviceToken = getDeviceToken();
+            dispatch(userActions.setDeviceToken(newDeviceToken));
+            dispatch(userActions.signup(username, password))
+        }
     }
 
     return (
