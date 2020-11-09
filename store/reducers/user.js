@@ -64,7 +64,7 @@ export default (state = initialState, action) => {
         case UPDATE_NOTIFICATION_HISTORY:
             // Filter out notifications that are already in history
             var uniqueNotifications = []
-            console.log("In the reducer with the matchedCOntacts:", action.matchedContacts)
+            console.log("store/reducers/user.js - Adding matchedContacts:", action.matchedContacts)
             for (var matchedContactIndex in action.matchedContacts) {
                 const notificationIndex = state.notificationHistory.findIndex(notification => notification.date === action.matchedContacts[matchedContactIndex].date)
                 if (notificationIndex >= 0) {
@@ -97,7 +97,6 @@ export default (state = initialState, action) => {
         case AUTHENTICATE:
             return {
                 ...state,
-                username: action.username,
                 accessToken: action.accessToken,
                 accessTokenExpiration: action.accessTokenExpiration,
                 refreshToken: action.refreshToken,
@@ -105,6 +104,7 @@ export default (state = initialState, action) => {
             }
         case REFRESH_TOKENS:
             return {
+                ...state,
                 accessToken: action.accessToken,
                 accessTokenExpiration: action.accessTokenExpiration,
                 refreshToken: action.refreshToken,

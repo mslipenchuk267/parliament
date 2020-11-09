@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { View, StyleSheet, SafeAreaView, Text } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 
 import CustomTextInput from '../../components/CustomTextInput';
-import * as userActions from '../../store/actions/user';
 import CustomButton from '../../components/CustomButton';
 import { userNameInputValidator, passwordInputValidator } from '../../helpers/inputValidationHelper'
+import { getDeviceToken } from '../../helpers/notificationHelper';
+import * as userActions from '../../store/actions/user';
 
 const SignUpScreen = () => {
     const [username, setUsername] = useState('');
     const [usernameValid, setUsernameValid] = useState(false);
     const [password, setPassword] = useState('');
     const [passwordValid, setPasswordValid] = useState(false);
+    const deviceToken = useSelector(state => state.user.deviceToken)
     const dispatch = useDispatch();
 
     const handleUserNameInput = (userNameInput) => {
@@ -28,7 +31,13 @@ const SignUpScreen = () => {
         console.log("SignUpScreen.js/signUpButtonHandler() - Pressed Sign Up Button with userNameValid", usernameValid, " and passwordValid", passwordValid);
         if (username && password) {
             if (usernameValid && passwordValid.isValid) {
-                await dispatch(userActions.signup(username, password))
+                if (deviceToken) {
+                    dispatch(userActions.signup(username, password))
+                } else {
+                    const newDeviceToken = getDeviceToken();
+                    dispatch(userActions.setDeviceToken(newDeviceToken));
+                    dispatch(userActions.signup(username, password))
+                }
             }
             else {
                 Alert.alert("Invalid username or password")
@@ -40,8 +49,6 @@ const SignUpScreen = () => {
     }
 
     return (
-
-
         <SafeAreaView style={styles.container}>
             <View style={{ width: '70%' }}>
                 <CustomTextInput
@@ -70,7 +77,6 @@ const SignUpScreen = () => {
                 </Text>
             </View>
             <CustomButton title="Sign Up" handlePress={signUpButtonHandler} />
-            
         </SafeAreaView>
     );
 

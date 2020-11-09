@@ -1,3 +1,4 @@
+import { Notifications } from 'react-native-notifications';
 import Notification from '../models/notification';
 
 export const handleNotification = (notification, contactedIDs) => {
@@ -54,4 +55,18 @@ export const onSameDay = (stringDate1, stringDate2) => {
     return date1.getFullYear() === date2.getFullYear() && // year matches
         date1.getMonth() === date2.getMonth() && // month matches
         date1.getDate() === date2.getDate(); // day matches
+}
+
+export const getDeviceToken = () => {
+    // Notifications.events().registerRemoteNotificationsRegistered(event => {
+    //     // Set the device token state
+    //     //dispatch(userActions.setDeviceToken(event.deviceToken));
+    //     console.log('notificationHelper.js/getDeviceToken() - Device Token Received', event.deviceToken)
+    //     return event.deviceToken
+    // })
+    // Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
+    //     console.error(event)
+    // })
+    console.log('notificationHelper.js/getDeviceToken() - Invoking Notifications.registerRemoteNotifications()')
+    Notifications.registerRemoteNotifications()
 }
