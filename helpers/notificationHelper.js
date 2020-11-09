@@ -58,14 +58,15 @@ export const onSameDay = (stringDate1, stringDate2) => {
 }
 
 export const getDeviceToken = () => {
-    Notifications.events().registerRemoteNotificationsRegistered(event => {
-        // Set the device token state
-        //dispatch(userActions.setDeviceToken(event.deviceToken));
-        console.log('*********************** Device Token Received', event.deviceToken)
-        return event.deviceToken
-    })
-    Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
-        console.error(event)
-    })
+    // Notifications.events().registerRemoteNotificationsRegistered(event => {
+    //     // Set the device token state
+    //     //dispatch(userActions.setDeviceToken(event.deviceToken));
+    //     console.log('notificationHelper.js/getDeviceToken() - Device Token Received', event.deviceToken)
+    //     return event.deviceToken
+    // })
+    // Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
+    //     console.error(event)
+    // })
+    console.log('notificationHelper.js/getDeviceToken() - Invoking Notifications.registerRemoteNotifications()')
     Notifications.registerRemoteNotifications()
 }
