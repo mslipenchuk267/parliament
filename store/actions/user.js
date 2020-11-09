@@ -12,7 +12,7 @@ import {
     UPDATE_NOTIFICATION_HISTORY,
     CLEAR_CONTACTED_IDS
 } from '../../constants/ActionTypes';
-import { deleteContactedIDs, saveContactedIDs } from '../../helpers/secureStoreHelper';
+import { deleteContactedIDs, saveContactedIDs, deleteUserAuth, saveUserAuth } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
 import { uploadDeviceToken } from '../../helpers/authHelper';
 
@@ -173,7 +173,6 @@ export const login = (username, password) => {
         }
         console.log("store/actions/user.js/login() - Login Request Successful")
         await dispatch(authenticate(
-            username,
             resData.auth.accessToken,
             resData.auth.accessTokenExpiration,
             resData.auth.refreshToken,
@@ -181,6 +180,15 @@ export const login = (username, password) => {
         ))
         // Upload device token to AUTH api, need accessToken to do so
         uploadDeviceToken(getState().user.deviceToken, getState().user.accessToken);
+        // Save userAuth data from database to secure store
+        var userAuth = {
+            "accessToken": resData.auth.accessToken,
+            "accessTokenExpiration": resData.auth.accessTokenExpiration,
+            "refreshToken": resData.auth.refreshToken,
+            "refreshTokenExpiration": resData.auth.refreshTokenExpiration,
+        }
+        await deleteUserAuth();
+        await saveUserAuth(userAuth);
     }
 }
 
@@ -210,7 +218,6 @@ export const signup = (username, password) => {
         }
         console.log("store/actions/user.js/signup() - Signup Request Successful")
         dispatch(authenticate(
-            username,
             resData.auth.accessToken,
             resData.auth.accessTokenExpiration,
             resData.auth.refreshToken,
@@ -218,6 +225,15 @@ export const signup = (username, password) => {
         ))
         // Upload device token to AUTH api, need accessToken to do so
         uploadDeviceToken(getState().user.deviceToken, getState().user.accessToken);
+        // Save userAuth data from database to secure store
+        var userAuth = {
+            "accessToken": resData.auth.accessToken,
+            "accessTokenExpiration": resData.auth.accessTokenExpiration,
+            "refreshToken": resData.auth.refreshToken,
+            "refreshTokenExpiration": resData.auth.refreshTokenExpiration,
+        }
+        await deleteUserAuth();
+        await saveUserAuth(userAuth);
     }
 
 }
@@ -249,6 +265,8 @@ export const logout = () => {
         // reset user authentication data
         console.log("store/actions/user.js/logout() - Logout Request Successful")
         dispatch({ type: UNAUTHENTICATE });
+        // remove the userAuth data from the secure store
+        await deleteUserAuth();
     }
 }
 
@@ -284,6 +302,8 @@ export const deleteAccount = () => {
         dispatch({ type: UNAUTHENTICATE });
         // remove the contactedIDs data from the secure store
         await deleteContactedIDs();
+        // remove the userAuth data from the secure store
+        await deleteUserAuth();
     }
 }
 
@@ -317,7 +337,16 @@ export const refreshTokens = () => {
             resData.auth.accessTokenExpiration,
             resData.auth.refreshToken,
             resData.auth.refreshTokenExpiration
-        ))
+        ))// save new userAuth data to to secure store
+        // Save userAuth data from database to secure store
+        var userAuth = {
+            "accessToken": resData.auth.accessToken,
+            "accessTokenExpiration": resData.auth.accessTokenExpiration,
+            "refreshToken": resData.auth.refreshToken,
+            "refreshTokenExpiration": resData.auth.refreshTokenExpiration,
+        }
+        await deleteUserAuth();
+        await saveUserAuth(userAuth);
     }
 }
 
@@ -325,10 +354,9 @@ export const setDeviceToken = (deviceToken) => {
     return { type: SET_DEVICE_TOKEN, deviceToken: deviceToken }
 }
 
-export const authenticate = (username, accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
+export const authenticate = (accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
     return {
         type: AUTHENTICATE,
-        username: username,
         accessToken: accessToken,
         refreshToken: refreshToken,
         accessTokenExpiration: accessTokenExpiration,

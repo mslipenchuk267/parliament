@@ -32,7 +32,7 @@ export const uploadDeviceToken = async (deviceToken, accessToken) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         var raw = JSON.stringify({ "accessToken": accessToken, "deviceKey": deviceToken });
-
+        console.log(raw);
         var requestOptions = {
             method: 'POST',
             headers: myHeaders,

@@ -22,6 +22,14 @@ describe('StateSelectorScreen', () => {
       fireEvent.changeText(getByTestId("stateSearchBar"), "weefwfwefwe");
       expect(getByTestId('ListEmptyComponent')).not.toBeNull();
     })
+
+    it('should not render ListEmptyComponent children for a valid search', () => {
+      const { getByTestId, queryByText } = render(<StateSelectorScreen />);
+
+      fireEvent.changeText(getByTestId("stateSearchBar"), "new");
+      expect(queryByText('no results found 🕵️')).toBeNull();
+      expect(queryByText('please try another query')).toBeNull();
+    })
   
     it('renders the ListEmptyComponent text when user gives a search query with no results', () => {
       const {getByTestId, queryByText} = render(<StateSelectorScreen />)
