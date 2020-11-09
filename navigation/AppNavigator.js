@@ -17,7 +17,6 @@ import { useSelector } from 'react-redux';
  */
 const AppNavigator = (props) => {
     const didTryAutoLogin = useSelector(state => state.user.didTryAutoLogin);
-
     const accessToken = useSelector(state => state.user.accessToken);
 
     return (
@@ -25,7 +24,6 @@ const AppNavigator = (props) => {
             { didTryAutoLogin === false && <StartupScreen />}
             { didTryAutoLogin === true && accessToken.length < 1 && <AuthNavigator />}
             { didTryAutoLogin === true && accessToken.length > 0 && <UserNavigator />}
-
         </NavigationContainer>
     )
 }

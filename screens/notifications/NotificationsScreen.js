@@ -24,7 +24,7 @@ const NotificationsScreen = () => {
             <FlatList
                 contentContainerStyle={styles.sectionContainer}
                 data={notificationHistory} // notificationHistory [new NotificationClass("2020-11-02T18:23:24.731Z", 10), new NotificationClass("2020-11-01T18:23:24.731Z", 9)]
-                keyExtractor={(item) => item.date}
+                keyExtractor={(item) => item.date.toString()}
                 renderItem={({ item }) => (
                     <Notification date={item.date} averageRssi={item.averageRssi} />
                 )}
