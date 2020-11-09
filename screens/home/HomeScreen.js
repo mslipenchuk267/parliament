@@ -354,23 +354,24 @@ const HomeScreen = () => {
                             <CustomButton title='stop' handlePress={handleStopForegroundBLE} />
                         </View>
                     </View>
-                    <NeumorphView
-                        style={styles.linearGradient}
-                    >
-                        <LCDView>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={styles.lcdLabel}>background <Icon name="signal" size={14} color={isBackgroundOn ? "black" : "grey"} /></Text>
+                    { // Uncomment this to work on background contact tracing
+                    /*<NeumorphView
+                            style={styles.linearGradient}
+                        >
+                            <LCDView>
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <Text style={styles.lcdLabel}>background <Icon name="signal" size={14} color={isBackgroundOn ? "black" : "grey"} /></Text>
+                                </View>
+                            </LCDView>
+                        </NeumorphView>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='start' handlePress={handleStartBackgroundBLE} />
                             </View>
-                        </LCDView>
-                    </NeumorphView>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
-                        <View style={{ margin: 10 }}>
-                            <CustomButton title='start' handlePress={handleStartBackgroundBLE} />
-                        </View>
-                        <View style={{ margin: 10 }}>
-                            <CustomButton title='stop' handlePress={handleStopBackgroundBLE} />
-                        </View>
-                    </View>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='stop' handlePress={handleStopBackgroundBLE} />
+                            </View>
+                        </View>*/}
                 </View>
 
             </ScrollView>
