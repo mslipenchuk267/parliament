@@ -23,6 +23,7 @@
     "jsdoc": "^3.6.6",
     "react": "16.13.1",
     "react-native": "0.63.2",
+    "react-native-background-actions": "^2.5.2",
     "react-native-ble-peripheral": "^2.0.1",
     "react-native-ble-plx": "^2.0.1",
     "react-native-camera": "^3.40.0",
