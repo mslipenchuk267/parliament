@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { View, StyleSheet, SafeAreaView, Alert } from 'react-native';
-import * as SecureStore from 'expo-secure-store';
 
 import CustomTextInput from '../../components/CustomTextInput';
 import CustomButton from '../../components/CustomButton';
