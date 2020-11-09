@@ -15,7 +15,7 @@ const PushNotificationManager = (props) => {
       Notifications.events().registerRemoteNotificationsRegistered(event => {
         // Set the device token state
         dispatch(userActions.setDeviceToken(event.deviceToken));
-        console.log('Device Token Received', event.deviceToken)
+        console.log('PushNotificationManager.js/registerDevice() - Device Token Received', event.deviceToken)
 
       })
       Notifications.events().registerRemoteNotificationsRegistrationFailed(event => {
@@ -26,7 +26,7 @@ const PushNotificationManager = (props) => {
 
     registerNotificationEvents = () => {
       Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
-        console.log('Notification Received - Foreground', notification)
+        console.log('PushNotificationManager.js/registerNotificationEvents() - Notification Received - Foreground', notification)
         const matchedContacts = handleNotification(notification, contactedIDs);
         dispatch(userActions.updateNotificationHistory(matchedContacts));
         // Calling completion on iOS with `alert: true` will present the native iOS inApp notification.
