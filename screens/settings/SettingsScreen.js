@@ -42,13 +42,14 @@ const SettingsScreen = () => {
         if (isRefreshNeeded(accessTokenExpiration)) {
             await dispatch(userActions.refreshTokens())
         }
-        dispatch(userActions.deleteAccount())
+        dispatch(userActions.deleteAccount());
     }
 
     const addDeviceButtonHandler = () => {
         if (deviceID.length === 12 && date) {
             console.log("SettingsScreen.js/addDeviceButtonHandler() - Pressed Add Device button with valid ID:", "00000000-0000-0000-0000-" + deviceID);
-            dispatch(userActions.addFakeContact("00000000-0000-0000-0000-" + deviceID, date))
+            dispatch(userActions.addFakeContact("00000000-0000-0000-0000-" + deviceID, date));
+            Alert.alert("Successfully mocked device with ID:", deviceID);
         } else {
             if (!date) {
                 console.log("SettingsScreen.js/addDeviceButtonHandler() - Pressed Add Device button with no date", deviceID);
@@ -66,6 +67,7 @@ const SettingsScreen = () => {
     const clearDevicesButtonHandler = async () => {
         dispatch(userActions.clearContactedIDs());
         await deleteContactedIDs();
+        Alert.alert("Cleared all stored device contacts");
     }
 
     const showDatePicker = () => {
@@ -98,7 +100,6 @@ const SettingsScreen = () => {
                 <View style={{ marginTop: 20, marginBottom: 10, alignItems: 'center', borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%' }}>
                     <Text style={styles.header} >Bluetooth Mock</Text>
                     <Text style={styles.body}>Enter the last part of the <Text style={{ fontWeight: 'bold' }}>temp ID</Text></Text>
-                    <Text style={styles.hint}>( e.g. 00000000-0000-0000-0000-XXXXXXXXXXXX )</Text>
                     <Text style={styles.hint} >
                         <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
                             note:

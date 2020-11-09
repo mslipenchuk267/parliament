@@ -8,7 +8,7 @@ const LCDView = (props) => {
             style={{
                 paddingVertical: 1,
                 paddingHorizontal: 1,
-                borderRadius: 15,
+                borderRadius: 11,
             }}
             useAngle={true}
             angle={145}
@@ -19,7 +19,7 @@ const LCDView = (props) => {
                 style={{
                     paddingVertical: 15,
                     paddingHorizontal: 15,
-                    borderRadius: 14,
+                    borderRadius: 11,
                     borderWidth: 1,
                     borderColor: '#8E9896',
                 }}

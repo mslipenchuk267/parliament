@@ -11,13 +11,12 @@ import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
 import { generateTempID, PARLIAMENT_SERVICE_UUID } from '../../helpers/uuidHelper';
 import CustomButton from '../../components/CustomButton';
-import CustomTextInput from '../../components/CustomTextInput';
-import CustomTextView from '../../components/CustomTextView';
 import LCDView from '../../components/LCDView';
 import NeumorphView from '../../components/NeumorphView';
 import { offWhite } from '../../constants/colors';
 import BackgroundService from 'react-native-background-actions'
 import { startAllBackground, stopAllBackground } from '../../helpers/backgroundHelper';
+import LCDTextView from '../../components/LCDTextView';
 
 const bleManager = new BleManager();
 
@@ -43,6 +42,8 @@ const bleManager = new BleManager();
  */
 
 const HomeScreen = () => {
+    const [isForegroundOn, setIsForegroundOn] = useState(false);
+    const [isBackgroundOn, setIsBackgroundOn] = useState(false);
     const contactedIDs = useSelector(state => state.user.contactedIDs);
     const dispatch = useDispatch();
     const [tempID, setTempID] = useState(null);
@@ -51,9 +52,9 @@ const HomeScreen = () => {
      * Begin scanning for devices and handle each device
      * @return  {Promise<void>}  
      * @example
-     * await handleStartContactTracing()     
+     * await handleStartForegroundScanning()     
      */
-    const handleStartContactTracing = async () => {
+    const handleStartForegroundScanning = async () => {
         const mutex = new Mutex();
         try {
             bleManager.startDeviceScan(
@@ -75,7 +76,7 @@ const HomeScreen = () => {
      * Stops the BLE Manager from scanning for devices.
      * @return {void} calls the stopDeviceScan() function on bleManager     
      */
-    const handleStopContactTracing = () => {
+    const handleStopForegroundScanning = () => {
         bleManager.stopDeviceScan();
     }
 
@@ -84,7 +85,7 @@ const HomeScreen = () => {
      * the user temporary id characteristic uuid.
      * @return {Promise<void>} starts bluetooth advertising with peripheral component
      */
-    const handleStartAdvertising = async () => {
+    const handleStartForegroundAdvertising = async () => {
         if (Platform.OS === 'android') {
             if (BLEPeripheral.isAdvertising()) {
                 BLEPeripheral.stop()
@@ -144,7 +145,7 @@ const HomeScreen = () => {
      * Stops advertising device.
      * @return  {Promise<void>} Stops the peripheral component from advertising        
      */
-    const handleStopAdvertising = async () => {
+    const handleStopForegroundAdvertising = async () => {
         if (Platform.OS === 'android') {
             await BLEPeripheral.stop()
             setTempID("");
@@ -244,11 +245,25 @@ const HomeScreen = () => {
         console.log("Background Tasks Started");
     };
 
-    const handleStartBLE = async () => {
-        await BackgroundService.start(veryIntensiveTask, backgroundOptions);
+    const handleStartForegroundBLE = async () => {
+        handleStartForegroundAdvertising();
+        handleStartForegroundScanning();
+        setIsForegroundOn(true);
     }
 
-    const handleStopBLE = async () => {
+    const handleStopForegroundBLE = async () => {
+        handleStopForegroundAdvertising();
+        handleStopForegroundScanning();
+        setIsForegroundOn(false);
+    }
+
+
+    const handleStartBackgroundBLE = async () => {
+        await BackgroundService.start(veryIntensiveTask, backgroundOptions);
+        setIsBackgroundOn(true);
+    }
+
+    const handleStopBackgroundBLE = async () => {
         bleManager.stopDeviceScan();
 
         if (Platform.OS === 'android') {
@@ -256,11 +271,13 @@ const HomeScreen = () => {
             setTempID("None");
         } else {
             if (Peripheral.isAdvertising()) {
-                return await Peripheral.stopAdvertising();
+                await Peripheral.stopAdvertising();
                 setTempID("None");
+
             }
         }
         await BackgroundService.stop();
+        setIsBackgroundOn(false);
         console.log("Background Tasks Stopped");
 
     }
@@ -283,7 +300,7 @@ const HomeScreen = () => {
     }, []);
 
     return (
-        <SafeAreaView style={{backgroundColor: offWhite}}>
+        <SafeAreaView style={{ backgroundColor: offWhite }}>
             <ScrollView
                 style={styles.container}
                 contentContainerStyle={{
@@ -292,7 +309,7 @@ const HomeScreen = () => {
                 }}
             >
                 <StatusBar barStyle='dark-content' />
-                <View style={{ marginTop: 30 }} >
+                <View style={{ marginTop: 30, width: '70%' }} >
                     <NeumorphView
                         style={styles.linearGradient}
                     >
@@ -315,42 +332,47 @@ const HomeScreen = () => {
                             </View>
                         </LCDView>
                     </NeumorphView>
-                    <View style={{ padding: 20 }} />
-                    <CustomTextView
-                        placeholder={tempID ? tempID.substring(tempID.length - 12) : "Not Advertising"}
-                        value={tempID ? tempID.substring(tempID.length - 12) : ""}
-                    />
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 30 }}>
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={styles.label}>advertising</Text>
-                            <View style={{ margin: 10 }}>
-                                <CustomButton title='Start' handlePress={handleStartAdvertising} />
+                    <View style={{ padding: 10 }} />
+                    <NeumorphView
+                        style={styles.linearGradient}
+                    >
+                        <LCDView>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={styles.lcdLabel}>foreground <Icon name="signal" size={14} color={isForegroundOn ? "black" : "grey"} /></Text>
+                                <LCDTextView
+                                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "_____________"}
+                                    value={tempID ? tempID.substring(tempID.length - 12) : ""}
+                                />
                             </View>
-                            <View style={{ margin: 10 }}>
-                                <CustomButton title='Stop' handlePress={handleStopAdvertising} />
-                            </View>
+                        </LCDView>
+                    </NeumorphView>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 15 }}>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='start' handlePress={handleStartForegroundBLE} />
                         </View>
-                        <View style={{ alignItems: 'center' }}>
-                            <Text style={styles.label}>scanning</Text>
-                            <View style={{ margin: 10 }}>
-                                <CustomButton title='Start' handlePress={handleStartContactTracing} />
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='stop' handlePress={handleStopForegroundBLE} />
+                        </View>
+                    </View>
+                    <NeumorphView
+                        style={styles.linearGradient}
+                    >
+                        <LCDView>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Text style={styles.lcdLabel}>background <Icon name="signal" size={14} color={isBackgroundOn ? "black" : "grey"} /></Text>
                             </View>
-                            <View style={{ margin: 10 }}>
-                                <CustomButton title='Stop' handlePress={handleStopContactTracing} />
-                            </View>
+                        </LCDView>
+                    </NeumorphView>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='start' handlePress={handleStartBackgroundBLE} />
+                        </View>
+                        <View style={{ margin: 10 }}>
+                            <CustomButton title='stop' handlePress={handleStopBackgroundBLE} />
                         </View>
                     </View>
                 </View>
-                <View style={{ padding: 10 }} />
-                <Text style={styles.label}>background</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, marginBottom: 20 }}>
-                    <View style={{ margin: 10 }}>
-                        <CustomButton title='Start' handlePress={handleStartBLE} />
-                    </View>
-                    <View style={{ margin: 10 }}>
-                        <CustomButton title='Stop' handlePress={handleStopBLE} />
-                    </View>
-                </View>
+
             </ScrollView>
         </SafeAreaView>
     )
@@ -366,10 +388,9 @@ const styles = StyleSheet.create({
         fontWeight: '500'
     },
     linearGradient: {
-        paddingVertical: 1,
+        paddingVertical: 2,
         paddingHorizontal: 1,
-        borderRadius: 15,
-        minHeight: 100,
+        borderRadius: 12,
     },
     lcdLabel: {
         fontSize: 16,

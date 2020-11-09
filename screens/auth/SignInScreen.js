@@ -30,7 +30,7 @@ const SignInScreen = () => {
     const signInButtonHandler = async () => {
         console.log("SignInScreen.js/signInButtonHandler() Pressed Sign In Button with userNameValid", usernameValid, " and passwordValid", passwordValid);
         if (username && password) {
-            if (usernameValid && passwordValid.isValid) {
+            if (usernameValid && true) {
                 console.log("username and password valid")
                 if (deviceToken) {
                     dispatch(userActions.login(username, password))

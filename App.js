@@ -19,6 +19,7 @@ import PushNotificationManager from './components/PushNotificationManager';
 
 LogBox.ignoreLogs([
   'Require cycle:', // issued by the fetch() function -> doesn't affect anything
+  'VirtualizedLists should never be nested' // issued by the scanned device flat list in lcdview on homescreen
 ])
 
 

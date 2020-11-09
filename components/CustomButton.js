@@ -41,9 +41,9 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: "white",
         elevation: 10,
-        borderRadius: 20,
+        borderRadius: 40,
         paddingVertical: 20,
-        paddingHorizontal: 40,
+        paddingHorizontal: 25,
         alignItems: 'center',
         overflow: 'hidden',
         // shadow
