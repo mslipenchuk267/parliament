@@ -64,7 +64,8 @@ const SignUpScreen = () => {
                 />
             </View>
             <View style={{ padding: 10 }} />
-            <View>
+            <View style={{alignItems: 'flex-start'}}>
+                <Text>Password Requirements:</Text>
                 <Text style={{ color: passwordValid.lengthValid ? '#34c759' : 'grey', paddingTop: 3 }} >
                                     10 to 24 characters long
                 </Text>
