@@ -3,7 +3,8 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import * as userActions from '../store/actions/user';
-import { getContactedIDs, getUserAuth } from '../helpers/secureStoreHelper';
+import { getContactedIDs, getNotificationHistory, getUserAuth } from '../helpers/secureStoreHelper';
+import { getNotifications } from '../helpers/notificationHelper';
 import { offWhite } from '../constants/colors';
 
 /**
@@ -25,6 +26,12 @@ const StartupScreen = () => {
             if (contactedIDs) {
                 // set redux state
                 dispatch(userActions.setContactIDs(contactedIDs));
+            }
+
+
+            const notificationHistory = await getNotificationHistory();
+            if (notificationHistory) {
+                dispatch(userActions.setNotificationHistory(notificationHistory));
             }
 
             // check persistent storage for userAuth json
@@ -49,7 +56,9 @@ const StartupScreen = () => {
                     dispatch(userActions.setDidTryAutoLogin());
                     return;
                 }
-            } else {
+            }
+
+            else {
                 // No userAuth to set, boot user into the AuthNavigator
                 dispatch(userActions.setDidTryAutoLogin());
                 return;
@@ -60,7 +69,7 @@ const StartupScreen = () => {
     }, [dispatch]);
 
     return (
-        <View style={styles.container}/>
+        <View style={styles.container} />
     )
 }
 

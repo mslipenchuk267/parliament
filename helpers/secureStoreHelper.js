@@ -28,22 +28,6 @@ export const saveUserAuth = async (userAuth) => {
     }
 }
 
-
-
-/**
- * This function deletes the contactedIDs array saved in persistent storage
- * if it exists
- * @return {Promise<void>} 
- */
-export const deleteContactedIDs = async () => {
-    try {
-        await SecureStore.deleteItemAsync('contactedIDs')
-        console.log("secureStoreHelper.js/deleteContactedIDs() - Deleted contactedIDs from secure store")
-    } catch (err) {
-        console.log("secureStoreHelper.js/deleteContactedIDs() - Could not delete contactedIDs from secure store, error:", err)
-    }
-}
-
 /**
  * This function gets the userAuth json saved to the secure store. 
  * @return {Promise<Array>} contactedIDs - returns contactedIDs saved in redux store
@@ -91,3 +75,50 @@ export const getContactedIDs = async () => {
         console.log("secureStoreHelper.js/getContactedIDs() - Could not get contactedIDs from secure store, error:", err)
     }
 }
+
+/**
+ * This function deletes the contactedIDs array saved in persistent storage
+ * if it exists
+ * @return {Promise<void>} 
+ */
+export const deleteContactedIDs = async () => {
+    try {
+        await SecureStore.deleteItemAsync('contactedIDs')
+        console.log("secureStoreHelper.js/deleteContactedIDs() - Deleted contactedIDs from secure store")
+    } catch (err) {
+        console.log("secureStoreHelper.js/deleteContactedIDs() - Could not delete contactedIDs from secure store, error:", err)
+    }
+}
+
+
+export const deleteNotificationHistory = async() => {
+    try {
+        await SecureStore.deleteItemAsync('NotificationHistory')
+        console.log("secureStoreHelper.js/deleteNotificationHistory() - Deleted NotificationHistory from secure store")
+    } catch (err) {
+        console.log("secureStoreHelper.js/deleteNotificationHistory() - Could not delete NotificationHistory from secure store, error:", err)
+    }
+}
+
+export const getNotificationHistory = async() => {
+    try {
+        const notificationHistory = await SecureStore.getItemAsync('notificationHistory');
+        if (notificationHistory) {
+            const transformedNotificationHistory = JSON.parse(notificationHistory);
+            console.log("secureStoreHelper.js/getNotificationHistory() - Retrieved notificationHistory from secure store", transformedNotificationHistory)
+            return transformedNotificationHistory;
+        }
+    } catch {
+        console.log("secureStoreHelper.js/getNotificationHistory() - Could not get notificationHistory from secure store, error:", err)
+    }
+}
+
+export const saveNotificationHistory = async(notificationHistory) => {
+    try {
+        await SecureStore.setItemAsync('NotificationHistory', JSON.stringify(notificationHistory))
+        console.log("secureStoreHelper.js/getNotificationHistory() - Save saveNotificationHistory from secure store")
+    } catch (err) {
+        console.log("secureStoreHelper.js/getNotificationHistory() - Could not Save saveNotificationHistory from secure store, error:", err)
+    }
+}
+

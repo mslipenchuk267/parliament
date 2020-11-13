@@ -10,9 +10,10 @@ import {
     SET_DEVICE_TOKEN,
     ADD_TEMP_ID,
     UPDATE_NOTIFICATION_HISTORY,
+    SET_NOTIFICATION_HISTORY,
     CLEAR_CONTACTED_IDS
 } from '../../constants/ActionTypes';
-import { deleteContactedIDs, saveContactedIDs, deleteUserAuth, saveUserAuth } from '../../helpers/secureStoreHelper';
+import { deleteContactedIDs, saveContactedIDs, deleteUserAuth, saveUserAuth, deleteNotificationHistory, saveNotificationHistory } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
 import { uploadDeviceToken } from '../../helpers/authHelper';
 
@@ -23,6 +24,20 @@ export const storeTempID = (tempID) => {
 export const updateNotificationHistory = (matchedContacts) => {
     return { type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts }
 }
+
+export const setNotificationHistory = (notificationHistory) => {
+    return async (dispatch, getState) => {
+        dispatch({ type: SET_NOTIFICATION_HISTORY, notificationHistory: notificationHistory });
+        // deleteNotificationHistory from secore store
+        await deleteNotificationHistory();
+        // use getState() to get the newly updated notificationHistory
+        const notificationHistory = [...getState().user.notificationHistory]
+        // setNotificationHistory for secure store using the notificationHistory
+        await saveNotificationHistory(notificationHistory);
+
+    }
+}
+
 
 export const setContactIDs = (contactedIDs) => {
     return { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
