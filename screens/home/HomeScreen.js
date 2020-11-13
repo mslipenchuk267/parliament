@@ -174,8 +174,10 @@ const HomeScreen = () => {
     };
 
     const veryIntensiveTask = async () => {
-        handleStartForegroundBLE;
-        console.log("Background Tasks Started");
+        await new Promise( async (resolve) => {
+            handleStartForegroundBLE();
+            console.log("Background Tasks Started");
+        });
     };
 
     const handleStartForegroundBLE = async () => {
@@ -190,19 +192,16 @@ const HomeScreen = () => {
         setIsForegroundOn(false);
     }
 
-
     const handleStartBackgroundBLE = async () => {
         await BackgroundService.start(veryIntensiveTask, backgroundOptions);
         setIsBackgroundOn(true);
-        console.log("Background Tasks Started");
     }
 
     const handleStopBackgroundBLE = async () => {
         await BackgroundService.stop();
-        handleStopForegroundBLE;
+        handleStopForegroundBLE();
         console.log("Background Tasks Stopped");
     }
-
 
     useEffect(() => {
         if (Platform.OS === 'android') {
