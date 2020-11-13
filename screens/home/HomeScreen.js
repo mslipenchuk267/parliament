@@ -174,74 +174,7 @@ const HomeScreen = () => {
     };
 
     const veryIntensiveTask = async () => {
-        const mutex = new Mutex();
-        try {
-            bleManager.startDeviceScan(
-                null, //[PARLIAMENT_SERVICE_UUID]
-                { allowDuplicates: true },
-                async (error, device) => {
-                    await mutex.runExclusive(async () => {
-                        await handleDevice(error, device, dispatch, bleManager);
-                    });
-                }
-            )
-        } catch (error) {
-            console.log('bleManager not start scanning for devices', { error })
-        }
-        console.log("Start Scanning on ", Platform.OS)
-
-        if (Platform.OS === 'android') {
-            if (BLEPeripheral.isAdvertising()) {
-                BLEPeripheral.stop()
-            }
-
-            BLEPeripheral.setName('');
-            // The contact tracing service UUID
-            BLEPeripheral.addService(PARLIAMENT_SERVICE_UUID, true);
-            // The 
-            //BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fa', true);
-            const tempID = generateTempID();
-            setTempID(tempID);
-            BLEPeripheral.addCharacteristicToService(PARLIAMENT_SERVICE_UUID, tempID, 16 | 1, 8)
-
-            BLEPeripheral.start()
-                .then(res => {
-                    console.log("Started Advertising on Android: ", tempID)
-                }).catch(error => {
-                    console.log(error)
-                })
-        } else {
-            //if (Peripheral.isAdvertising()) {
-            //    await Peripheral.stopAdvertising()
-            //}
-            const tempID = generateTempID();
-            setTempID(tempID);
-            // add tempID to redux state
-            await dispatch(userActions.storeTempID(tempID));
-            const ch = new Characteristic({
-                uuid: tempID,
-                value: '', // Base64-encoded string
-                properties: ['read'],
-                permissions: ['readable'],
-            })
-            const service = new Service({
-                uuid: PARLIAMENT_SERVICE_UUID,
-                characteristics: [ch],
-            })
-
-            // register GATT services that your device provides
-            await Peripheral.addService(service)
-
-            // start advertising to make your device discoverable
-            // the contactTracingServiceUUID is only visible for other iOS devices and not for Android devices
-            await Peripheral.startAdvertising({
-                name: 'PiOS',
-                serviceUuids: [PARLIAMENT_SERVICE_UUID, tempID],
-            })
-            console.log("Started Advertising on iOS: ", tempID)
-
-        }
-
+        handleStartForegroundBLE;
         console.log("Background Tasks Started");
     };
 
@@ -261,25 +194,13 @@ const HomeScreen = () => {
     const handleStartBackgroundBLE = async () => {
         await BackgroundService.start(veryIntensiveTask, backgroundOptions);
         setIsBackgroundOn(true);
+        console.log("Background Tasks Started");
     }
 
     const handleStopBackgroundBLE = async () => {
-        bleManager.stopDeviceScan();
-
-        if (Platform.OS === 'android') {
-            await BLEPeripheral.stop()
-            setTempID("None");
-        } else {
-            if (Peripheral.isAdvertising()) {
-                await Peripheral.stopAdvertising();
-                setTempID("None");
-
-            }
-        }
         await BackgroundService.stop();
-        setIsBackgroundOn(false);
+        handleStopForegroundBLE;
         console.log("Background Tasks Stopped");
-
     }
 
 
@@ -354,6 +275,14 @@ const HomeScreen = () => {
                             <CustomButton title='stop' handlePress={handleStopForegroundBLE} />
                         </View>
                     </View>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='startBack' handlePress={handleStartBackgroundBLE} />
+                            </View>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='stopBack' handlePress={handleStopBackgroundBLE} />
+                            </View>
+                        </View>
                     { // Uncomment this to work on background contact tracing
                     /*<NeumorphView
                             style={styles.linearGradient}
@@ -366,10 +295,10 @@ const HomeScreen = () => {
                         </NeumorphView>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
                             <View style={{ margin: 10 }}>
-                                <CustomButton title='start' handlePress={handleStartBackgroundBLE} />
+                                <CustomButton title='startBack' handlePress={handleStartBackgroundBLE} />
                             </View>
                             <View style={{ margin: 10 }}>
-                                <CustomButton title='stop' handlePress={handleStopBackgroundBLE} />
+                                <CustomButton title='stopBack' handlePress={handleStopBackgroundBLE} />
                             </View>
                         </View>*/}
                 </View>
