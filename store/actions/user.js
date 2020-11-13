@@ -22,20 +22,17 @@ export const storeTempID = (tempID) => {
 }
 
 export const updateNotificationHistory = (matchedContacts) => {
-    return { type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts }
+    return async (dispatch, getState) => {
+        dispatch({ type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts });
+        // deleteNotificationHistory from secore store
+        await deleteNotificationHistory();
+        const notificationHistory = [...getState().user.notificationHistory]
+        await saveNotificationHistory(notificationHistory);
+    }
 }
 
 export const setNotificationHistory = (notificationHistory) => {
-    return async (dispatch, getState) => {
-        dispatch({ type: SET_NOTIFICATION_HISTORY, notificationHistory: notificationHistory });
-        // deleteNotificationHistory from secore store
-        await deleteNotificationHistory();
-        // use getState() to get the newly updated notificationHistory
-        const notificationHistory = [...getState().user.notificationHistory]
-        // setNotificationHistory for secure store using the notificationHistory
-        await saveNotificationHistory(notificationHistory);
-
-    }
+    return { type: SET_NOTIFICATION_HISTORY, notificationHistory: notificationHistory }
 }
 
 

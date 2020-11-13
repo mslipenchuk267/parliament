@@ -93,7 +93,7 @@ export const deleteContactedIDs = async () => {
 
 export const deleteNotificationHistory = async() => {
     try {
-        await SecureStore.deleteItemAsync('NotificationHistory')
+        await SecureStore.deleteItemAsync('motificationHistory')
         console.log("secureStoreHelper.js/deleteNotificationHistory() - Deleted NotificationHistory from secure store")
     } catch (err) {
         console.log("secureStoreHelper.js/deleteNotificationHistory() - Could not delete NotificationHistory from secure store, error:", err)
@@ -115,10 +115,10 @@ export const getNotificationHistory = async() => {
 
 export const saveNotificationHistory = async(notificationHistory) => {
     try {
-        await SecureStore.setItemAsync('NotificationHistory', JSON.stringify(notificationHistory))
-        console.log("secureStoreHelper.js/getNotificationHistory() - Save saveNotificationHistory from secure store")
+        await SecureStore.setItemAsync('notificationHistory', JSON.stringify(notificationHistory))
+        console.log("secureStoreHelper.js/saveNotificationHistory() - Save saveNotificationHistory from secure store")
     } catch (err) {
-        console.log("secureStoreHelper.js/getNotificationHistory() - Could not Save saveNotificationHistory from secure store, error:", err)
+        console.log("secureStoreHelper.js/saveNotificationHistory() - Could not Save saveNotificationHistory from secure store, error:", err)
     }
 }
 
