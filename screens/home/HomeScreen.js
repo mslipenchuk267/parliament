@@ -42,7 +42,7 @@ const bleManager = new BleManager();
  */
 
 const HomeScreen = () => {
-    const [isBackgroundOn, setIsBackgroundOn] = useState(false);
+    const [isContactTracingOn, setIsContactTracingOn] = useState(false);
     const contactedIDs = useSelector(state => state.user.contactedIDs);
     const dispatch = useDispatch();
     const [tempID, setTempID] = useState(null);
@@ -191,19 +191,19 @@ const HomeScreen = () => {
     }
 
     const handleStartBackgroundBLE = async () => {
-        if (!isBackgroundOn) {
+        if (!isContactTracingOn) {
             await BackgroundService.start(veryIntensiveTask, backgroundOptions);
             console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Started");
-            setIsBackgroundOn(true);
+            setIsContactTracingOn(true);
         }
     }
 
     const handleStopBackgroundBLE = async () => {
-        if (isBackgroundOn) {
+        if (isContactTracingOn) {
             await BackgroundService.stop();
             handleStopForegroundBLE();
             console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Stopped");
-            setIsBackgroundOn(false);
+            setIsContactTracingOn(false);
         }
     }
 
@@ -269,7 +269,7 @@ const HomeScreen = () => {
                     >
                         <LCDView>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={styles.lcdLabel}>status: <Icon name="signal" size={14} color={isBackgroundOn ? "black" : "grey"} /></Text>
+                                <Text style={styles.lcdLabel}>status: <Icon name="signal" size={14} color={isContactTracingOn ? "black" : "grey"} /></Text>
                                 <LCDTextView
                                     placeholder={tempID ? tempID.substring(tempID.length - 12) : "_____________"}
                                     value={tempID ? tempID.substring(tempID.length - 12) : ""}
