@@ -270,12 +270,12 @@ const HomeScreen = () => {
                         <LCDView>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1, marginBottom: 7, paddingHorizontal: '2%' }}>
                                 <Text style={styles.lcdLabel}>status</Text>
-                                <Text style={styles.lcdLabel}>id</Text>
+                                <Text style={styles.lcdLabel}>device id</Text>
                             </View>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: '2%'  }}>
                                 <Text style={styles.lcdLabel}><Icon name="signal" size={14} color={isContactTracingOn ? "black" : "grey"} /></Text>
                                 <LCDTextView
-                                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "_____________"}
+                                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "------------"}
                                     value={tempID ? tempID.substring(tempID.length - 12) : ""}
                                 />
                             </View>
