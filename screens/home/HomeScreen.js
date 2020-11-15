@@ -42,7 +42,6 @@ const bleManager = new BleManager();
  */
 
 const HomeScreen = () => {
-    const [isForegroundOn, setIsForegroundOn] = useState(false);
     const [isBackgroundOn, setIsBackgroundOn] = useState(false);
     const contactedIDs = useSelector(state => state.user.contactedIDs);
     const dispatch = useDispatch();
@@ -67,9 +66,9 @@ const HomeScreen = () => {
                 }
             )
         } catch (error) {
-            console.log('bleManager not start scanning for devices', { error })
+            console.log('HomeScreen.js/handleStartForegroundScanning() - (error) bleManager not start scanning for devices', { error })
         }
-        console.log("Start Scanning on ", Platform.OS)
+        console.log("HomeScreen.js/handleStartForegroundScanning() - Started Scanning on ", Platform.OS)
     }
 
     /**
@@ -78,6 +77,7 @@ const HomeScreen = () => {
      */
     const handleStopForegroundScanning = () => {
         bleManager.stopDeviceScan();
+        console.log("HomeScreen.js/handleStopForegroundScanning() - Stopped Scanning on ", Platform.OS)
     }
 
     /**
@@ -103,7 +103,7 @@ const HomeScreen = () => {
 
             BLEPeripheral.start()
                 .then(res => {
-                    console.log("Started Advertising on Android: ", tempID)
+                    console.log("HomeScreen.js/handleStartForegroundAdvertising() - Started Advertising on Android: ", tempID)
                 }).catch(error => {
                     console.log(error)
                 })
@@ -136,7 +136,7 @@ const HomeScreen = () => {
                 name: 'PiOS',
                 serviceUuids: [PARLIAMENT_SERVICE_UUID, tempID],
             })
-            console.log("Started Advertising on iOS: ", tempID)
+            console.log("HomeScreen.js/handleStartForegroundAdvertising() - Started Advertising on iOS: ", tempID)
 
         }
     }
@@ -174,33 +174,37 @@ const HomeScreen = () => {
     };
 
     const veryIntensiveTask = async () => {
-        await new Promise( async (resolve) => {
+        await new Promise(async (resolve) => {
             handleStartForegroundBLE();
-            console.log("Background Tasks Started");
+            console.log("HomeScreen.js/veryIntensiveTask() - Background Scanning & Advertising Tasks Started");
         });
     };
 
     const handleStartForegroundBLE = async () => {
         handleStartForegroundAdvertising();
         handleStartForegroundScanning();
-        setIsForegroundOn(true);
     }
 
     const handleStopForegroundBLE = async () => {
         handleStopForegroundAdvertising();
         handleStopForegroundScanning();
-        setIsForegroundOn(false);
     }
 
     const handleStartBackgroundBLE = async () => {
-        await BackgroundService.start(veryIntensiveTask, backgroundOptions);
-        setIsBackgroundOn(true);
+        if (!isBackgroundOn) {
+            await BackgroundService.start(veryIntensiveTask, backgroundOptions);
+            console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Started");
+            setIsBackgroundOn(true);
+        }
     }
 
     const handleStopBackgroundBLE = async () => {
-        await BackgroundService.stop();
-        handleStopForegroundBLE();
-        console.log("Background Tasks Stopped");
+        if (isBackgroundOn) {
+            await BackgroundService.stop();
+            handleStopForegroundBLE();
+            console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Stopped");
+            setIsBackgroundOn(false);
+        }
     }
 
     useEffect(() => {
@@ -230,6 +234,9 @@ const HomeScreen = () => {
             >
                 <StatusBar barStyle='dark-content' />
                 <View style={{ marginTop: 30, width: '70%' }} >
+                <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Text style={styles.lcdLabel}>Parliament</Text>
+                    </View>
                     <NeumorphView
                         style={styles.linearGradient}
                     >
@@ -252,13 +259,17 @@ const HomeScreen = () => {
                             </View>
                         </LCDView>
                     </NeumorphView>
-                    <View style={{ padding: 10 }} />
+                    <View style={{ padding: 15 }} />
+                    <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Text style={styles.label}>bluetooth radio</Text>
+                    </View>
+                    <View style={{ padding: 5 }} />
                     <NeumorphView
                         style={styles.linearGradient}
                     >
                         <LCDView>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={styles.lcdLabel}>foreground <Icon name="signal" size={14} color={isForegroundOn ? "black" : "grey"} /></Text>
+                                <Text style={styles.lcdLabel}>status: <Icon name="signal" size={14} color={isBackgroundOn ? "black" : "grey"} /></Text>
                                 <LCDTextView
                                     placeholder={tempID ? tempID.substring(tempID.length - 12) : "_____________"}
                                     value={tempID ? tempID.substring(tempID.length - 12) : ""}
@@ -266,40 +277,14 @@ const HomeScreen = () => {
                             </View>
                         </LCDView>
                     </NeumorphView>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 15 }}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
                         <View style={{ margin: 10 }}>
-                            <CustomButton title='start' handlePress={handleStartForegroundBLE} />
+                            <CustomButton title='on' handlePress={handleStartBackgroundBLE} />
                         </View>
                         <View style={{ margin: 10 }}>
-                            <CustomButton title='stop' handlePress={handleStopForegroundBLE} />
+                            <CustomButton title='off' handlePress={handleStopBackgroundBLE} />
                         </View>
                     </View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
-                            <View style={{ margin: 10 }}>
-                                <CustomButton title='startBack' handlePress={handleStartBackgroundBLE} />
-                            </View>
-                            <View style={{ margin: 10 }}>
-                                <CustomButton title='stopBack' handlePress={handleStopBackgroundBLE} />
-                            </View>
-                        </View>
-                    { // Uncomment this to work on background contact tracing
-                    /*<NeumorphView
-                            style={styles.linearGradient}
-                        >
-                            <LCDView>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <Text style={styles.lcdLabel}>background <Icon name="signal" size={14} color={isBackgroundOn ? "black" : "grey"} /></Text>
-                                </View>
-                            </LCDView>
-                        </NeumorphView>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
-                            <View style={{ margin: 10 }}>
-                                <CustomButton title='startBack' handlePress={handleStartBackgroundBLE} />
-                            </View>
-                            <View style={{ margin: 10 }}>
-                                <CustomButton title='stopBack' handlePress={handleStopBackgroundBLE} />
-                            </View>
-                        </View>*/}
                 </View>
             </ScrollView>
         </SafeAreaView>
