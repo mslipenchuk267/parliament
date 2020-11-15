@@ -234,17 +234,17 @@ const HomeScreen = () => {
             >
                 <StatusBar barStyle='dark-content' />
                 <View style={{ marginTop: 30, width: '70%' }} >
-                <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Text style={styles.lcdLabel}>Parliament</Text>
+                    <View style={{ justifyContent: 'space-between', alignItems: 'center', paddingBottom: 20 }}>
+                        <Text style={{...styles.label, fontSize: 28}}>Parliament</Text>
                     </View>
                     <NeumorphView
                         style={styles.linearGradient}
                     >
                         <LCDView>
-                            <View style={{ flexBasis: 'auto', height: 130, paddingHorizontal: '2%' }}>
+                            <View style={{ flexBasis: 'auto', height: 100, paddingHorizontal: '2%' }}>
                                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1 }}>
                                     <Text style={styles.lcdLabel}>scanned device</Text>
-                                    <Text style={styles.lcdLabel}>signal <Icon name="signal" size={14} color="black" /></Text>
+                                    <Text style={styles.lcdLabel}>signal <Icon name="bar-graph" size={12} color="black" /></Text>
                                 </View>
                                 <FlatList
                                     data={contactedIDs}
@@ -268,8 +268,12 @@ const HomeScreen = () => {
                         style={styles.linearGradient}
                     >
                         <LCDView>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1, marginBottom: 7, paddingHorizontal: '2%' }}>
+                                <Text style={styles.lcdLabel}>status</Text>
+                                <Text style={styles.lcdLabel}>id</Text>
+                            </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={styles.lcdLabel}>status: <Icon name="signal" size={14} color={isContactTracingOn ? "black" : "grey"} /></Text>
+                                <Text style={styles.lcdLabel}><Icon name="signal" size={14} color={isContactTracingOn ? "black" : "grey"} /></Text>
                                 <LCDTextView
                                     placeholder={tempID ? tempID.substring(tempID.length - 12) : "_____________"}
                                     value={tempID ? tempID.substring(tempID.length - 12) : ""}
