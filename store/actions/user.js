@@ -314,6 +314,7 @@ export const deleteAccount = () => {
         dispatch({ type: UNAUTHENTICATE });
         // remove the contactedIDs data from the secure store
         await deleteContactedIDs();
+        await deleteNotificationHistory();
         // remove the userAuth data from the secure store
         await deleteUserAuth();
     }
