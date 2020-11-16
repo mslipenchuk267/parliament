@@ -11,7 +11,8 @@ import {
     ADD_TEMP_ID,
     UPDATE_NOTIFICATION_HISTORY,
     SET_NOTIFICATION_HISTORY,
-    CLEAR_CONTACTED_IDS
+    CLEAR_CONTACTED_IDS,
+    CLEAR_NOTIFICATION_HISTORY
 } from '../../constants/ActionTypes';
 import { deleteContactedIDs, saveContactedIDs, deleteUserAuth, saveUserAuth, deleteNotificationHistory, saveNotificationHistory } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
@@ -94,6 +95,10 @@ export const addFakeContact = (tempID, date) => {
 
 export const clearContactedIDs = () => {
     return { type: CLEAR_CONTACTED_IDS }
+}
+
+export const clearNotificationHistory = () => {
+    return { type: CLEAR_NOTIFICATION_HISTORY }
 }
 
 /**

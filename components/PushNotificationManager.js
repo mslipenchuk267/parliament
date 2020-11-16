@@ -56,7 +56,7 @@ const PushNotificationManager = (props) => {
 
     registerDevice()
     registerNotificationEvents()
-  }, [dispatch, contactedIDs])
+  }, [dispatch])
 
   return (
     <View style={{ flex: 1 }}>

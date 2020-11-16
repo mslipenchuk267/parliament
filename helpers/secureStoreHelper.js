@@ -93,7 +93,7 @@ export const deleteContactedIDs = async () => {
 
 export const deleteNotificationHistory = async() => {
     try {
-        await SecureStore.deleteItemAsync('motificationHistory')
+        await SecureStore.deleteItemAsync('notificationHistory')
         console.log("secureStoreHelper.js/deleteNotificationHistory() - Deleted NotificationHistory from secure store")
     } catch (err) {
         console.log("secureStoreHelper.js/deleteNotificationHistory() - Could not delete NotificationHistory from secure store, error:", err)

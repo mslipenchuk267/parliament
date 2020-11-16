@@ -11,7 +11,8 @@ import {
     ADD_TEMP_ID,
     UPDATE_NOTIFICATION_HISTORY,
     CLEAR_CONTACTED_IDS,
-    SET_NOTIFICATION_HISTORY
+    SET_NOTIFICATION_HISTORY,
+    CLEAR_NOTIFICATION_HISTORY
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -61,6 +62,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 contactedIDs: []
+            }
+        case CLEAR_NOTIFICATION_HISTORY:
+            return {
+                ...state,
+                notificationHistory: []
             }
         case UPDATE_NOTIFICATION_HISTORY:
             // Filter out notifications that are already in history
