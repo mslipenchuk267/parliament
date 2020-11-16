@@ -244,16 +244,16 @@ const HomeScreen = () => {
                                         <Text style={styles.lcdLabel}>scanned device</Text>
                                         <Text style={styles.lcdLabel}>signal <Icon name="bar-graph" size={12} color="black" /></Text>
                                     </View>
-                                    <FlatList
-                                        data={contactedIDs}
-                                        keyExtractor={(item) => item.tempID}
-                                        renderItem={({ item }) => (
-                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} >
-                                                <Text>{item.tempID.substring(item.tempID.length - 12)}</Text>
-                                                <Text>{item.averageRssi}</Text>
-                                            </View>
-                                        )}
-                                    />
+                                    <ScrollView keyboardShouldPersistTaps='never'>
+                                        {contactedIDs.map(function (data, index) {
+                                            return (
+                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} onStartShouldSetResponder={() => true} >
+                                                    <Text>{data.tempID.substring(data.tempID.length - 12)}</Text>
+                                                    <Text>{data.averageRssi}</Text>
+                                                </View>
+                                            )
+                                        })}
+                                    </ScrollView>
                                 </View>
                             </LCDView>
                         </NeumorphView>
@@ -274,7 +274,7 @@ const HomeScreen = () => {
                                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: Platform.OS === 'android' ? -7 : null }}>
                                         <Icon name="signal" size={14} color={isContactTracingOn ? "black" : "grey"} />
                                         <LCDTextView
-                                            placeholder={tempID ? tempID.substring(tempID.length - 12) : Platform.OS == 'android' ?  "- - - - - - - - - - - -" : "------------"}
+                                            placeholder={tempID ? tempID.substring(tempID.length - 12) : Platform.OS == 'android' ? "- - - - - - - - - - - -" : "------------"}
                                             value={tempID ? tempID.substring(tempID.length - 12) : ""}
                                         />
                                     </View>
@@ -298,6 +298,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         height: '100%',
         backgroundColor: offWhite,
         alignItems: 'center',
