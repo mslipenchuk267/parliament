@@ -94,7 +94,6 @@ const SettingsScreen = () => {
         hideDatePicker();
     };
 
-    console.log("Set date is ", date)
     return (
         <ScrollView
             style={styles.container}

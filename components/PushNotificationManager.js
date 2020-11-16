@@ -9,7 +9,6 @@ const PushNotificationManager = (props) => {
   const dispatch = useDispatch();
   const contactedIDs = useSelector(state => state.user.contactedIDs);
 
-
   useEffect(() => {
     registerDevice = () => {
       Notifications.events().registerRemoteNotificationsRegistered(event => {
@@ -56,7 +55,7 @@ const PushNotificationManager = (props) => {
 
     registerDevice()
     registerNotificationEvents()
-  }, [dispatch])
+  }, [dispatch, contactedIDs])
 
   return (
     <View style={{ flex: 1 }}>
