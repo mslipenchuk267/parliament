@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView, ScrollView, FlatList, StatusBar } from 'react-native';
+import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView, ScrollView, FlatList, StatusBar, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
@@ -59,10 +59,11 @@ const HomeScreen = () => {
             bleManager.startDeviceScan(
                 null, //[PARLIAMENT_SERVICE_UUID]
                 { allowDuplicates: true },
-                async (error, device) => {
-                    await mutex.runExclusive(async () => {
-                        await handleDevice(error, device, dispatch, bleManager);
-                    });
+                (error, device) => {
+                    handleDevice(error, device, dispatch, bleManager);
+                    // await mutex.runExclusive(async () => {
+                    //     await handleDevice(error, device, dispatch, bleManager);
+                    // });
                 }
             )
         } catch (error) {
@@ -224,66 +225,75 @@ const HomeScreen = () => {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar barStyle='dark-content' />
-            <View style={{ width: '70%', justifyContent: 'center' }} >
-                <View style={{ justifyContent: 'space-between', alignItems: 'center', paddingBottom: '6%' }}>
-                    <Text style={{ ...styles.label, fontSize: 28 }}>Parliament</Text>
-                </View>
-                <NeumorphView
-                    style={styles.linearGradient}
-                >
-                    <LCDView>
-                        <View style={{ flexBasis: 'auto', height: 100, paddingHorizontal: '2%' }}>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1 }}>
-                                <Text style={styles.lcdLabel}>scanned device</Text>
-                                <Text style={styles.lcdLabel}>signal <Icon name="bar-graph" size={12} color="black" /></Text>
-                            </View>
-                            <FlatList
-                                data={contactedIDs}
-                                keyExtractor={(item) => item.tempID}
-                                renderItem={({ item }) => (
-                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} >
-                                        <Text>{item.tempID.substring(item.tempID.length - 12)}</Text>
-                                        <Text>{item.averageRssi}</Text>
+        <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={{ flex: 1 }}
+        >
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <SafeAreaView style={styles.container}>
+                    <StatusBar barStyle='dark-content' />
+                    <View style={{ width: '70%', justifyContent: 'center' }} >
+                        <View style={{ justifyContent: 'space-between', alignItems: 'center', paddingBottom: '6%' }}>
+                            <Text style={{ ...styles.label, fontSize: 28 }}>Parliament</Text>
+                        </View>
+                        <NeumorphView
+                            style={styles.linearGradient}
+                        >
+                            <LCDView>
+                                <View style={{ flexBasis: 'auto', height: 100, paddingHorizontal: '2%' }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1 }}>
+                                        <Text style={styles.lcdLabel}>scanned device</Text>
+                                        <Text style={styles.lcdLabel}>signal <Icon name="bar-graph" size={12} color="black" /></Text>
                                     </View>
-                                )}
-                            />
+                                    <FlatList
+                                        data={contactedIDs}
+                                        keyExtractor={(item) => item.tempID}
+                                        renderItem={({ item }) => (
+                                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} >
+                                                <Text>{item.tempID.substring(item.tempID.length - 12)}</Text>
+                                                <Text>{item.averageRssi}</Text>
+                                            </View>
+                                        )}
+                                    />
+                                </View>
+                            </LCDView>
+                        </NeumorphView>
+                        <View style={{ padding: 15 }} />
+                        <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={styles.label}>bluetooth radio</Text>
                         </View>
-                    </LCDView>
-                </NeumorphView>
-                <View style={{ padding: 15 }} />
-                <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Text style={styles.label}>bluetooth radio</Text>
-                </View>
-                <View style={{ padding: 5 }} />
-                <NeumorphView
-                    style={styles.linearGradient}
-                >
-                    <LCDView>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1, marginBottom: '1%', paddingHorizontal: '2%' }}>
-                            <Text style={styles.lcdLabel}>status</Text>
-                            <Text style={styles.lcdLabel}>device id</Text>
+                        <View style={{ padding: 5 }} />
+                        <NeumorphView
+                            style={styles.linearGradient}
+                        >
+                            <LCDView>
+                                <View style={{ flexBasis: 'auto', paddingHorizontal: '4%', height: Platform.OS === 'android' ? 45 : null, justifyContent: 'center' }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1, marginBottom: Platform.OS === 'android' ? null : 5, marginTop: Platform.OS === 'android' ? 15 : null }}>
+                                        <Text style={styles.lcdLabel}>status</Text>
+                                        <Text style={styles.lcdLabel}>device id</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: Platform.OS === 'android' ? -7 : null }}>
+                                        <Icon name="signal" size={14} color={isContactTracingOn ? "black" : "grey"} />
+                                        <LCDTextView
+                                            placeholder={tempID ? tempID.substring(tempID.length - 12) : Platform.OS == 'android' ?  "- - - - - - - - - - - -" : "------------"}
+                                            value={tempID ? tempID.substring(tempID.length - 12) : ""}
+                                        />
+                                    </View>
+                                </View>
+                            </LCDView>
+                        </NeumorphView>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignContent: 'center', paddingTop: '6%' }}>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='on' handlePress={handleStartBackgroundBLE} />
+                            </View>
+                            <View style={{ margin: 10 }}>
+                                <CustomButton title='off' handlePress={handleStopBackgroundBLE} />
+                            </View>
                         </View>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingHorizontal: '2%' }}>
-                            <Text style={styles.lcdLabel}><Icon name="signal" size={14} color={isContactTracingOn ? "black" : "grey"} /></Text>
-                            <LCDTextView
-                                placeholder={tempID ? tempID.substring(tempID.length - 12) : "------------"}
-                                value={tempID ? tempID.substring(tempID.length - 12) : ""}
-                            />
-                        </View>
-                    </LCDView>
-                </NeumorphView>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignContent: 'center', paddingTop: '6%' }}>
-                    <View style={{ margin: 10 }}>
-                        <CustomButton title='on' handlePress={handleStartBackgroundBLE} />
                     </View>
-                    <View style={{ margin: 10 }}>
-                        <CustomButton title='off' handlePress={handleStopBackgroundBLE} />
-                    </View>
-                </View>
-            </View>
-        </SafeAreaView>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 };
 
