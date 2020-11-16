@@ -103,14 +103,16 @@ const SettingsScreen = () => {
             }}
         >
             <SafeAreaView style={{ alignItems: 'center' }}>
-                <View style={{ marginHorizontal: '22%', marginTop: 20, marginBottom: 10 }}>
+                <View style={{ marginHorizontal: '22%', marginTop: 30, marginBottom: 10 }}>
                     <Text style={styles.header} >account</Text>
                     <CustomButton title="logout" handlePress={logoutButtonHandler} />
                     <View style={{ padding: 10 }} />
                     <CustomButton title="delete account" handlePress={deleteAccountButtonHandler} />
                 </View>
-                <View style={{ marginTop: 20, marginBottom: 10, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%' }}>
+                <View style={{ marginTop: 30, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
+                <View style={{ marginTop: 10, marginBottom: 10, marginHorizontal: '5%' }}>
                     <Text style={styles.header} >bluetooth mock</Text>
+                    <View style={{padding: 5}}/>
                     <Text style={styles.body}>1. Enter a <Text style={{ fontWeight: 'bold' }}>device ID</Text></Text>
                     <Text style={styles.hint} >
                         <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
@@ -145,7 +147,8 @@ const SettingsScreen = () => {
                 <View style={{ marginHorizontal: '22%', marginVertical: 20 }} >
                     <CustomButton title="mock device" handlePress={addDeviceButtonHandler} />
                 </View>
-                <View style={{ marginVertical: 20, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', width: '100%' }}>
+                <View style={{ marginTop: 30, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
+                <View style={{ marginVertical: 10, marginHorizontal: '5%', width: '100%' }}>
                     <Text style={styles.header} >device storage</Text>
                     <CustomButton title="clear contacts" handlePress={clearDevicesButtonHandler} />
                     <View style={{ padding: 10 }} />
