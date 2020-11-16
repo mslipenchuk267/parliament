@@ -59,11 +59,10 @@ const HomeScreen = () => {
             bleManager.startDeviceScan(
                 null, //[PARLIAMENT_SERVICE_UUID]
                 { allowDuplicates: true },
-                (error, device) => {
-                    handleDevice(error, device, dispatch, bleManager);
-                    // await mutex.runExclusive(async () => {
-                    //     await handleDevice(error, device, dispatch, bleManager);
-                    // });
+                async (error, device) => {
+                    await mutex.runExclusive(async () => {
+                        await handleDevice(error, device, dispatch, bleManager);
+                    });
                 }
             )
         } catch (error) {
