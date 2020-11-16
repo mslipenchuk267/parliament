@@ -148,9 +148,9 @@ const SettingsScreen = () => {
                 <View style={{ marginVertical: 20, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', width: '100%' }}>
                     <Text style={styles.header} >device storage</Text>
                     <CustomButton title="clear contacts" handlePress={clearDevicesButtonHandler} />
-                </View>
-                <View style={{ marginHorizontal: '22%', marginTop: 10, marginBottom: 40 }} >
+                    <View style={{ padding: 10 }} />
                     <CustomButton title="clear notifications" handlePress={clearNotificationsHandler} />
+                    <View style={{ padding: 15 }} />
                 </View>
             </SafeAreaView>
         </ScrollView>
