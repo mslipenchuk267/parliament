@@ -10,7 +10,8 @@ import {
     SET_DEVICE_TOKEN,
     ADD_TEMP_ID,
     UPDATE_NOTIFICATION_HISTORY,
-    CLEAR_CONTACTED_IDS
+    CLEAR_CONTACTED_IDS,
+    SET_NOTIFICATION_HISTORY
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -82,6 +83,11 @@ export default (state = initialState, action) => {
                 }
             } else { // no new notifications to add
                 return state;
+            }
+        case SET_NOTIFICATION_HISTORY:
+            return {
+                ...state,
+                notificationHistory: action.notificationHistory
             }
         case SET_DID_TRY_AUTO_LOGIN:
             return {
