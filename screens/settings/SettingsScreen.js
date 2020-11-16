@@ -109,7 +109,7 @@ const SettingsScreen = () => {
                 </View>
                 <View style={{ marginTop: 20, marginBottom: 10, marginHorizontal: '22%' }}>
                     <CustomTextInput
-                        placeholder="XXXXXXXXXXXX"
+                        placeholder="000000000000"
                         onChangeText={(text) => setDeviceID(text)}
                     />
                 </View>
