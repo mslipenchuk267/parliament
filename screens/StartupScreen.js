@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import * as userActions from '../store/actions/user';
-import { getContactedIDs, getUserAuth } from '../helpers/secureStoreHelper';
+import { deleteUserAuth, getContactedIDs, getUserAuth, getNotificationHistory } from '../helpers/secureStoreHelper';
 import { offWhite } from '../constants/colors';
 
 /**
@@ -20,11 +20,18 @@ const StartupScreen = () => {
 
     useEffect(() => {
         const tryLogin = async () => {
-            // check persistent storage for user data 
+            // check persistent storage for stored contacted IDs
             const contactedIDs = await getContactedIDs();
             if (contactedIDs) {
                 // set redux state
                 dispatch(userActions.setContactIDs(contactedIDs));
+            }
+
+            // check persistent storage for stored notification history
+            const notificationHistory = await getNotificationHistory();
+            if (notificationHistory) {
+                // set redux state
+                dispatch(userActions.setNotificationHistory(notificationHistory));
             }
 
             // check persistent storage for userAuth json

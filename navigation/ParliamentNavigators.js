@@ -98,7 +98,7 @@ export const DiagnosisNavigator = () => {
     return (
         <DiagnosisStackNavigator.Navigator>
             <DiagnosisStackNavigator.Screen
-                name="Submission"
+                name="Resources"
                 component={DiagnosisScreen}
             />
             <DiagnosisStackNavigator.Screen

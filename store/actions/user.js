@@ -10,9 +10,11 @@ import {
     SET_DEVICE_TOKEN,
     ADD_TEMP_ID,
     UPDATE_NOTIFICATION_HISTORY,
-    CLEAR_CONTACTED_IDS
+    SET_NOTIFICATION_HISTORY,
+    CLEAR_CONTACTED_IDS,
+    CLEAR_NOTIFICATION_HISTORY
 } from '../../constants/ActionTypes';
-import { deleteContactedIDs, saveContactedIDs, deleteUserAuth, saveUserAuth } from '../../helpers/secureStoreHelper';
+import { deleteContactedIDs, saveContactedIDs, deleteUserAuth, saveUserAuth, deleteNotificationHistory, saveNotificationHistory } from '../../helpers/secureStoreHelper';
 import Contact from '../../models/contact';
 import { uploadDeviceToken } from '../../helpers/authHelper';
 
@@ -21,8 +23,19 @@ export const storeTempID = (tempID) => {
 }
 
 export const updateNotificationHistory = (matchedContacts) => {
-    return { type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts }
+    return async (dispatch, getState) => {
+        dispatch({ type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts });
+        // deleteNotificationHistory from secore store
+        await deleteNotificationHistory();
+        const notificationHistory = [...getState().user.notificationHistory]
+        await saveNotificationHistory(notificationHistory);
+    }
 }
+
+export const setNotificationHistory = (notificationHistory) => {
+    return { type: SET_NOTIFICATION_HISTORY, notificationHistory: notificationHistory }
+}
+
 
 export const setContactIDs = (contactedIDs) => {
     return { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
@@ -82,6 +95,10 @@ export const addFakeContact = (tempID, date) => {
 
 export const clearContactedIDs = () => {
     return { type: CLEAR_CONTACTED_IDS }
+}
+
+export const clearNotificationHistory = () => {
+    return { type: CLEAR_NOTIFICATION_HISTORY }
 }
 
 /**
@@ -302,6 +319,7 @@ export const deleteAccount = () => {
         dispatch({ type: UNAUTHENTICATE });
         // remove the contactedIDs data from the secure store
         await deleteContactedIDs();
+        await deleteNotificationHistory();
         // remove the userAuth data from the secure store
         await deleteUserAuth();
     }

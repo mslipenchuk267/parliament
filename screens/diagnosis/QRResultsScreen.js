@@ -21,6 +21,7 @@ const QRResultsScreen = (props) => {
   const tempIDs = useSelector(state => state.user.tempIDs);
   const accessToken = useSelector(state => state.user.accessToken);
   const accessTokenExpiration = useSelector(state => state.user.accessTokenExpiration);
+  const dispatch = useDispatch();
 
   // set qrResult from props
   const qrResult = props.route.params?.result ?? "none";
@@ -35,6 +36,7 @@ const QRResultsScreen = (props) => {
         },
         {
           text: "Yes", onPress: async () => {
+            console.log(accessTokenExpiration)
             if (isRefreshNeeded(accessTokenExpiration)) {
               await dispatch(userActions.refreshTokens())
             }

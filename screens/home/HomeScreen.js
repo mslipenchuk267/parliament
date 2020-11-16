@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView, ScrollView, FlatList, StatusBar } from 'react-native';
+import { Text, Platform, PermissionsAndroid, View, Button, StyleSheet, SafeAreaView, ScrollView, FlatList, StatusBar, KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
@@ -42,8 +42,7 @@ const bleManager = new BleManager();
  */
 
 const HomeScreen = () => {
-    const [isForegroundOn, setIsForegroundOn] = useState(false);
-    const [isBackgroundOn, setIsBackgroundOn] = useState(false);
+    const [isContactTracingOn, setIsContactTracingOn] = useState(false);
     const contactedIDs = useSelector(state => state.user.contactedIDs);
     const dispatch = useDispatch();
     const [tempID, setTempID] = useState(null);
@@ -67,9 +66,9 @@ const HomeScreen = () => {
                 }
             )
         } catch (error) {
-            console.log('bleManager not start scanning for devices', { error })
+            console.log('HomeScreen.js/handleStartForegroundScanning() - (error) bleManager not start scanning for devices', { error })
         }
-        console.log("Start Scanning on ", Platform.OS)
+        console.log("HomeScreen.js/handleStartForegroundScanning() - Started Scanning on ", Platform.OS)
     }
 
     /**
@@ -78,6 +77,7 @@ const HomeScreen = () => {
      */
     const handleStopForegroundScanning = () => {
         bleManager.stopDeviceScan();
+        console.log("HomeScreen.js/handleStopForegroundScanning() - Stopped Scanning on ", Platform.OS)
     }
 
     /**
@@ -103,7 +103,7 @@ const HomeScreen = () => {
 
             BLEPeripheral.start()
                 .then(res => {
-                    console.log("Started Advertising on Android: ", tempID)
+                    console.log("HomeScreen.js/handleStartForegroundAdvertising() - Started Advertising on Android: ", tempID)
                 }).catch(error => {
                     console.log(error)
                 })
@@ -136,7 +136,7 @@ const HomeScreen = () => {
                 name: 'PiOS',
                 serviceUuids: [PARLIAMENT_SERVICE_UUID, tempID],
             })
-            console.log("Started Advertising on iOS: ", tempID)
+            console.log("HomeScreen.js/handleStartForegroundAdvertising() - Started Advertising on iOS: ", tempID)
 
         }
     }
@@ -174,114 +174,38 @@ const HomeScreen = () => {
     };
 
     const veryIntensiveTask = async () => {
-        const mutex = new Mutex();
-        try {
-            bleManager.startDeviceScan(
-                null, //[PARLIAMENT_SERVICE_UUID]
-                { allowDuplicates: true },
-                async (error, device) => {
-                    await mutex.runExclusive(async () => {
-                        await handleDevice(error, device, dispatch, bleManager);
-                    });
-                }
-            )
-        } catch (error) {
-            console.log('bleManager not start scanning for devices', { error })
-        }
-        console.log("Start Scanning on ", Platform.OS)
-
-        if (Platform.OS === 'android') {
-            if (BLEPeripheral.isAdvertising()) {
-                BLEPeripheral.stop()
-            }
-
-            BLEPeripheral.setName('');
-            // The contact tracing service UUID
-            BLEPeripheral.addService(PARLIAMENT_SERVICE_UUID, true);
-            // The 
-            //BLEPeripheral.addService('00001200-0000-1000-8000-00805f9b34fa', true);
-            const tempID = generateTempID();
-            setTempID(tempID);
-            BLEPeripheral.addCharacteristicToService(PARLIAMENT_SERVICE_UUID, tempID, 16 | 1, 8)
-
-            BLEPeripheral.start()
-                .then(res => {
-                    console.log("Started Advertising on Android: ", tempID)
-                }).catch(error => {
-                    console.log(error)
-                })
-        } else {
-            //if (Peripheral.isAdvertising()) {
-            //    await Peripheral.stopAdvertising()
-            //}
-            const tempID = generateTempID();
-            setTempID(tempID);
-            // add tempID to redux state
-            await dispatch(userActions.storeTempID(tempID));
-            const ch = new Characteristic({
-                uuid: tempID,
-                value: '', // Base64-encoded string
-                properties: ['read'],
-                permissions: ['readable'],
-            })
-            const service = new Service({
-                uuid: PARLIAMENT_SERVICE_UUID,
-                characteristics: [ch],
-            })
-
-            // register GATT services that your device provides
-            await Peripheral.addService(service)
-
-            // start advertising to make your device discoverable
-            // the contactTracingServiceUUID is only visible for other iOS devices and not for Android devices
-            await Peripheral.startAdvertising({
-                name: 'PiOS',
-                serviceUuids: [PARLIAMENT_SERVICE_UUID, tempID],
-            })
-            console.log("Started Advertising on iOS: ", tempID)
-
-        }
-
-        console.log("Background Tasks Started");
+        await new Promise(async (resolve) => {
+            handleStartForegroundBLE();
+            console.log("HomeScreen.js/veryIntensiveTask() - Background Scanning & Advertising Tasks Started");
+        });
     };
 
     const handleStartForegroundBLE = async () => {
         handleStartForegroundAdvertising();
         handleStartForegroundScanning();
-        setIsForegroundOn(true);
     }
 
     const handleStopForegroundBLE = async () => {
         handleStopForegroundAdvertising();
         handleStopForegroundScanning();
-        setIsForegroundOn(false);
     }
 
-
     const handleStartBackgroundBLE = async () => {
-        await BackgroundService.start(veryIntensiveTask, backgroundOptions);
-        setIsBackgroundOn(true);
+        if (!isContactTracingOn) {
+            await BackgroundService.start(veryIntensiveTask, backgroundOptions);
+            console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Started");
+            setIsContactTracingOn(true);
+        }
     }
 
     const handleStopBackgroundBLE = async () => {
-        bleManager.stopDeviceScan();
-
-        if (Platform.OS === 'android') {
-            await BLEPeripheral.stop()
-            setTempID("None");
-        } else {
-            if (Peripheral.isAdvertising()) {
-                await Peripheral.stopAdvertising();
-                setTempID("None");
-
-            }
+        if (isContactTracingOn) {
+            await BackgroundService.stop();
+            handleStopForegroundBLE();
+            console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Stopped");
+            setIsContactTracingOn(false);
         }
-        await BackgroundService.stop();
-        setIsBackgroundOn(false);
-        console.log("Background Tasks Stopped");
-
     }
-
 
     useEffect(() => {
         if (Platform.OS === 'android') {
@@ -300,88 +224,85 @@ const HomeScreen = () => {
     }, []);
 
     return (
-        <SafeAreaView style={{ backgroundColor: offWhite }}>
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={{
-                    alignItems: 'center',
-                    backgroundColor: offWhite,
-                }}
-            >
-                <StatusBar barStyle='dark-content' />
-                <View style={{ marginTop: 30, width: '70%' }} >
-                    <NeumorphView
-                        style={styles.linearGradient}
-                    >
-                        <LCDView>
-                            <View style={{ flexBasis: 'auto', height: 130, paddingHorizontal: '2%' }}>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1 }}>
-                                    <Text style={styles.lcdLabel}>scanned device</Text>
-                                    <Text style={styles.lcdLabel}>signal <Icon name="signal" size={14} color="black" /></Text>
-                                </View>
-                                <FlatList
-                                    data={contactedIDs}
-                                    keyExtractor={(item) => item.tempID}
-                                    renderItem={({ item }) => (
-                                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} >
-                                            <Text>{item.tempID.substring(item.tempID.length - 12)}</Text>
-                                            <Text>{item.averageRssi}</Text>
-                                        </View>
-                                    )}
-                                />
-                            </View>
-                        </LCDView>
-                    </NeumorphView>
-                    <View style={{ padding: 10 }} />
-                    <NeumorphView
-                        style={styles.linearGradient}
-                    >
-                        <LCDView>
-                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                <Text style={styles.lcdLabel}>foreground <Icon name="signal" size={14} color={isForegroundOn ? "black" : "grey"} /></Text>
-                                <LCDTextView
-                                    placeholder={tempID ? tempID.substring(tempID.length - 12) : "_____________"}
-                                    value={tempID ? tempID.substring(tempID.length - 12) : ""}
-                                />
-                            </View>
-                        </LCDView>
-                    </NeumorphView>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 15 }}>
-                        <View style={{ margin: 10 }}>
-                            <CustomButton title='start' handlePress={handleStartForegroundBLE} />
+        <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "height"}
+            style={{ flex: 1 }}
+        >
+            <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+                <SafeAreaView style={styles.container}>
+                    <StatusBar barStyle='dark-content' />
+                    <View style={{ width: '70%', justifyContent: 'center' }} >
+                        <View style={{ justifyContent: 'space-between', alignItems: 'center', paddingBottom: '6%' }}>
+                            <Text style={{ ...styles.label, fontSize: 28 }}>Parliament</Text>
                         </View>
-                        <View style={{ margin: 10 }}>
-                            <CustomButton title='stop' handlePress={handleStopForegroundBLE} />
-                        </View>
-                    </View>
-                    { // Uncomment this to work on background contact tracing
-                    /*<NeumorphView
+                        <NeumorphView
                             style={styles.linearGradient}
                         >
                             <LCDView>
-                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <Text style={styles.lcdLabel}>background <Icon name="signal" size={14} color={isBackgroundOn ? "black" : "grey"} /></Text>
+                                <View style={{ flexBasis: 'auto', height: 100, paddingHorizontal: '2%' }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1 }}>
+                                        <Text style={styles.lcdLabel}>scanned device</Text>
+                                        <Text style={styles.lcdLabel}>signal <Icon name="bar-graph" size={12} color="black" /></Text>
+                                    </View>
+                                    <ScrollView keyboardShouldPersistTaps='never'>
+                                        {contactedIDs.map(function (data, index) {
+                                            return (
+                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} onStartShouldSetResponder={() => true} >
+                                                    <Text>{data.tempID.substring(data.tempID.length - 12)}</Text>
+                                                    <Text>{data.averageRssi}</Text>
+                                                </View>
+                                            )
+                                        })}
+                                    </ScrollView>
                                 </View>
                             </LCDView>
                         </NeumorphView>
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginTop: 10, marginBottom: 20 }}>
+                        <View style={{ padding: 15 }} />
+                        <View style={{ justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Text style={styles.label}>bluetooth radio</Text>
+                        </View>
+                        <View style={{ padding: 5 }} />
+                        <NeumorphView
+                            style={styles.linearGradient}
+                        >
+                            <LCDView>
+                                <View style={{ flexBasis: 'auto', paddingHorizontal: '4%', height: Platform.OS === 'android' ? 45 : null, justifyContent: 'center' }}>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingBottom: 2, borderBottomWidth: 1, marginBottom: Platform.OS === 'android' ? null : 5, marginTop: Platform.OS === 'android' ? 15 : null }}>
+                                        <Text style={styles.lcdLabel}>status</Text>
+                                        <Text style={styles.lcdLabel}>device id</Text>
+                                    </View>
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: Platform.OS === 'android' ? -7 : null }}>
+                                        <Icon name="signal" size={14} color={isContactTracingOn ? "black" : "grey"} />
+                                        <LCDTextView
+                                            placeholder={tempID ? tempID.substring(tempID.length - 12) : Platform.OS == 'android' ? "- - - - - - - - - - - -" : "------------"}
+                                            value={tempID ? tempID.substring(tempID.length - 12) : ""}
+                                        />
+                                    </View>
+                                </View>
+                            </LCDView>
+                        </NeumorphView>
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', alignContent: 'center', paddingTop: '6%' }}>
                             <View style={{ margin: 10 }}>
-                                <CustomButton title='start' handlePress={handleStartBackgroundBLE} />
+                                <CustomButton title='on' handlePress={handleStartBackgroundBLE} />
                             </View>
                             <View style={{ margin: 10 }}>
-                                <CustomButton title='stop' handlePress={handleStopBackgroundBLE} />
+                                <CustomButton title='off' handlePress={handleStopBackgroundBLE} />
                             </View>
-                        </View>*/}
-                </View>
-            </ScrollView>
-        </SafeAreaView>
+                        </View>
+                    </View>
+                </SafeAreaView>
+            </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
     )
 };
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         height: '100%',
         backgroundColor: offWhite,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     label: {
         fontSize: 18,

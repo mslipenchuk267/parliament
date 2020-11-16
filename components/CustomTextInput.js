@@ -5,6 +5,7 @@ import { lightGrey, mediumGrey } from '../constants/colors';
 const CustomTextInput = (props) => {
     return (
         <TextInput
+            value={props.value ? props.value : null}
             placeholder={props.placeholder}
             secureTextEntry={props.secureTextEntry}
             style={styles.textInput}

@@ -10,7 +10,9 @@ import {
     SET_DEVICE_TOKEN,
     ADD_TEMP_ID,
     UPDATE_NOTIFICATION_HISTORY,
-    CLEAR_CONTACTED_IDS
+    CLEAR_CONTACTED_IDS,
+    SET_NOTIFICATION_HISTORY,
+    CLEAR_NOTIFICATION_HISTORY
 } from '../../constants/ActionTypes';
 
 const initialState = {
@@ -61,6 +63,11 @@ export default (state = initialState, action) => {
                 ...state,
                 contactedIDs: []
             }
+        case CLEAR_NOTIFICATION_HISTORY:
+            return {
+                ...state,
+                notificationHistory: []
+            }
         case UPDATE_NOTIFICATION_HISTORY:
             // Filter out notifications that are already in history
             var uniqueNotifications = []
@@ -82,6 +89,11 @@ export default (state = initialState, action) => {
                 }
             } else { // no new notifications to add
                 return state;
+            }
+        case SET_NOTIFICATION_HISTORY:
+            return {
+                ...state,
+                notificationHistory: action.notificationHistory
             }
         case SET_DID_TRY_AUTO_LOGIN:
             return {
