@@ -25,6 +25,7 @@ const UserTabNavigator = createBottomTabNavigator();
 // UserNavigator Stack Navigators (tabs)
 const HomeStackNavigator = createStackNavigator();
 const DiagnosisStackNavigator = createStackNavigator();
+const QRStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
 // AuthNavigator Stack Component 
@@ -98,10 +99,11 @@ export const DiagnosisNavigator = () => {
     return (
         <DiagnosisStackNavigator.Navigator>
             <DiagnosisStackNavigator.Screen
-                name="Resources"
-                component={DiagnosisScreen}
+                name="News"
+                //component={DiagnosisScreen}
+                component={StateSelectorScreen}
             />
-            <DiagnosisStackNavigator.Screen
+            {/* <DiagnosisStackNavigator.Screen
                 name="StateSelector"
                 component={StateSelectorScreen}
                 options={{ headerTitle: "US State News", headerBackTitleVisible: false }}
@@ -120,11 +122,32 @@ export const DiagnosisNavigator = () => {
                 name="QRResults"
                 component={QRResultsScreen}
                 options={{ headerTitle: "QR Result", headerBackTitleVisible: false }}
-            />
+            /> */}
         </DiagnosisStackNavigator.Navigator>
     )
 }
 
+export const QRNavigator = () => {
+    return (
+        <QRStackNavigator.Navigator>
+            <QRStackNavigator.Screen
+                name="QRScanning"
+                component={QRScanningScreen}
+                options={{
+                    headerTitle: "QR Scanner",
+                    headerTitleStyle: { color: 'white' },
+                    headerTransparent: true,
+                    headerBackTitleVisible: false
+                }}
+            />
+            <QRStackNavigator.Screen
+                name="QRResults"
+                component={QRResultsScreen}
+                options={{ headerTitle: "QR Result", headerBackTitleVisible: false }}
+            />
+        </QRStackNavigator.Navigator>
+    )
+}
 
 /**
  * The NotificationsNavigator represents the notifications tab
@@ -186,7 +209,11 @@ export const UserNavigator = () => {
                         iconName = 'home'
                     } else if (route.name === 'Diagnosis') {
                         iconName = 'magnifying-glass';
-                    } else if (route.name === 'Notifications') {
+                    } 
+                    else if (route.name === 'QRScanning') {
+                        iconName = 'camera';
+                    } 
+                    else if (route.name === 'Notifications') {
                         iconName = 'bell';
                     } else if (route.name === 'Settings') {
                         iconName = 'cog';
@@ -209,6 +236,12 @@ export const UserNavigator = () => {
                 name="Diagnosis"
                 component={DiagnosisNavigator}
             />
+
+            <UserTabNavigator.Screen
+                name="QRScanning"
+                component={QRScanningScreen}
+            />
+
             <UserTabNavigator.Screen
                 name="Notifications"
                 component={NotificationsNavigator}
