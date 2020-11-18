@@ -193,7 +193,7 @@ const HomeScreen = () => {
     const handleStartBackgroundBLE = async () => {
         if (!isContactTracingOn) {
             await BackgroundService.start(veryIntensiveTask, backgroundOptions);
-            console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Started");
+            console.log("HomeScreen.js/handleStartBackgroundBLE() - Background Scanning & Advertising Tasks Started");
             setIsContactTracingOn(true);
         }
     }
