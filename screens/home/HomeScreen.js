@@ -17,7 +17,7 @@ import { offWhite } from '../../constants/colors';
 import BackgroundService from 'react-native-background-actions'
 import { startAllBackground, stopAllBackground } from '../../helpers/backgroundHelper';
 import LCDTextView from '../../components/LCDTextView';
-
+import Toast from 'react-native-toast-message';
 const bleManager = new BleManager();
 
 // const bleManager = new BleManager({
@@ -191,6 +191,9 @@ const HomeScreen = () => {
     }
 
     const handleStartBackgroundBLE = async () => {
+        Toast.show({
+            text2: 'Bluetooth Radio started scanning and advertising'
+        });
         if (!isContactTracingOn) {
             await BackgroundService.start(veryIntensiveTask, backgroundOptions);
             console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Started");
@@ -199,6 +202,10 @@ const HomeScreen = () => {
     }
 
     const handleStopBackgroundBLE = async () => {
+        Toast.show({
+            text2: 'Bluetooth Radio stopped scanning and advertising'
+        });
+
         if (isContactTracingOn) {
             await BackgroundService.stop();
             handleStopForegroundBLE();
