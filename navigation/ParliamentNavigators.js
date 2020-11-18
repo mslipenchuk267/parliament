@@ -239,7 +239,7 @@ export const UserNavigator = () => {
 
             <UserTabNavigator.Screen
                 name="QRScanning"
-                component={QRScanningScreen}
+                component={QRNavigator}
             />
 
             <UserTabNavigator.Screen
