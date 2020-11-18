@@ -107,8 +107,8 @@ const SettingsScreen = () => {
                 <View style={{ marginTop: 10, marginBottom: 10, marginHorizontal: '5%' }}>
                     <Text style={styles.header} >Add Device</Text>
 
-                    <Text style={styles.hint}>Manually enter ID's from other devices here.</Text>
-                    <Text style={styles.hint}>ID's from other devices will be added into scanned device</Text>
+                    <Text style={styles.header,{textAlign: 'center'}}>Manually enter ID's from other devices here.</Text>
+                    <Text style={styles.header,{textAlign: 'center' }}>ID's from other devices will be added into scanned device</Text>
                     <View style={{padding: 5}}/>
 
                 </View>
@@ -157,7 +157,7 @@ const SettingsScreen = () => {
                 </View>
                 <View style={{ marginTop: 30, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
                 <View style={{ marginVertical: 10, marginHorizontal: '5%', width: '100%' }}>
-                    <Text style={styles.header} >Device ID's</Text>
+                    <Text style={styles.header} >Scanned Devices</Text>
                     <CustomButton title="Remove All" handlePress={clearDevicesButtonHandler} />
                 </View>
 
