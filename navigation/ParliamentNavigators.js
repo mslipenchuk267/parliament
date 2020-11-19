@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from '../node_modules/react-native-vector-icons/Entypo';
+import Icon, { Button } from '../node_modules/react-native-vector-icons/Entypo';
 
 // UserNavigator screens 
 import HomeScreen from '../screens/home/HomeScreen';
@@ -19,6 +19,9 @@ import SignUpScreen from '../screens/auth/SignUpScreen';
 
 // Design imports
 import { blue } from '../constants/colors';
+import { StackActions, useNavigation } from '@react-navigation/native';
+import { Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // UserNavigator Bottom Tab Component
 const UserTabNavigator = createBottomTabNavigator();
@@ -58,7 +61,7 @@ export const AuthNavigator = () => {
             <AuthStackNavigator.Screen
                 name="SignUp"
                 component={SignUpScreen}
-                options={{ headerBackTitle: false, headerTitle: "", headerTransparent: true  }}
+                options={{ headerBackTitle: false, headerTitle: "", headerTransparent: true }}
             />
         </AuthStackNavigator.Navigator>
     )
@@ -128,6 +131,9 @@ export const DiagnosisNavigator = () => {
 }
 
 export const QRNavigator = () => {
+    // Use the useNavigation hook so we can navigate 
+    // back in the header button in QRResults screen
+    const navigation = useNavigation();
     return (
         <QRStackNavigator.Navigator>
             <QRStackNavigator.Screen
@@ -143,7 +149,16 @@ export const QRNavigator = () => {
             <QRStackNavigator.Screen
                 name="QRResults"
                 component={QRResultsScreen}
-                options={{ headerTitle: "QR Result", headerBackTitleVisible: false }}
+                options={{
+                    headerTitle: "QR Result",
+                    headerRight: () => (
+                        <TouchableOpacity
+                            onPress={() => navigation.dispatch(StackActions.replace('QRScanning'))}
+                        >
+                            <Text style={{color: blue, paddingRight: 15, fontSize: 16 }} >Scan Again</Text>
+                        </TouchableOpacity>
+                    ),
+                }}
             />
         </QRStackNavigator.Navigator>
     )
@@ -209,11 +224,9 @@ export const UserNavigator = () => {
                         iconName = 'home'
                     } else if (route.name === 'Diagnosis') {
                         iconName = 'magnifying-glass';
-                    } 
-                    else if (route.name === 'QRScanning') {
+                    } else if (route.name === 'QRScanning') {
                         iconName = 'camera';
-                    } 
-                    else if (route.name === 'Notifications') {
+                    } else if (route.name === 'Notifications') {
                         iconName = 'bell';
                     } else if (route.name === 'Settings') {
                         iconName = 'cog';
