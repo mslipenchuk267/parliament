@@ -5,7 +5,6 @@ import Icon, { Button } from '../node_modules/react-native-vector-icons/Entypo';
 
 // UserNavigator screens 
 import HomeScreen from '../screens/home/HomeScreen';
-import DiagnosisScreen from '../screens/diagnosis/DiagnosisScreen';
 import NotificationsScreen from '../screens/notifications/NotificationsScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
 import QRScanningScreen from '../screens/diagnosis/QRScanningScreen';
@@ -106,26 +105,6 @@ export const DiagnosisNavigator = () => {
                 //component={DiagnosisScreen}
                 component={StateSelectorScreen}
             />
-            {/* <DiagnosisStackNavigator.Screen
-                name="StateSelector"
-                component={StateSelectorScreen}
-                options={{ headerTitle: "US State News", headerBackTitleVisible: false }}
-            />
-            <DiagnosisStackNavigator.Screen
-                name="QRScanning"
-                component={QRScanningScreen}
-                options={{
-                    headerTitle: "QR Scanner",
-                    headerTitleStyle: { color: 'white' },
-                    headerTransparent: true,
-                    headerBackTitleVisible: false
-                }}
-            />
-            <DiagnosisStackNavigator.Screen
-                name="QRResults"
-                component={QRResultsScreen}
-                options={{ headerTitle: "QR Result", headerBackTitleVisible: false }}
-            /> */}
         </DiagnosisStackNavigator.Navigator>
     )
 }
