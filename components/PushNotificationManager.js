@@ -8,6 +8,7 @@ import { handleNotification } from '../helpers/notificationHelper';
 const PushNotificationManager = (props) => {
   const dispatch = useDispatch();
   const contactedIDs = useSelector(state => state.user.contactedIDs);
+  const didTryAutoLogin = useSelector(state => state.user.didTryAutoLogin);
 
   useEffect(() => {
     registerDevice = () => {
@@ -52,9 +53,10 @@ const PushNotificationManager = (props) => {
         })
         .catch(err => console.error('getInitialNotification() failed', err))
     }
-
-    registerDevice()
-    registerNotificationEvents()
+    if (!didTryAutoLogin) {
+      registerDevice();
+    }
+    registerNotificationEvents();
   }, [dispatch, contactedIDs])
 
   return (

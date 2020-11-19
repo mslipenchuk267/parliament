@@ -18,18 +18,17 @@ import BackgroundService from 'react-native-background-actions'
 import { startAllBackground, stopAllBackground } from '../../helpers/backgroundHelper';
 import LCDTextView from '../../components/LCDTextView';
 
-const bleManager = new BleManager();
-
-// const bleManager = new BleManager({
-//     restoreStateIdentifier: 'BleInTheBackground',
-//     restoreStateFunction: restoredState => {
-//       if (restoredState == null) {
-//         // BleManager was constructed for the first time.
-//       } else {
-//         // BleManager was restored. Check `restoredState.connectedPeripherals` property.
-//       }
-//     },
-//   });
+// const bleManager = new BleManager();
+const bleManager = new BleManager({
+    restoreStateIdentifier: 'BleInTheBackground',
+    restoreStateFunction: restoredState => {
+        if (restoredState == null) {
+            // BleManager was constructed for the first time.
+        } else {
+            // BleManager was restored. Check `restoredState.connectedPeripherals` property.
+        }
+    },
+});
 
 /**
  * The HomeScreen component houses the UI components 
@@ -57,7 +56,7 @@ const HomeScreen = () => {
         const mutex = new Mutex();
         try {
             bleManager.startDeviceScan(
-                null, //[PARLIAMENT_SERVICE_UUID]
+                Platform.OS == 'ios' ? [PARLIAMENT_SERVICE_UUID] : null, //[PARLIAMENT_SERVICE_UUID]
                 { allowDuplicates: true },
                 async (error, device) => {
                     await mutex.runExclusive(async () => {
