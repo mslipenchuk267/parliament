@@ -7,9 +7,9 @@ import Icon, { Button } from '../node_modules/react-native-vector-icons/Entypo';
 import HomeScreen from '../screens/home/HomeScreen';
 import NotificationsScreen from '../screens/notifications/NotificationsScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
-import QRScanningScreen from '../screens/diagnosis/QRScanningScreen';
-import QRResultsScreen from '../screens/diagnosis/QRResultsScreen';
-import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
+import QRScanningScreen from '../screens/qr/QRScanningScreen';
+import QRResultsScreen from '../screens/qr/QRResultsScreen';
+import StateSelectorScreen from '../screens/news/StateSelectorScreen';
 
 // AuthNavigator screens
 import AuthScreen from '../screens/auth/AuthScreen';
@@ -26,7 +26,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 const UserTabNavigator = createBottomTabNavigator();
 // UserNavigator Stack Navigators (tabs)
 const HomeStackNavigator = createStackNavigator();
-const DiagnosisStackNavigator = createStackNavigator();
+const NewsStackNavigator = createStackNavigator();
 const QRStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
@@ -89,23 +89,22 @@ export const HomeNavigator = () => {
 }
 
 /**
- * The DiagnosisNavigator represents the diagnosis tab
+ * The NewsNavigator represents the news tab
  * in the bottom tab navigator. It manages all the screens
- * meant to be shown in the diagnosis tab. 
+ * meant to be shown in the news tab. 
  * @example
  * return (
- *   <DiagnosisNavigator />
+ *   <NewsNavigator />
  * )
  */
-export const DiagnosisNavigator = () => {
+export const NewsNavigator = () => {
     return (
-        <DiagnosisStackNavigator.Navigator>
-            <DiagnosisStackNavigator.Screen
+        <NewsStackNavigator.Navigator>
+            <NewsStackNavigator.Screen
                 name="News"
-                //component={DiagnosisScreen}
                 component={StateSelectorScreen}
             />
-        </DiagnosisStackNavigator.Navigator>
+        </NewsStackNavigator.Navigator>
     )
 }
 
@@ -129,7 +128,7 @@ export const QRNavigator = () => {
                 name="QRResults"
                 component={QRResultsScreen}
                 options={{
-                    headerTitle: "QR Result",
+                    headerTitle: "QR Results",
                     headerRight: () => (
                         <TouchableOpacity
                             onPress={() => navigation.dispatch(StackActions.replace('QRScanning'))}
@@ -201,7 +200,7 @@ export const UserNavigator = () => {
                     let iconName;
                     if (route.name === 'Home') {
                         iconName = 'home'
-                    } else if (route.name === 'Diagnosis') {
+                    } else if (route.name === 'News') {
                         iconName = 'magnifying-glass';
                     } else if (route.name === 'QRScanning') {
                         iconName = 'camera';
@@ -225,8 +224,8 @@ export const UserNavigator = () => {
                 component={HomeNavigator}
             />
             <UserTabNavigator.Screen
-                name="Diagnosis"
-                component={DiagnosisNavigator}
+                name="News"
+                component={NewsNavigator}
             />
 
             <UserTabNavigator.Screen
