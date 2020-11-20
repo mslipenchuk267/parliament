@@ -36,11 +36,11 @@ const QRResultsScreen = (props) => {
         },
         {
           text: "Yes", onPress: async () => {
-            console.log(accessTokenExpiration)
+            console.log("QRResultsScreen.js/handleVolunteerDataPress() - User Pressed Yes")
+            console.log("QRResultsScreen.js/handleVolunteerDataPress() - User's accessToken expiration is", accessTokenExpiration)
             if (isRefreshNeeded(accessTokenExpiration)) {
               await dispatch(userActions.refreshTokens())
             }
-            console.log("QRResultsScreen.js/handleVolunteerDataPress() - User Pressed Yes")
             await uploadTempIDs(tempIDs, accessToken);
           }
         }
@@ -76,22 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: offWhite,
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  textContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 10
-  },
-  titleBold: {
-    fontWeight: 'bold',
-    fontSize: 20
-  },
-  title: {
-    fontSize: 20
-  },
-  note: {
-    fontStyle: "italic",
-    fontSize: 20
+    justifyContent: 'center',
   }
 });
 

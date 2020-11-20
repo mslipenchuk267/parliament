@@ -8,10 +8,12 @@
  *  // refresh token
  * }
  */
-export const isRefreshNeeded = (accessTokenExpiration) => {
-    if (new Date() >= new Date(accessTokenExpiration)) {
+export const isRefreshNeeded = (tokenExpiration) => {
+    if (new Date() >= new Date(tokenExpiration)) {
+        console.log("authHelper.js/isRefreshNeeded() - User requires a refresh")
         return true;
     } else {
+        console.log("authHelper.js/isRefreshNeeded() - User requires a refresh")
         return false;
     }
 }
@@ -25,8 +27,6 @@ export const isRefreshNeeded = (accessTokenExpiration) => {
  * }
  */
 export const uploadDeviceToken = async (deviceToken, accessToken) => {
-    console.log("authHelper.js/uploadDeviceToken() - Inside the function")
-    
     if (deviceToken && accessToken) {
         // Assemble Request
         var myHeaders = new Headers();
@@ -39,10 +39,9 @@ export const uploadDeviceToken = async (deviceToken, accessToken) => {
             body: raw,
             redirect: 'follow'
         };
-        //
+        // Send Request
         const result = await fetch("http://a87713a1fd4b64cd4b788e8a1592de07-1206905140.us-west-2.elb.amazonaws.com/device_key", requestOptions)
         const resData = await result.json()
-
         // Error Check
         if (resData.error) {
             // alert user to error
