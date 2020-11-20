@@ -17,6 +17,7 @@ import { offWhite } from '../../constants/colors';
 import BackgroundService from 'react-native-background-actions'
 import { startAllBackground, stopAllBackground } from '../../helpers/backgroundHelper';
 import LCDTextView from '../../components/LCDTextView';
+import ScannedDevice from '../../components/ScannedDevice';
 
 // const bleManager = new BleManager();
 const bleManager = new BleManager({
@@ -244,12 +245,9 @@ const HomeScreen = () => {
                                         <Text style={styles.lcdLabel}>signal <Icon name="bar-graph" size={12} color="black" /></Text>
                                     </View>
                                     <ScrollView keyboardShouldPersistTaps='never'>
-                                        {contactedIDs.map(function (data, index) {
+                                        {contactedIDs.map(function (data) {
                                             return (
-                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} onStartShouldSetResponder={() => true} >
-                                                    <Text>{data.tempID.substring(data.tempID.length - 12)}</Text>
-                                                    <Text>{data.averageRssi}</Text>
-                                                </View>
+                                                <ScannedDevice key={data.tempID} tempID={data.tempID.substring(data.tempID.length - 12)} averageRssi={data.averageRssi} />
                                             )
                                         })}
                                     </ScrollView>
