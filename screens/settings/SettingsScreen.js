@@ -103,83 +103,72 @@ const SettingsScreen = () => {
             }}
         >
             <SafeAreaView style={{ alignItems: 'center' }}>
-
-                <View style={{ marginTop: 10, marginBottom: 10, marginHorizontal: '5%' }}>
-                    <Text style={styles.header} >Add Device</Text>
-
-                    <Text style={styles.header,{textAlign: 'center'}}>Manually enter ID's from other devices here.</Text>
-                    <Text style={styles.header,{textAlign: 'center' }}>ID's from other devices will be added into scanned device</Text>
-                    <View style={{padding: 5}}/>
-
-                </View>
-                <View style={{ marginTop: 10, marginBottom: 10, marginHorizontal: '22%', minWidth: '50%' }}>
-
-                <Text style={styles.body}>1. Enter a valid device ID</Text>
-                    <Text style={styles.hint} >
-                        <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                            Note:
+                <View style={styles.section}>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.header} >Add Device</Text>
+                        <Text style={{ ...styles.body, textAlign: 'center', color: 'grey', fontSize: 14 }}>Fake scanning a device by manually entering its ID and date of contact.</Text>
+                        <View style={{ padding: 3 }} />
+                        <Text style={{ ...styles.body, textAlign: 'center', color: 'grey', fontSize: 14 }}>The device will be added to the scanned device display in the home screen.</Text>
+                    </View>
+                    <View style={styles.mockStep}>
+                        <Text style={styles.body}>1. Enter a valid device ID</Text>
+                        <Text style={styles.hint} >
+                            <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                                Note:
                         </Text>
-                        {" ID must be 12 characters long"}
-                    </Text>
-
-                    <View style={{padding: 5}}/>
-
-                    <CustomTextInput
-                        placeholder="000000000000"
-                        value={deviceID}
-                        onChangeText={(text) => setDeviceID(text)}
+                            {" ID must be 12 characters long"}
+                        </Text>
+                        <View style={{ padding: 10 }} />
+                        <CustomTextInput
+                            placeholder="000000000000"
+                            value={deviceID}
+                            onChangeText={(text) => setDeviceID(text)}
+                        />
+                    </View>
+                    <DateTimePickerModal
+                        isVisible={isDatePickerVisible}
+                        isDarkModeEnabled={Appearance.getColorScheme() === 'dark' ? true : false}
+                        mode="date"
+                        onConfirm={handleConfirm}
+                        onCancel={hideDatePicker}
                     />
-                </View>
-                <DateTimePickerModal
-                    isVisible={isDatePickerVisible}
-                    isDarkModeEnabled={Appearance.getColorScheme() === 'dark' ? true : false}
-                    mode="date"
-                    onConfirm={handleConfirm}
-                    onCancel={hideDatePicker}
-                />
-                <View style={{ marginTop: 30, marginBottom: 5, marginHorizontal: '22%' }}>
-                    <Text style={styles.body}>2. Enter the <Text style={{ fontWeight: 'bold' }}>date</Text> of contact</Text>
-                    <Text style={styles.hint} >
-                        <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                            Note:
+                    <View style={styles.mockStep}>
+                        <Text style={styles.body}>2. Enter the <Text style={{ fontWeight: 'bold' }}>date</Text> of contact</Text>
+                        <Text style={styles.hint} >
+                            <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                                Note:
                         </Text>
-                        {" Within the past 14 days"}
-                    </Text>
+                            {" Within the past 14 days"}
+                        </Text>
+                        <View style={{ padding: 5 }} />
+                        <CustomButton title={date ? date.toDateString() : "Set Date"} handlePress={showDatePicker} />
+                    </View>
+                    <View style={{ ...styles.mockStep, marginBottom: 0 }}>
+                        <Text style={styles.body}>3. Add to scanned devices</Text>
+                        <View style={{ padding: 5 }} />
+                        <CustomButton title="Add Device" handlePress={addDeviceButtonHandler} />
+                    </View>
                 </View>
-                <View style={{ marginHorizontal: '22%', marginVertical: -2 }} >
-                    <CustomButton title={date ? date.toDateString() : "Set Date"} handlePress={showDatePicker} />
-                </View>
-                <View style={{ marginTop: 40, marginVertical: -15,  marginHorizontal: '22%' }}>
-                    <Text style={styles.body}>3. Add to scanned devices</Text>
-                </View>
-                <View style={{ marginHorizontal: '22%', marginVertical: 20 }} >
-                    <CustomButton title="Add Device" handlePress={addDeviceButtonHandler} />
-                </View>
-                <View style={{ marginTop: 30, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
-                <View style={{ marginVertical: 10, marginHorizontal: '5%', width: '100%' }}>
+                <View style={styles.divider} />
+                <View style={styles.section}>
                     <Text style={styles.header} >Scanned Devices</Text>
                     <CustomButton title="Remove All" handlePress={clearDevicesButtonHandler} />
                 </View>
-
-                <View style={{ marginTop: 30, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
-                <View style={{ marginVertical: 10, marginHorizontal: '5%', width: '100%' }}>
+                <View style={styles.divider} />
+                <View style={styles.section}>
                     <Text style={styles.header} >Notification History</Text>
-
                     <CustomButton title="Clear History" handlePress={clearNotificationsHandler} />
-                    <View style={{ padding: 15 }} />
                 </View>
-
-                <View style={{ marginTop: 10, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
-
-                <View style={{ marginHorizontal: '22%', marginTop: 10, marginBottom: 10 }}>
+                <View style={styles.divider} />
+                <View style={styles.section}>
                     <Text style={styles.header} >Account</Text>
                     <CustomButton title="Logout" handlePress={logoutButtonHandler} />
                     <View style={{ padding: 10 }} />
                     <CustomButton title="Delete Account" handlePress={deleteAccountButtonHandler} />
+                    <View style={{ padding: 10 }} />
                 </View>
-
             </SafeAreaView>
-        </ScrollView>
+        </ScrollView >
 
     )
 };
@@ -202,6 +191,25 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 20,
         textAlign: 'center'
+    },
+    divider: {
+        marginTop: 10,
+        borderColor: '#E5E5E5',
+        borderTopWidth: 1.3,
+        marginHorizontal: '5%',
+        minWidth: '75%'
+    },
+    section: {
+        marginTop: 30,
+        marginBottom: 30
+    },
+    sectionHeader: {
+        marginBottom: 10,
+        marginHorizontal: '10%'
+    },
+    mockStep: {
+        marginHorizontal: '20%',
+        marginVertical: 20
     }
 });
 
