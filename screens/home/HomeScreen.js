@@ -191,26 +191,43 @@ const HomeScreen = () => {
     }
 
     const handleStartBackgroundBLE = async () => {
-        Toast.show({
-            text2: 'Bluetooth Radio started scanning and advertising'
-        });
         if (!isContactTracingOn) {
             await BackgroundService.start(veryIntensiveTask, backgroundOptions);
             console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Started");
             setIsContactTracingOn(true);
+            Toast.show({
+                text1: 'Bluetooth Status',
+                text2: 'Started scanning and advertising',
+                visibilityTime: 2000
+            });
+        } else {
+            Toast.show({
+                text1: 'Bluetooth Status',
+                text2: 'Bluetooth is already on',
+                type: 'info',
+                visibilityTime: 1500
+            });
         }
     }
 
     const handleStopBackgroundBLE = async () => {
-        Toast.show({
-            text2: 'Bluetooth Radio stopped scanning and advertising'
-        });
-
         if (isContactTracingOn) {
             await BackgroundService.stop();
             handleStopForegroundBLE();
             console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Stopped");
             setIsContactTracingOn(false);
+            Toast.show({
+                text1: 'Bluetooth Status',
+                text2: 'Stopped scanning and advertising',
+                visibilityTime: 2000
+            });
+        } else {
+            Toast.show({
+                text1: 'Bluetooth Status',
+                text2: 'Bluetooth is not on',
+                type: 'info',
+                visibilityTime: 1500
+            });
         }
     }
 
