@@ -164,7 +164,7 @@ const SettingsScreen = () => {
                 <View style={styles.section}>
                     <Text style={styles.header} >Account</Text>
                     <CustomButton title="Logout" handlePress={logoutButtonHandler} />
-                    <View style={{ padding: 10 }} />
+                    <View style={{ padding: 15 }} />
                     <CustomButton title="Delete Account" handlePress={deleteAccountButtonHandler} />
                     <View style={{ padding: 10 }} />
                 </View>
