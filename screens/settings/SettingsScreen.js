@@ -51,7 +51,7 @@ const SettingsScreen = () => {
             dispatch(userActions.addFakeContact("00000000-0000-0000-0000-" + deviceID, date));
             setDeviceID("");
             setDate("");
-            Alert.alert("Successfully mocked device with ID:", deviceID);
+            Alert.alert("Successfully added device with ID:", deviceID);
         } else {
             if (deviceID.length != 12 && !date) {
                 console.log("SettingsScreen.js/addDeviceButtonHandler() - Pressed Add Device button with no device ID or date", deviceID);
@@ -72,7 +72,7 @@ const SettingsScreen = () => {
     const clearDevicesButtonHandler = async () => {
         dispatch(userActions.clearContactedIDs());
         await deleteContactedIDs();
-        Alert.alert("Cleared all stored device contacts");
+        Alert.alert("Removed all scanned device ID's");
     }
 
     const clearNotificationsHandler = async () => {
@@ -103,25 +103,27 @@ const SettingsScreen = () => {
             }}
         >
             <SafeAreaView style={{ alignItems: 'center' }}>
-                <View style={{ marginHorizontal: '22%', marginTop: 30, marginBottom: 10 }}>
-                    <Text style={styles.header} >account</Text>
-                    <CustomButton title="logout" handlePress={logoutButtonHandler} />
-                    <View style={{ padding: 10 }} />
-                    <CustomButton title="delete account" handlePress={deleteAccountButtonHandler} />
-                </View>
-                <View style={{ marginTop: 30, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
+
                 <View style={{ marginTop: 10, marginBottom: 10, marginHorizontal: '5%' }}>
-                    <Text style={styles.header} >bluetooth mock</Text>
+                    <Text style={styles.header} >Add Device</Text>
+
+                    <Text style={styles.header,{textAlign: 'center'}}>Manually enter ID's from other devices here.</Text>
+                    <Text style={styles.header,{textAlign: 'center' }}>ID's from other devices will be added into scanned device</Text>
                     <View style={{padding: 5}}/>
-                    <Text style={styles.body}>1. Enter a <Text style={{ fontWeight: 'bold' }}>device ID</Text></Text>
+
+                </View>
+                <View style={{ marginTop: 10, marginBottom: 10, marginHorizontal: '22%', minWidth: '50%' }}>
+
+                <Text style={styles.body}>1. Enter a valid device ID</Text>
                     <Text style={styles.hint} >
                         <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
-                            note:
+                            Note:
                         </Text>
                         {" ID must be 12 characters long"}
                     </Text>
-                </View>
-                <View style={{ marginTop: 20, marginBottom: 10, marginHorizontal: '22%', minWidth: '50%' }}>
+
+                    <View style={{padding: 5}}/>
+
                     <CustomTextInput
                         placeholder="000000000000"
                         value={deviceID}
@@ -135,26 +137,47 @@ const SettingsScreen = () => {
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
                 />
-                <View style={{ marginTop: 20, marginBottom: 10, marginHorizontal: '22%' }}>
+                <View style={{ marginTop: 30, marginBottom: 5, marginHorizontal: '22%' }}>
                     <Text style={styles.body}>2. Enter the <Text style={{ fontWeight: 'bold' }}>date</Text> of contact</Text>
+                    <Text style={styles.hint} >
+                        <Text style={{ fontStyle: 'italic', fontWeight: 'bold' }}>
+                            Note:
+                        </Text>
+                        {" Within the past 14 days"}
+                    </Text>
                 </View>
-                <View style={{ marginHorizontal: '22%', marginVertical: 10 }} >
-                    <CustomButton title={date ? date.toDateString() : "set date"} handlePress={showDatePicker} />
+                <View style={{ marginHorizontal: '22%', marginVertical: -2 }} >
+                    <CustomButton title={date ? date.toDateString() : "Set Date"} handlePress={showDatePicker} />
                 </View>
-                <View style={{ marginTop: 30, marginBottom: 0, marginHorizontal: '22%' }}>
+                <View style={{ marginTop: 40, marginVertical: -15,  marginHorizontal: '22%' }}>
                     <Text style={styles.body}>3. Add to scanned devices</Text>
                 </View>
                 <View style={{ marginHorizontal: '22%', marginVertical: 20 }} >
-                    <CustomButton title="mock device" handlePress={addDeviceButtonHandler} />
+                    <CustomButton title="Add Device" handlePress={addDeviceButtonHandler} />
                 </View>
                 <View style={{ marginTop: 30, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
                 <View style={{ marginVertical: 10, marginHorizontal: '5%', width: '100%' }}>
-                    <Text style={styles.header} >device storage</Text>
-                    <CustomButton title="clear contacts" handlePress={clearDevicesButtonHandler} />
-                    <View style={{ padding: 10 }} />
-                    <CustomButton title="clear notifications" handlePress={clearNotificationsHandler} />
+                    <Text style={styles.header} >Scanned Devices</Text>
+                    <CustomButton title="Remove All" handlePress={clearDevicesButtonHandler} />
+                </View>
+
+                <View style={{ marginTop: 30, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
+                <View style={{ marginVertical: 10, marginHorizontal: '5%', width: '100%' }}>
+                    <Text style={styles.header} >Notification History</Text>
+
+                    <CustomButton title="Clear History" handlePress={clearNotificationsHandler} />
                     <View style={{ padding: 15 }} />
                 </View>
+
+                <View style={{ marginTop: 10, borderColor: '#E5E5E5', borderTopWidth: 1.3, paddingTop: 25, marginHorizontal: '5%', minWidth: '75%' }} />
+
+                <View style={{ marginHorizontal: '22%', marginTop: 10, marginBottom: 10 }}>
+                    <Text style={styles.header} >Account</Text>
+                    <CustomButton title="Logout" handlePress={logoutButtonHandler} />
+                    <View style={{ padding: 10 }} />
+                    <CustomButton title="Delete Account" handlePress={deleteAccountButtonHandler} />
+                </View>
+
             </SafeAreaView>
         </ScrollView>
 
