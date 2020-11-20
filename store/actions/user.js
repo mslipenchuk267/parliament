@@ -149,9 +149,9 @@ export const addOrUpdateContact = (tempID, rssi, date) => {
                 console.log("Could not dispatch addContact")
             }
         }
-        await deleteContactedIDs();
-        const contactedIDs = [...getState().user.contactedIDs];
-        await saveContactedIDs(contactedIDs);
+        //await deleteContactedIDs();
+        //const contactedIDs = [...getState().user.contactedIDs];
+        await saveContactedIDs(getState().user.contactedIDs);
     }
 
 }
