@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, View, StyleSheet, SafeAreaView, Button, Alert, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, SafeAreaView, Button, Alert, ScrollView, StatusBar } from 'react-native'
 
 import InvalidResponse from '../../components/InvalidResponse';
 import NegativeResponse from '../../components/NegativeResponse';
@@ -52,6 +52,7 @@ const QRResultsScreen = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle='dark-content' />
       <ScrollView contentContainerStyle={styles.container}>
         {qrResult === 'Positive' &&
           // Display response for positive result

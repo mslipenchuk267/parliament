@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, View, Text, Alert, Appearance } from 'react-native'
+import { StyleSheet, SafeAreaView, View, Text, Alert, Appearance, StatusBar } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -103,6 +103,7 @@ const SettingsScreen = () => {
             }}
         >
             <SafeAreaView style={{ alignItems: 'center' }}>
+                <StatusBar barStyle='dark-content' />
                 <View style={styles.section}>
                     <View style={styles.sectionHeader}>
                         <Text style={styles.header} >Add Device</Text>

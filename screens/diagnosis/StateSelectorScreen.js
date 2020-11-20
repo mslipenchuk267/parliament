@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { Text, View, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, TouchableWithoutFeedback, Keyboard, StatusBar } from 'react-native';
 
 import CustomListEmptyComponent from '../../components/CustomListEmptyComponent';
 import CustomTextInput from '../../components/CustomTextInput';
@@ -41,7 +41,8 @@ const StateSelectorScreen = () => {
             }}
         >
             <SafeAreaView style={styles.container}>
-                <View style={{width: '80%'}}>
+                <StatusBar barStyle='dark-content' />
+                <View style={{ width: '80%' }}>
                     <CustomTextInput
                         placeholder="Look up your state"
                         onChangeText={(text) => handleSearchInput(text)}
