@@ -1,16 +1,15 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Icon from '../node_modules/react-native-vector-icons/Entypo';
+import Icon, { Button } from '../node_modules/react-native-vector-icons/Entypo';
 
 // UserNavigator screens 
 import HomeScreen from '../screens/home/HomeScreen';
-import DiagnosisScreen from '../screens/diagnosis/DiagnosisScreen';
 import NotificationsScreen from '../screens/notifications/NotificationsScreen';
 import SettingsScreen from '../screens/settings/SettingsScreen';
-import QRScanningScreen from '../screens/diagnosis/QRScanningScreen';
-import QRResultsScreen from '../screens/diagnosis/QRResultsScreen';
-import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
+import QRScanningScreen from '../screens/qr/QRScanningScreen';
+import QRResultsScreen from '../screens/qr/QRResultsScreen';
+import StateSelectorScreen from '../screens/news/StateSelectorScreen';
 
 // AuthNavigator screens
 import AuthScreen from '../screens/auth/AuthScreen';
@@ -19,12 +18,16 @@ import SignUpScreen from '../screens/auth/SignUpScreen';
 
 // Design imports
 import { blue } from '../constants/colors';
+import { StackActions, useNavigation } from '@react-navigation/native';
+import { Text } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 // UserNavigator Bottom Tab Component
 const UserTabNavigator = createBottomTabNavigator();
 // UserNavigator Stack Navigators (tabs)
 const HomeStackNavigator = createStackNavigator();
-const DiagnosisStackNavigator = createStackNavigator();
+const NewsStackNavigator = createStackNavigator();
+const QRStackNavigator = createStackNavigator();
 const NotificationStackNavigator = createStackNavigator();
 const SettingsStackNavigator = createStackNavigator();
 // AuthNavigator Stack Component 
@@ -57,7 +60,7 @@ export const AuthNavigator = () => {
             <AuthStackNavigator.Screen
                 name="SignUp"
                 component={SignUpScreen}
-                options={{ headerBackTitle: false, headerTitle: "", headerTransparent: true  }}
+                options={{ headerBackTitle: false, headerTitle: "", headerTransparent: true }}
             />
         </AuthStackNavigator.Navigator>
     )
@@ -86,27 +89,32 @@ export const HomeNavigator = () => {
 }
 
 /**
- * The DiagnosisNavigator represents the diagnosis tab
+ * The NewsNavigator represents the news tab
  * in the bottom tab navigator. It manages all the screens
- * meant to be shown in the diagnosis tab. 
+ * meant to be shown in the news tab. 
  * @example
  * return (
- *   <DiagnosisNavigator />
+ *   <NewsNavigator />
  * )
  */
-export const DiagnosisNavigator = () => {
+export const NewsNavigator = () => {
     return (
-        <DiagnosisStackNavigator.Navigator>
-            <DiagnosisStackNavigator.Screen
-                name="Resources"
-                component={DiagnosisScreen}
-            />
-            <DiagnosisStackNavigator.Screen
-                name="StateSelector"
+        <NewsStackNavigator.Navigator>
+            <NewsStackNavigator.Screen
+                name="News"
                 component={StateSelectorScreen}
-                options={{ headerTitle: "US State News", headerBackTitleVisible: false }}
             />
-            <DiagnosisStackNavigator.Screen
+        </NewsStackNavigator.Navigator>
+    )
+}
+
+export const QRNavigator = () => {
+    // Use the useNavigation hook so we can navigate 
+    // back in the header button in QRResults screen
+    const navigation = useNavigation();
+    return (
+        <QRStackNavigator.Navigator>
+            <QRStackNavigator.Screen
                 name="QRScanning"
                 component={QRScanningScreen}
                 options={{
@@ -116,15 +124,23 @@ export const DiagnosisNavigator = () => {
                     headerBackTitleVisible: false
                 }}
             />
-            <DiagnosisStackNavigator.Screen
+            <QRStackNavigator.Screen
                 name="QRResults"
                 component={QRResultsScreen}
-                options={{ headerTitle: "QR Result", headerBackTitleVisible: false }}
+                options={{
+                    headerTitle: "QR Results",
+                    headerRight: () => (
+                        <TouchableOpacity
+                            onPress={() => navigation.dispatch(StackActions.replace('QRScanning'))}
+                        >
+                            <Text style={{color: blue, paddingRight: 15, fontSize: 16 }} >Scan Again</Text>
+                        </TouchableOpacity>
+                    ),
+                }}
             />
-        </DiagnosisStackNavigator.Navigator>
+        </QRStackNavigator.Navigator>
     )
 }
-
 
 /**
  * The NotificationsNavigator represents the notifications tab
@@ -184,8 +200,10 @@ export const UserNavigator = () => {
                     let iconName;
                     if (route.name === 'Home') {
                         iconName = 'home'
-                    } else if (route.name === 'Diagnosis') {
+                    } else if (route.name === 'News') {
                         iconName = 'magnifying-glass';
+                    } else if (route.name === 'QRScanning') {
+                        iconName = 'camera';
                     } else if (route.name === 'Notifications') {
                         iconName = 'bell';
                     } else if (route.name === 'Settings') {
@@ -206,9 +224,15 @@ export const UserNavigator = () => {
                 component={HomeNavigator}
             />
             <UserTabNavigator.Screen
-                name="Diagnosis"
-                component={DiagnosisNavigator}
+                name="News"
+                component={NewsNavigator}
             />
+
+            <UserTabNavigator.Screen
+                name="QRScanning"
+                component={QRNavigator}
+            />
+
             <UserTabNavigator.Screen
                 name="Notifications"
                 component={NotificationsNavigator}

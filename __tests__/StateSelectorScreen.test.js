@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render } from '@testing-library/react-native'
 
-import StateSelectorScreen from '../screens/diagnosis/StateSelectorScreen';
+import StateSelectorScreen from '../screens/news/StateSelectorScreen';
 
 describe('StateSelectorScreen', () => {
     it('should display filtered states', () => {

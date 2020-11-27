@@ -16,7 +16,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import userReducer from './store/reducers/user';
 import AppNavigator from './navigation/AppNavigator';
 import PushNotificationManager from './components/PushNotificationManager';
-
+import Toast from 'react-native-toast-message';
 LogBox.ignoreLogs([
   'Require cycle:', // issued by the fetch() function -> doesn't affect anything
   'VirtualizedLists should never be nested' // issued by the scanned device flat list in lcdview on homescreen
@@ -46,6 +46,7 @@ const App = () => {
     <Provider store={store}>
       <PushNotificationManager>
         <AppNavigator />
+        <Toast ref={(ref) => Toast.setRef(ref)} />
       </PushNotificationManager>
     </Provider>
   );

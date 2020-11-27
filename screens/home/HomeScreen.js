@@ -6,6 +6,7 @@ import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
 import { Mutex } from 'async-mutex';
 import Icon from '../../node_modules/react-native-vector-icons/Entypo';
+import Toast from 'react-native-toast-message';
 
 import * as userActions from '../../store/actions/user';
 import { handleDevice } from '../../helpers/scanHelper';
@@ -17,19 +18,19 @@ import { offWhite } from '../../constants/colors';
 import BackgroundService from 'react-native-background-actions'
 import { startAllBackground, stopAllBackground } from '../../helpers/backgroundHelper';
 import LCDTextView from '../../components/LCDTextView';
+import ScannedDevice from '../../components/ScannedDevice';
 
-const bleManager = new BleManager();
-
-// const bleManager = new BleManager({
-//     restoreStateIdentifier: 'BleInTheBackground',
-//     restoreStateFunction: restoredState => {
-//       if (restoredState == null) {
-//         // BleManager was constructed for the first time.
-//       } else {
-//         // BleManager was restored. Check `restoredState.connectedPeripherals` property.
-//       }
-//     },
-//   });
+// const bleManager = new BleManager();
+const bleManager = new BleManager({
+    restoreStateIdentifier: 'BleInTheBackground',
+    restoreStateFunction: restoredState => {
+        if (restoredState == null) {
+            // BleManager was constructed for the first time.
+        } else {
+            // BleManager was restored. Check `restoredState.connectedPeripherals` property.
+        }
+    },
+});
 
 /**
  * The HomeScreen component houses the UI components 
@@ -57,11 +58,11 @@ const HomeScreen = () => {
         const mutex = new Mutex();
         try {
             bleManager.startDeviceScan(
-                null, //[PARLIAMENT_SERVICE_UUID]
+                Platform.OS == 'ios' ? [PARLIAMENT_SERVICE_UUID] : null, //[PARLIAMENT_SERVICE_UUID]
                 { allowDuplicates: true },
                 async (error, device) => {
                     await mutex.runExclusive(async () => {
-                        await handleDevice(error, device, dispatch, bleManager);
+                        await handleDevice(error, device, dispatch);
                     });
                 }
             )
@@ -193,8 +194,20 @@ const HomeScreen = () => {
     const handleStartBackgroundBLE = async () => {
         if (!isContactTracingOn) {
             await BackgroundService.start(veryIntensiveTask, backgroundOptions);
-            console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Started");
+            console.log("HomeScreen.js/handleStartBackgroundBLE() - Background Scanning & Advertising Tasks Started");
             setIsContactTracingOn(true);
+            Toast.show({
+                text1: 'Bluetooth Status',
+                text2: 'Started scanning and advertising',
+                visibilityTime: 2000
+            });
+        } else {
+            Toast.show({
+                text1: 'Bluetooth Status',
+                text2: 'Bluetooth is already on',
+                type: 'info',
+                visibilityTime: 1500
+            });
         }
     }
 
@@ -204,6 +217,18 @@ const HomeScreen = () => {
             handleStopForegroundBLE();
             console.log("HomeScreen.js/handleStopBackgroundBLE() - Background Scanning & Advertising Tasks Stopped");
             setIsContactTracingOn(false);
+            Toast.show({
+                text1: 'Bluetooth Status',
+                text2: 'Stopped scanning and advertising',
+                visibilityTime: 2000
+            });
+        } else {
+            Toast.show({
+                text1: 'Bluetooth Status',
+                text2: 'Bluetooth is not on',
+                type: 'info',
+                visibilityTime: 1500
+            });
         }
     }
 
@@ -245,12 +270,9 @@ const HomeScreen = () => {
                                         <Text style={styles.lcdLabel}>signal <Icon name="bar-graph" size={12} color="black" /></Text>
                                     </View>
                                     <ScrollView keyboardShouldPersistTaps='never'>
-                                        {contactedIDs.map(function (data, index) {
+                                        {contactedIDs.map(function (data) {
                                             return (
-                                                <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingTop: 3 }} onStartShouldSetResponder={() => true} >
-                                                    <Text>{data.tempID.substring(data.tempID.length - 12)}</Text>
-                                                    <Text>{data.averageRssi}</Text>
-                                                </View>
+                                                <ScannedDevice key={data.tempID} tempID={data.tempID.substring(data.tempID.length - 12)} averageRssi={data.averageRssi} />
                                             )
                                         })}
                                     </ScrollView>

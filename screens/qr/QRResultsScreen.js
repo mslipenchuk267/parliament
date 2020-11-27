@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Text, View, StyleSheet, SafeAreaView, Button, Alert, ScrollView } from 'react-native'
+import { Text, View, StyleSheet, SafeAreaView, Button, Alert, ScrollView, StatusBar } from 'react-native'
 
 import InvalidResponse from '../../components/InvalidResponse';
 import NegativeResponse from '../../components/NegativeResponse';
@@ -36,11 +36,11 @@ const QRResultsScreen = (props) => {
         },
         {
           text: "Yes", onPress: async () => {
-            console.log(accessTokenExpiration)
+            console.log("QRResultsScreen.js/handleVolunteerDataPress() - User Pressed Yes")
+            console.log("QRResultsScreen.js/handleVolunteerDataPress() - User's accessToken expiration is", accessTokenExpiration)
             if (isRefreshNeeded(accessTokenExpiration)) {
               await dispatch(userActions.refreshTokens())
             }
-            console.log("QRResultsScreen.js/handleVolunteerDataPress() - User Pressed Yes")
             await uploadTempIDs(tempIDs, accessToken);
           }
         }
@@ -52,6 +52,7 @@ const QRResultsScreen = (props) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle='dark-content' />
       <ScrollView contentContainerStyle={styles.container}>
         {qrResult === 'Positive' &&
           // Display response for positive result
@@ -75,22 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: offWhite,
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  textContainer: {
-    paddingHorizontal: 20,
-    paddingVertical: 10
-  },
-  titleBold: {
-    fontWeight: 'bold',
-    fontSize: 20
-  },
-  title: {
-    fontSize: 20
-  },
-  note: {
-    fontStyle: "italic",
-    fontSize: 20
+    justifyContent: 'center',
   }
 });
 

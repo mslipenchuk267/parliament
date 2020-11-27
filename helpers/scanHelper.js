@@ -31,12 +31,12 @@ export const handleDevice = async (error, device, dispatch, bleManager) => {
         } catch {
             console.log("Could not get Discover services on:", device.name)
         }
-        try {
-            await bleManager.cancelDeviceConnection(device.id)
-            console.log("Disconnected from device: ", device.name)
-        } catch {
-            console.log("Could not disconnect from device: ", device.name)
-        }
+        // try {
+        //     await bleManager.cancelDeviceConnection(device.id)
+        //     console.log("Disconnected from device: ", device.name)
+        // } catch {
+        //     console.log("Could not disconnect from device: ", device.name)
+        // }
 
     }
 }
