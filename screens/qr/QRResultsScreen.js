@@ -38,9 +38,9 @@ const QRResultsScreen = (props) => {
           text: "Yes", onPress: async () => {
             console.log("QRResultsScreen.js/handleVolunteerDataPress() - User Pressed Yes")
             console.log("QRResultsScreen.js/handleVolunteerDataPress() - User's accessToken expiration is", accessTokenExpiration)
-            if (isRefreshNeeded(accessTokenExpiration)) {
-              await dispatch(userActions.refreshTokens())
-            }
+            //if (isRefreshNeeded(accessTokenExpiration)) {
+            await dispatch(userActions.refreshTokens());
+            //}
             await uploadTempIDs(tempIDs, accessToken);
           }
         }
