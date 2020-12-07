@@ -344,9 +344,10 @@ export const refreshTokens = () => {
         const resData = await result.json()
 
         // Error Check
-        if (resData.error) {
+        if (!resData.auth.accessToken) {
             // alert user to error
-            alert(resData.error)
+            //alert(resData.error)
+            await deleteUserAuth();
             return;
         }
         console.log("store/actions/user.js/refreshTokens() - Refresh Request Successful")
@@ -362,6 +363,10 @@ export const refreshTokens = () => {
             "accessTokenExpiration": resData.auth.accessTokenExpiration,
             "refreshToken": resData.auth.refreshToken,
             "refreshTokenExpiration": resData.auth.refreshTokenExpiration,
+        }
+        const deviceKey = getState().user.deviceToken;
+        if (deviceKey) {
+            await uploadDeviceToken(getState().user.deviceToken, resData.auth.accessToken);
         }
         await deleteUserAuth();
         await saveUserAuth(userAuth);

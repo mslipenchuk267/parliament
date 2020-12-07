@@ -51,7 +51,12 @@ const StartupScreen = () => {
                         userAuth.refreshToken,
                         userAuth.refreshTokenExpiration
                     ));
-                    await dispatch(userActions.refreshTokens())
+                    try {
+                        await dispatch(userActions.refreshTokens())
+                    } catch (error) {
+                        dispatch(userActions.setDidTryAutoLogin());
+                        return;
+                    }
                     // User's auth state is set updated in redux and secure store, lets boot user into UserNavigator
                     dispatch(userActions.setDidTryAutoLogin());
                     return;
@@ -67,7 +72,7 @@ const StartupScreen = () => {
     }, [dispatch]);
 
     return (
-        <View style={styles.container}/>
+        <View style={styles.container} />
     )
 }
 
