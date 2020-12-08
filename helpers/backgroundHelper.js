@@ -5,9 +5,9 @@ import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
 
 /**
-     * Start background Advertising
-     * @example
-     * backgroundScanAdvert();  
+ * Start background Advertising
+ * @example
+ * backgroundScanAdvert();  
 */
 const backgroundScanAdvert = async () => {
     const mutex = new Mutex();
@@ -81,7 +81,7 @@ const backgroundScanAdvert = async () => {
 };
 
 /**
-     * Stop background Advertising
+     * Stop background scan Advertising
      * @example
      * stopScanAdvert();  
 */
@@ -99,6 +99,11 @@ const stopScanAdvert = async () => {
     }
 }
 
+/**
+     * Stop background scan Advertising
+     * @example
+     * stopScanAdvert();  
+*/
 const backgroundOptions = {
     taskName: 'Parliament',
     taskTitle: 'BLE Background Detection',
