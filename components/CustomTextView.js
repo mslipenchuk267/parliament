@@ -2,6 +2,17 @@ import React from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import { lightGrey, mediumGrey } from '../constants/colors';
 
+/**
+ * The CustomeTextView component is a container responsible for unifying 
+ * styles elements with TextInput functionality.  This component is used 
+ * to display text that can be further edited by a user.  
+ * A TextInput is returned.
+ * @example
+ * return (
+ *   <TextInput />
+ * )
+ */
+
 const CustomTextView = (props) => {
     return (
         <TextInput
