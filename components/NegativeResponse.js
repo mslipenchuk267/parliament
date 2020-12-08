@@ -1,6 +1,15 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+/**
+ * The NegativeResponse function returns a message to users that
+ * they have not been infected by COVID and to stay safe after they
+ * scan the Negative QR Code.
+ * @example
+ * return (
+ *   <NegativeResponse />
+ * )
+ */
 const NegativeResponse = (props) => {
     return (
         <View style={styles.container}>
