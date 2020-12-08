@@ -29,6 +29,14 @@ const SettingsScreen = () => {
     const accessTokenExpiration = useSelector(state => state.user.accessTokenExpiration);
     const dispatch = useDispatch();
 
+    /**
+     * Handles user pressing logout button.
+     * It refreshes the user's access and refresh token
+     * if needed and then dispatches the logout actionCreator.
+     * @return  {void}  
+     * @example
+     * <Button title='logout' onPress={logoutButtonHandler} />
+     */
     const logoutButtonHandler = async () => {
         console.log("SettingsScreen.js/logoutButtonHandler() - Pressed Logout Button")
         if (isRefreshNeeded(accessTokenExpiration)) {
@@ -37,6 +45,14 @@ const SettingsScreen = () => {
         dispatch(userActions.logout())
     }
 
+    /**
+     * Handles user pressing delete account button.
+     * It refreshes the user's access and refresh token
+     * if needed and then dispatches the deleteAccount actionCreator.
+     * @return  {void}  
+     * @example
+     * <Button title='delete account' onPress={logoutButtonHandler} />
+     */
     const deleteAccountButtonHandler = async () => {
         console.log("SettingsScreen.js/deleteAccountButtonHandler() - Pressed Delete Account Button")
         if (isRefreshNeeded(accessTokenExpiration)) {
@@ -45,6 +61,16 @@ const SettingsScreen = () => {
         dispatch(userActions.deleteAccount());
     }
 
+    /**
+     * Handles user pressing add device button.
+     * It validates that user has input all required
+     * information for mocking a device and then adds this device to
+     * redux store and async storage via dispatching the 
+     * addFakeContact actionCreator.
+     * @return  {void}  
+     * @example
+     * <Button title='add device' onPress={addDeviceButtonHandler} />
+     */
     const addDeviceButtonHandler = () => {
         if (deviceID.length === 12 && date) {
             console.log("SettingsScreen.js/addDeviceButtonHandler() - Pressed Add Device button with valid ID:", "00000000-0000-0000-0000-" + deviceID);
@@ -69,26 +95,60 @@ const SettingsScreen = () => {
         }
     }
 
+    /**
+     * Handles user pressing remove devices button.
+     * It removes all of the contactedIDs from the redux store and 
+     * async storage.
+     * @return  {void}  
+     * @example
+     * <Button title='remove all' onPress={clearDevicesButtonHandler} />
+     */
     const clearDevicesButtonHandler = async () => {
         dispatch(userActions.clearContactedIDs());
         await deleteContactedIDs();
         Alert.alert("Removed all scanned device ID's");
     }
 
+    /**
+     * Handles user pressing remove notification history button.
+     * It clears the notificationHistory redux state and async storage.
+     * @return  {void}  
+     * @example
+     * <Button title='remove all' onPress={clearNotificationsHandler} />
+     */
     const clearNotificationsHandler = async () => {
         dispatch(userActions.clearNotificationHistory());
         await deleteNotificationHistory();
         Alert.alert("Cleared notifications");
     }
 
+    /**
+     * Handles bringing up the modal date picker component.
+     * @return  {void}  
+     * @example
+     * <Button title='set date' onPress={showDatePicker} />
+     */
     const showDatePicker = () => {
         setDatePickerVisibility(true);
     };
 
+    /**
+     * Handles closing the modal date picker component.
+     * @return  {void}  
+     * @example
+     * <DateTimePickerModal ... onCancel={hideDatePicker} />
+     */
     const hideDatePicker = () => {
         setDatePickerVisibility(false);
     };
 
+    /**
+     * Handles the user setting and confirming a 
+     * date time in the DateTimePickerModal.
+     * @return  {void}  
+     * @example
+     * <DateTimePickerModal ... onConfirm={handleConfirm} />
+     */
     const handleConfirm = (newDate) => {
         setDate(newDate);
         hideDatePicker();
