@@ -81,9 +81,9 @@ const backgroundScanAdvert = async () => {
 };
 
 /**
-     * Stop background scan Advertising
-     * @example
-     * stopScanAdvert();  
+ * Stop background scan Advertising
+ * @example
+ * stopScanAdvert();  
 */
 const stopScanAdvert = async () => {
     bleManager.stopDeviceScan();
@@ -100,9 +100,9 @@ const stopScanAdvert = async () => {
 }
 
 /**
-     * Stop background scan Advertising
-     * @example
-     * stopScanAdvert();  
+ * Stop background scan Advertising
+ * @example
+ * stopScanAdvert();  
 */
 const backgroundOptions = {
     taskName: 'Parliament',
@@ -121,9 +121,9 @@ const backgroundOptions = {
 
 
 /**
-     * This is for testing BackGroundService after I break something
-     * @example
-     * veryIntensiveTask();  
+ * This is for testing BackGroundService after I break something
+ * @example
+ * veryIntensiveTask();  
 */
 const veryIntensiveTask = async () => {
     // Example of an infinite loop task
@@ -135,7 +135,7 @@ const veryIntensiveTask = async () => {
 };
 
 /**
- * 
+ * This function start all background service
  * 
 */
 export async function startAllBackground() {
@@ -144,7 +144,7 @@ export async function startAllBackground() {
 
 
 /**
- * 
+ * This function stop all background service 
  * 
 */
 export async function stopAllBackground() {

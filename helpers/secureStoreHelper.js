@@ -123,7 +123,7 @@ export const getNotificationHistory = async () => {
 }
 
 /**
- * This function save the notification historys
+ * This function will save the notification historys
  * @return {Promise<void>} 
  */
 export const saveNotificationHistory = async (notificationHistory) => {

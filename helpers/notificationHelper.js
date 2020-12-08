@@ -52,6 +52,7 @@ export const getNotifications = (contactedIDs, infectedIDs) => {
     })
     return newNotifications;
 }
+
 /**
  * Remove the Notifications if it duplicated
  * @return  {uniqueNotifications}  
@@ -79,7 +80,6 @@ export const removeDuplicateNotification = (notifications) => {
  * @example
  * onSameDay(stringDate1,stringDate2);
 */
-
 export const onSameDay = (stringDate1, stringDate2) => {
     const date1 = new Date(stringDate1)
     const date2 = new Date(stringDate2)

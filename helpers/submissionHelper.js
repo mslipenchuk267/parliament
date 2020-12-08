@@ -1,5 +1,5 @@
 /**
- * This function uploads Temple IDs
+ * This function uploads Temple IDs take the tempIDs and access Token as the parameter
  * @return {Promise<void>} 
  */
 export const uploadTempIDs = async (tempIDs, accessToken) => {

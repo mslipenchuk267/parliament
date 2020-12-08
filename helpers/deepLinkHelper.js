@@ -1,11 +1,10 @@
 import { Linking } from 'react-native';
 
 /**
-     * Using linking API to open the browser
-     * @example
-     * linkToSite();  
+ * Using linking API to open the browser
+ * @example
+ * linkToSite();  
 */
-
 export const linkToSite = async (siteLink) => {
     const supported = await Linking.canOpenURL(siteLink);
     if (supported) {
