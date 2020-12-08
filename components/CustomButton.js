@@ -4,6 +4,17 @@ import { blue } from '../constants/colors';
 import NeumorphView from './NeumorphView';
 
 
+/**
+ * The CustomeButton component is a container responsible for unifying 
+ * styles elements with TouchComponent functionality for the various 
+ * button press interactions in the application.  A usage example can 
+ * be seen in HomeScreen.js
+ * @example
+ * return (
+ *   <TouchComponent />
+ * )
+ */
+
 const CustomButton = (props) => {
     const [isDown, setDown] = useState(false);
     const handlePressIn = useCallback(() => {
