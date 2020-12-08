@@ -1,7 +1,7 @@
 import { Linking } from 'react-native';
 
 /**
-     * Open the link for testing site
+     * Using linking API to open the browser
      * @example
      * linkToSite();  
 */
