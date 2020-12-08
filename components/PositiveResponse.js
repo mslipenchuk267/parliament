@@ -3,6 +3,15 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import CustomButton from './CustomButton';
 
+/**
+ * The PositiveResponse function returns a message to users that
+ * they have been infected by COVID and to socially distance after the user
+ * has scanned the positive QR Code.
+ * @example
+ * return (
+ *   <PositiveResponse />
+ * )
+ */
 const PositiveResponse = (props) => {
   return (
     <View>
