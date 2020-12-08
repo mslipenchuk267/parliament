@@ -1,3 +1,7 @@
+/**
+ * This function uploads Temple IDs
+ * @return {Promise<void>} 
+ */
 export const uploadTempIDs = async (tempIDs, accessToken) => {
     console.log("submissionHelper.js/uploadTempIDs() - Inside the function", tempIDs, accessToken)
 

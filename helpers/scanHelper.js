@@ -1,6 +1,14 @@
 import * as userActions from '../store/actions/user';
 import { PARLIAMENT_SERVICE_UUID } from './uuidHelper';
 
+
+/**
+   * 
+   * @return  {void}  
+   * @example
+   * handleDevice
+*/
+
 export const handleDevice = async (error, device, dispatch, bleManager) => {
     // get services and rssi
     let services = device.serviceUUIDs

@@ -1,16 +1,20 @@
+/**
+  * UserName regex rules:
+  * between 4-15 chars
+  * no _ or . at the beginning
+  * no _ or . at the end
+  * no __ or _. or ._ or .. inside 
+  * @return  {void}  
+  * @example
+  * userNameInputValidator(text)
+  */
 export const userNameInputValidator = text => {
-    /* UserName regex rules:
-    - between 4-15 chars
-    - no _ or . at the beginning
-    - no _ or . at the end
-    - no __ or _. or ._ or .. inside 
-    */
-   const userNameRegex = /^(?=[a-zA-Z0-9._]{4,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-   let isValid = true;
-   if (!userNameRegex.test(text)) {
-       isValid = false;
-   }
-   return (isValid);
+    const userNameRegex = /^(?=[a-zA-Z0-9._]{4,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
+    let isValid = true;
+    if (!userNameRegex.test(text)) {
+        isValid = false;
+    }
+    return (isValid);
 }
 
 // export const emailInputValidator = text => {
@@ -23,6 +27,12 @@ export const userNameInputValidator = text => {
 // };
 
 
+/**
+  * passwordInputValidator
+  * @return  {void}  
+  * @example
+  * passwordInputValidator(text)
+*/
 export const passwordInputValidator = text => {
     const containsNumber = /\d/g;      // regex for if number is in string
     const containsLowerCase = /[a-z]/; // regex for if lowercase letter in string
@@ -51,5 +61,5 @@ export const passwordInputValidator = text => {
         caseValid = false;
         isValid = false;
     }
-    return ({isValid, lengthValid, numberValid, caseValid});
+    return ({ isValid, lengthValid, numberValid, caseValid });
 }

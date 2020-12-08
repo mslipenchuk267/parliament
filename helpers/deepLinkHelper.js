@@ -1,5 +1,10 @@
 import { Linking } from 'react-native';
 
+/**
+     * Open the link for testing site
+     * @example
+     * linkToSite();  
+*/
 export const linkToSite = async (siteLink) => {
     const supported = await Linking.canOpenURL(siteLink);
     if (supported) {

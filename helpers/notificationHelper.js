@@ -1,6 +1,13 @@
 import { Notifications } from 'react-native-notifications';
 import Notification from '../models/notification';
 
+
+/**
+    * Handles user Notification when receive from the cloud server 
+    * @return  {uniqueNotifications}  
+    * @example
+    * HandleNotification(notification,contactedIDs)
+*/
 export const handleNotification = (notification, contactedIDs) => {
     const infectedIDs = getInfectedIDs(notification);
     const notifications = getNotifications(contactedIDs, infectedIDs);
@@ -8,15 +15,27 @@ export const handleNotification = (notification, contactedIDs) => {
     return uniqueNotifications;
 }
 
+
+/**
+    * Retrieve the InfectedIDs from the notifcation
+    * @return  {infectedIDs}  
+    * @example
+    * getInfectedIDs(notification)
+*/
 export const getInfectedIDs = (notification) => {
     const infectedIDs = JSON.parse(notification.payload.infectedIDs);
     return infectedIDs;
 }
 
-/*
-InfectedIDComparison will check the  payLoadFCMInfectedIDs and contactedIDs data see if there is a match. 
-If there is, infectedIDComparison will check AverageRssi. If the AverageRssi <= 70. The Id will be push to the array
+
+/**
+ * InfectedIDComparison will check the  payLoadFCMInfectedIDs and contactedIDs data see if there is a match. 
+ * If there is, infectedIDComparison will check AverageRssi. If the AverageRssi <= 70. The Id will be push to the array 
+ * @return  {newNotifications}  
+ * @example
+ * getNotifications(contactedIDs,infectedIDs);
 */
+
 export const getNotifications = (contactedIDs, infectedIDs) => {
     // Init array that contains notifications where the contactID matched the infectedID and averageRssi <= 70
     var newNotifications = [];
@@ -33,7 +52,12 @@ export const getNotifications = (contactedIDs, infectedIDs) => {
     })
     return newNotifications;
 }
-
+/**
+ * Remove the Notifications if it duplicated
+ * @return  {uniqueNotifications}  
+ * @example
+ * removeDuplicateNotification(notifications);
+*/
 export const removeDuplicateNotification = (notifications) => {
     uniqueNotifications = []
     notifications.forEach((currentItem) => {
@@ -49,6 +73,13 @@ export const removeDuplicateNotification = (notifications) => {
     return uniqueNotifications;
 }
 
+/**
+ * Return the day objects if get infected at the same day
+ * @return  {object}  
+ * @example
+ * onSameDay(stringDate1,stringDate2);
+*/
+
 export const onSameDay = (stringDate1, stringDate2) => {
     const date1 = new Date(stringDate1)
     const date2 = new Date(stringDate2)
@@ -57,6 +88,12 @@ export const onSameDay = (stringDate1, stringDate2) => {
         date1.getDate() === date2.getDate(); // day matches
 }
 
+/**
+ * Register remote notifications
+ * @return  {void}  
+ * @example
+ * getDeviceToken();
+*/
 export const getDeviceToken = () => {
     // Notifications.events().registerRemoteNotificationsRegistered(event => {
     //     // Set the device token state

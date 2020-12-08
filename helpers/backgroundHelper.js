@@ -4,25 +4,27 @@ import { BleManager } from 'react-native-ble-plx';
 import BLEPeripheral from 'react-native-ble-peripheral';
 import Peripheral, { Service, Characteristic } from 'react-native-peripheral';
 
-
+/**
+     * Start background Advertising
+     * @example
+     * backgroundScanAdvert();  
+*/
 const backgroundScanAdvert = async () => {
-    
-    //Scan
     const mutex = new Mutex();
-        try {
-            bleManager.startDeviceScan(
-                null, //[PARLIAMENT_SERVICE_UUID]
-                { allowDuplicates: true },
-                async (error, device) => {
-                    await mutex.runExclusive(async () => {
-                        await handleDevice(error, device, dispatch, bleManager);
-                    });
-                }
-            )
-        } catch (error) {
-            console.log('bleManager not start scanning for devices', { error })
-        }
-        console.log("Start Scanning on ", Platform.OS)
+    try {
+        bleManager.startDeviceScan(
+            null, //[PARLIAMENT_SERVICE_UUID]
+            { allowDuplicates: true },
+            async (error, device) => {
+                await mutex.runExclusive(async () => {
+                    await handleDevice(error, device, dispatch, bleManager);
+                });
+            }
+        )
+    } catch (error) {
+        console.log('bleManager not start scanning for devices', { error })
+    }
+    console.log("Start Scanning on ", Platform.OS)
 
     //Advertise
     if (Platform.OS === 'android') {
@@ -78,9 +80,14 @@ const backgroundScanAdvert = async () => {
     }
 };
 
-const stopScanAdvert = async() => {
+/**
+     * Stop background Advertising
+     * @example
+     * stopScanAdvert();  
+*/
+const stopScanAdvert = async () => {
     bleManager.stopDeviceScan();
-    
+
     if (Platform.OS === 'android') {
         await BLEPeripheral.stop()
         setTempID("None");
@@ -107,20 +114,34 @@ const backgroundOptions = {
     },
 };
 
-// This is for testing BackGroundService after I break something
+
+/**
+     * This is for testing BackGroundService after I break something
+     * @example
+     * veryIntensiveTask();  
+*/
 const veryIntensiveTask = async () => {
     // Example of an infinite loop task
-    await new Promise( async (resolve) => {
-        for (let i = 0; i<10; i++) {
+    await new Promise(async (resolve) => {
+        for (let i = 0; i < 10; i++) {
             console.log(i);
         }
     });
 };
 
+/**
+ * 
+ * 
+*/
 export async function startAllBackground() {
     await BackgroundService.start(backgroundScanAdvert, backgroundOptions);
 }
 
+
+/**
+ * 
+ * 
+*/
 export async function stopAllBackground() {
     console.log("Stopping Background Service")
     stopScanAdvert;
