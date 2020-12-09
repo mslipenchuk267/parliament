@@ -108,6 +108,15 @@ export const NewsNavigator = () => {
     )
 }
 
+/**
+ * The QRNavigator represents the camera tab
+ * in the bottom tab navigator. It manages all the screens
+ * meant to be shown in the QR tab. 
+ * @example
+ * return (
+ *   <QRNavigator />
+ * )
+ */
 export const QRNavigator = () => {
     // Use the useNavigation hook so we can navigate 
     // back in the header button in QRResults screen

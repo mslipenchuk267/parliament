@@ -174,6 +174,13 @@ const HomeScreen = () => {
         },
     };
 
+    /**
+     * Executes Scanning and Advertising activities with a promise.
+     * This is needed for Android background tasks.
+     * @return  {Promise<void>}  
+     * @example
+     * await BackgroundService.start(veryIntensiveTask, backgroundOptions);  
+     */
     const veryIntensiveTask = async () => {
         await new Promise(async (resolve) => {
             handleStartForegroundBLE();
@@ -181,16 +188,38 @@ const HomeScreen = () => {
         });
     };
 
+    /**
+     * Starts Scanning and Advertising activities
+     * @return  {void}  
+     * @example
+     * handleStartForegroundBLE();    
+     */
     const handleStartForegroundBLE = async () => {
         handleStartForegroundAdvertising();
         handleStartForegroundScanning();
     }
 
+    /**
+     * Stops Scanning and Advertising activities
+     * @return  {void}  
+     * @example
+     * handleStopForegroundBLE();    
+     */
     const handleStopForegroundBLE = async () => {
         handleStopForegroundAdvertising();
         handleStopForegroundScanning();
     }
 
+    /**
+     * Handles bluetooth radio 'on' button.
+     * This starts the ios foreground advertising
+     * and Android background advertising.
+     * It prohibits user from user starting 
+     * advertising and scanning if they hasn't been stopped yet.
+     * @return  {void}  
+     * @example
+     * <Button title="start BLE" onPress={handleStartBackgroundBLE} />
+     */
     const handleStartBackgroundBLE = async () => {
         if (!isContactTracingOn) {
             await BackgroundService.start(veryIntensiveTask, backgroundOptions);
@@ -210,7 +239,17 @@ const HomeScreen = () => {
             });
         }
     }
-
+    
+    /**
+     * Handles bluetooth radio 'off' button.
+     * This stops the ios foreground advertising
+     * and Android background advertising.
+     * It prohibits user from user stopping 
+     * advertising and scanning if they hasn't been started yet.
+     * @return  {void}  
+     * @example
+     * <Button title="stop BLE" onPress={handleStopBackgroundBLE} />
+     */
     const handleStopBackgroundBLE = async () => {
         if (isContactTracingOn) {
             await BackgroundService.stop();

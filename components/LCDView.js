@@ -1,6 +1,18 @@
 import React from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 
+
+/**
+ * The LCDTextView component is a container responsible for unifying
+ * styles elements with LinearGradient functionality.  This component
+ * is used create a display area the emulates the appearance of a 
+ * classic liquid crystal display.  A usage example can be seen in 
+ * HomeScreen.js
+ * @example
+ * return (
+ *   <LinearGradient />
+ * )
+ */
 const LCDView = (props) => {
     return (
         <LinearGradient

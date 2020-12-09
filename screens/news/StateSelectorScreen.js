@@ -19,7 +19,14 @@ import { filterStates } from '../../helpers/filterHelper';
 const StateSelectorScreen = () => {
     const [filteredStates, setFilteredStates] = useState(states)
 
-    //Manages what occurs when pressing on a state
+    /**
+     * Manages deep linking to a news site.
+     * It formats the state's name into the required format 
+     * for the site's URL.
+     * @return  {void}  
+     * @example
+     * <Button title="Go to state" onPress={handleStateButton.bind(this, item.stateName)} >
+     */
     const handleStateButton = async (stateName) => {
         console.log("StateSelectorScreen.js/handleStateButton() - Pressed a FlatList item with stateName:", stateName);
         // Assemble state news site link
@@ -28,6 +35,17 @@ const StateSelectorScreen = () => {
         await linkToSite(stateNewsLink);
     }
 
+    /**
+     * Handles filtering states by user input and only returns
+     * relevant results.
+     * @return  {void}  
+     * @example
+     * <CustomTextInput
+     *      placeholder="Look up your state"
+     *      onChangeText={(text) => handleSearchInput(text)}
+     *      testID="stateSearchBar"
+     * />
+     */
     const handleSearchInput = (searchQuery) => {
         // if user provides query, check for matches in all state items
         updatedFilteredStates = filterStates(states, searchQuery)

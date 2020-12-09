@@ -19,6 +19,14 @@ const StartupScreen = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        /**
+         * Handles retrieving contactedIDs, notificationHistory,
+         * and user auth from async storage. Also handles validating user and auto-login.
+         * It sets the setDidTryAutoLogin redux state to determine if user should be navigated
+         * to AuthNavigator or UserNavigator from the StartupScreen.
+         * @example
+         *   tryLogin()
+         */
         const tryLogin = async () => {
             // check persistent storage for stored contacted IDs
             const contactedIDs = await getContactedIDs();

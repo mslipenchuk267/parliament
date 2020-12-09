@@ -5,6 +5,15 @@ This app allows background contact tracing between users and never stores the as
 Users are notified of potential exposures only if an infected user volunteers to submit their temporary IDs generated in the last 14 days to the infection database.
 These temporary IDs cannot be used to identify a user. 
 
+#### Features
+
+New Features were added on a weekly release basis.
+Details of all new features added can be found here: https://github.com/mslipenchuk267/parliament/releases
+
+#### Known Issues
+
+iOS background Contact Tracing is not working.
+
 ## Table of Contents
 * [Development Environment Setup](#Development-Environment-Setup)
 * [Project Setup](#Project-Setup)

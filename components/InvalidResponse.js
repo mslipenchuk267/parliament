@@ -1,6 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
+
+/**
+ * The InvalidResponse component is a container responsible for unifying 
+ * styles elements with static text output.  This component is used to 
+ * display an error message to the user when an invalid QR code is scanned.
+ * A usage example can be seen in QRResultsScreen.js
+ * @example
+ * return (
+ *   <View />
+ * )
+ */
+
 const InvalidResponse = (props) => {
     return (
         <View style={styles.container}>

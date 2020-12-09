@@ -26,6 +26,14 @@ const QRResultsScreen = (props) => {
   // set qrResult from props
   const qrResult = props.route.params?.result ?? "none";
 
+  /**
+   * Handles user volunteering their temp IDs.
+   * It refreshes the user's access and refresh token
+   * so that the request can be made successfully each time.
+   * @return  {void}  
+   * @example
+   * <Button title='volunteer data' onPress={handleVolunteerDataPress} />
+   */
   const handleVolunteerDataPress = async () => {
     Alert.alert(
       "Volunteer Data", //title of Alert Message
