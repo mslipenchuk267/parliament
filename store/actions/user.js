@@ -18,10 +18,24 @@ import { deleteContactedIDs, saveContactedIDs, deleteUserAuth, saveUserAuth, del
 import Contact from '../../models/contact';
 import { uploadDeviceToken } from '../../helpers/authHelper';
 
+/**
+ * Handles creating the ADD_TEMP_ID action along with the
+ * provided tempID payload.
+ * @param {string} tempID 
+ * @returns {action} { type: ADD_TEMP_ID, tempID: tempID }
+ */
 export const storeTempID = (tempID) => {
     return { type: ADD_TEMP_ID, tempID: tempID }
 }
 
+/**
+ * A thunk that creates the UPDATE_NOTIFICATION_HISTORY action along with the
+ * provided matchedContacts payload.
+ * It also updates the notificationHistory async storage key with the newly
+ * updated notificationHistory redux state.
+ * @param {Array<json>} matchedContacts 
+ * @returns {thunk<action>} { type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts }
+ */
 export const updateNotificationHistory = (matchedContacts) => {
     return async (dispatch, getState) => {
         dispatch({ type: UPDATE_NOTIFICATION_HISTORY, matchedContacts: matchedContacts });
@@ -32,11 +46,24 @@ export const updateNotificationHistory = (matchedContacts) => {
     }
 }
 
+/**
+ * Handles creating the SET_NOTIFICATION_HISTORY action along with the
+ * provided notificationHistory payload.
+ * This is used to set the notification history at application start.
+ * @param {Array<json>} notificationHistory 
+ * @returns {action} { type: SET_NOTIFICATION_HISTORY, notificationHistory: notificationHistory }
+ */
 export const setNotificationHistory = (notificationHistory) => {
     return { type: SET_NOTIFICATION_HISTORY, notificationHistory: notificationHistory }
 }
 
-
+/**
+ * Handles creating the SET_CONTACT_IDS action along with the
+ * provided contactedIDs payload.
+ * This is used to set the contactedIDs at application start.
+ * @param {Array<json>} contactedIDs 
+ * @returns {action}  { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
+ */
 export const setContactIDs = (contactedIDs) => {
     return { type: SET_CONTACT_IDS, contactedIDs: contactedIDs }
 }
@@ -47,7 +74,7 @@ export const setContactIDs = (contactedIDs) => {
  * authentication API.
  * @property {string} newAccessToken - the refreshed access token
  * @property {Date} newAccessTokenExpiration - the expiration date of the refreshed access token
- * @return {Action} - an UPDATE_ACCESS_TOKEN action to be dispatched to the user reducer
+ * @return {action} - an UPDATE_ACCESS_TOKEN action to be dispatched to the user reducer
  * @example  
  * await dispatch(updateAccessToken())
  */
@@ -71,6 +98,18 @@ export const setDidTryAutoLogin = () => {
     return { type: SET_DID_TRY_AUTO_LOGIN };
 }
 
+/**
+ * This action creator handles adding mocked devices to the redux state.
+ * It creates the ADD_CONTACT with a newContact payload only if the
+ * added contact is not already found in the redux state.
+ * It also updates the contactedIDs async storage with the newly
+ * updated contactedIDs state.
+ * @param {string} tempID
+ * @param {Date} date
+ * @return {thunk<action>} { type: ADD_CONTACT, newContact: newContact }
+ * @example  
+ * await dispatch(addFakeContact("id here", dateOfContact))
+ */
 export const addFakeContact = (tempID, date) => {
     return async (dispatch, getState) => {
         const savedContactIndex = getState().user.contactedIDs.findIndex(savedContact => savedContact.tempID === tempID)
@@ -93,10 +132,18 @@ export const addFakeContact = (tempID, date) => {
     }
 }
 
+/**
+ * Handles creating the CLEAR_CONTACTED_IDS action.
+ * @returns {action}  { type: CLEAR_CONTACTED_IDS }
+ */
 export const clearContactedIDs = () => {
     return { type: CLEAR_CONTACTED_IDS }
 }
 
+/**
+ * Handles creating the CLEAR_NOTIFICATION_HISTORY action.
+ * @returns {action}  { type: CLEAR_NOTIFICATION_HISTORY }
+ */
 export const clearNotificationHistory = () => {
     return { type: CLEAR_NOTIFICATION_HISTORY }
 }
@@ -156,14 +203,35 @@ export const addOrUpdateContact = (tempID, rssi, date) => {
 
 }
 
+/**
+ * Handles creating the ADD_CONTACT action.
+ * @returns {action}  { type: ADD_CONTACT, newContact: newContact }
+ */
 export const addNewContact = (newContact) => {
     return { type: ADD_CONTACT, newContact: newContact }
 }
 
+/**
+ * Handles creating the UPDATE_CONTACT action.
+ * @returns {action}  { type: UPDATE_CONTACT, updatedContact: updatedContact }
+ */
 export const updateContact = (updatedContact) => {
     return { type: UPDATE_CONTACT, updatedContact: updatedContact }
 }
 
+/**
+ * This action creator contacts the authentication API and attempts
+ * to login the user based on the provided username and password.
+ * If the login was successful the actionCreator dispatches the authenticate
+ * actionCreator and passes it the authentication data for the user given from
+ * the server response.
+ * It also updates the userAuth async storage with latest auth data.
+ * @property {string} username 
+ * @property {string} password 
+ * @return {thunk<actionCreator>} the authentication actionCreator with auth data
+ * @example  
+ * await dispatch(login("username", "password"))
+ */
 export const login = (username, password) => {
     return async (dispatch, getState) => {
         console.log("store/actions/user.js/login() - Received Params:", username, password)
@@ -209,6 +277,19 @@ export const login = (username, password) => {
     }
 }
 
+/**
+ * This action creator contacts the authentication API and attempts
+ * to register the user.
+ * If the registration was successful the actionCreator dispatches the authenticate
+ * actionCreator and passes it the authentication data for the user given from
+ * the server response.
+ * It also updates the userAuth async storage with latest auth data.
+ * @property {string} username 
+ * @property {string} password 
+ * @return {thunk<actionCreator>} the authentication actionCreator with auth data
+ * @example  
+ * await dispatch(signup("username", "password"))
+ */
 export const signup = (username, password) => {
     return async (dispatch, getState) => {
         console.log("store/actions/user.js/signup() - Received Params:", username, password)
@@ -255,6 +336,15 @@ export const signup = (username, password) => {
 
 }
 
+/**
+ * This thunk contacts the authentication API and attempts
+ * to logout the user.
+ * If the request was successful the actionCreator dispatches the UNAUTHENTICATE
+ * action and deletes the userAuth data from async storage.
+ * @return {thunk<action>} { type: UNAUTHENTICATE }
+ * @example  
+ * await dispatch(logout())
+ */
 export const logout = () => {
     return async (dispatch, getState) => {
         const accessToken = getState().user.accessToken;
@@ -287,6 +377,15 @@ export const logout = () => {
     }
 }
 
+/**
+ * This thunk contacts the authentication API and attempts
+ * to delete the user's account.
+ * If the request was successful the actionCreator dispatches the UNAUTHENTICATE
+ * action and deletes the userAuth data from async storage.
+ * @return {thunk<action>} { type: UNAUTHENTICATE }
+ * @example  
+ * await dispatch(deleteAccount())
+ */
 export const deleteAccount = () => {
     return async (dispatch, getState) => {
         const accessToken = getState().user.accessToken;
@@ -325,6 +424,18 @@ export const deleteAccount = () => {
     }
 }
 
+/**
+ * This thunk contacts the authentication API and attempts
+ * to refresh the user's access and refresh tokens.
+ * If the request was successful the thunk calls the refresh
+ * actionCreator and updates the userAuth data in async storage with
+ * the latest user auth data.
+ * It also posts the users device token to the authentication API on 
+ * a successful refresh request.
+ * @return {thunk<actionCreator>} refresh()
+ * @example  
+ * await dispatch(deleteAccount())
+ */
 export const refreshTokens = () => {
     return async (dispatch, getState) => {
         const refreshToken = getState().user.refreshToken
@@ -373,10 +484,28 @@ export const refreshTokens = () => {
     }
 }
 
+/**
+ * Handles creating the SET_DEVICE_TOKEN action.
+ * This is called to set the redux state after the user obtains a device token
+ * from APNs or FCM in the PushNotificationManager.
+ * @returns {action}  { type: SET_DEVICE_TOKEN, deviceToken: deviceToken }
+ */
 export const setDeviceToken = (deviceToken) => {
     return { type: SET_DEVICE_TOKEN, deviceToken: deviceToken }
 }
 
+/**
+ * Handles creating the AUTHENTICATE action.
+ * This is called to set the redux state after the user successfully 
+ * logs in, registers their account, or auto-login.
+ * @returns {action} {
+ *       type: AUTHENTICATE,
+ *       accessToken: accessToken,
+ *       refreshToken: refreshToken,
+ *       accessTokenExpiration: accessTokenExpiration,
+ *       refreshTokenExpiration: refreshTokenExpiration
+ *   }
+ */
 export const authenticate = (accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
     return {
         type: AUTHENTICATE,
@@ -387,6 +516,18 @@ export const authenticate = (accessToken, accessTokenExpiration, refreshToken, r
     };
 }
 
+/**
+ * Handles creating the REFRESH_TOKENS action.
+ * This is called to set the redux state after the user successfully 
+ * refreshes their tokens
+ * @returns {action} {
+ *       type: REFRESH_TOKENS,
+ *       accessToken: accessToken,
+ *       refreshToken: refreshToken,
+ *       accessTokenExpiration: accessTokenExpiration,
+ *       refreshTokenExpiration: refreshTokenExpiration
+ *   }
+ */
 export const refresh = (accessToken, accessTokenExpiration, refreshToken, refreshTokenExpiration) => {
     return {
         type: REFRESH_TOKENS,

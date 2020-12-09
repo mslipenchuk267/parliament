@@ -5,6 +5,14 @@ import Icon from '../node_modules/react-native-vector-icons/Entypo';
 import LCDView from './LCDView';
 import NeumorphView from './NeumorphView';
 
+/**
+ * The Notification function visually displays the notifications
+ * that the user receives which can be seen in the tab provided for it. 
+ * @example
+ * return (
+ *   <Notification />
+ * )
+ */
 const Notification = (props) => {
     const date = new Date(props.date)
 

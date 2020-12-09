@@ -89,9 +89,13 @@ export const deleteContactedIDs = async () => {
         console.log("secureStoreHelper.js/deleteContactedIDs() - Could not delete contactedIDs from secure store, error:", err)
     }
 }
+/**
+ * This function deletes the notification historys
+ * if it exists
+ * @return {Promise<void>} 
+ */
 
-
-export const deleteNotificationHistory = async() => {
+export const deleteNotificationHistory = async () => {
     try {
         await SecureStore.deleteItemAsync('notificationHistory')
         console.log("secureStoreHelper.js/deleteNotificationHistory() - Deleted NotificationHistory from secure store")
@@ -100,7 +104,12 @@ export const deleteNotificationHistory = async() => {
     }
 }
 
-export const getNotificationHistory = async() => {
+/**
+ * This function gets the notification historys
+ * if it exists
+ * @return {Promise<void>} return the notification history 
+ */
+export const getNotificationHistory = async () => {
     try {
         const notificationHistory = await SecureStore.getItemAsync('notificationHistory');
         if (notificationHistory) {
@@ -113,7 +122,11 @@ export const getNotificationHistory = async() => {
     }
 }
 
-export const saveNotificationHistory = async(notificationHistory) => {
+/**
+ * This function will save the notification historys
+ * @return {Promise<void>} 
+ */
+export const saveNotificationHistory = async (notificationHistory) => {
     try {
         await SecureStore.setItemAsync('notificationHistory', JSON.stringify(notificationHistory))
         console.log("secureStoreHelper.js/saveNotificationHistory() - Save saveNotificationHistory from secure store")

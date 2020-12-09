@@ -2,6 +2,18 @@ import React from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import { lightGrey, mediumGrey } from '../constants/colors';
 
+
+/**
+ * The CustomeTextImput component is a container responsible for unifying
+ * styles elements with TextInput functionality.  This component is used 
+ * to display text that can be further edited by a user.  A TextInput is 
+ * returned.  A usage example can be seen in SignInScreen.js
+ * @example
+ * return (
+ *   <TextInput />
+ * )
+ */
+
 const CustomTextInput = (props) => {
     return (
         <TextInput
