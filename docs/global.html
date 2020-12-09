@@ -98,15 +98,138 @@
 
         
             
+<h4 class="name" id="addFakeContact"><span class="type-signature">(constant) </span>addFakeContact<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>This action creator handles adding mocked devices to the redux state.
+It creates the ADD_CONTACT with a newContact payload only if the
+added contact is not already found in the redux state.
+It also updates the contactedIDs async storage with the newly
+updated contactedIDs state.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(addFakeContact("id here", dateOfContact))</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="addNewContact"><span class="type-signature">(constant) </span>addNewContact<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the ADD_CONTACT action.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="addOrUpdateContact"><span class="type-signature">(constant) </span>addOrUpdateContact<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>This action creator updates the user state
-by either adding a new contact entry or updating
-an existing on in the contactedIDs user state.</p>
+    <p>This action creator determines if the passed in tempID
+is already in the contactedIDs user state and then either
+dispatches an ADD_CONTACT action or UPDATE_CONTACT action.</p>
 </div>
 
 
@@ -260,15 +383,75 @@ an existing on in the contactedIDs user state.</p>
 
         
             
-<h4 class="name" id="DiagnosisNavigator"><span class="type-signature">(constant) </span>DiagnosisNavigator<span class="type-signature"></span></h4>
+<h4 class="name" id="authenticate"><span class="type-signature">(constant) </span>authenticate<span class="type-signature"></span></h4>
 
 
 
 
 <div class="description">
-    <p>The DiagnosisNavigator represents the diagnosis tab
-in the bottom tab navigator. It manages all the screens
-meant to be shown in the diagnosis tab.</p>
+    <p>Handles creating the AUTHENTICATE action.
+This is called to set the redux state after the user successfully
+logs in, registers their account, or auto-login.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="AuthNavigator"><span class="type-signature">(constant) </span>AuthNavigator<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>The AuthNavigator is a stack navigator
+that contains all screens needed for user
+authentication. It manages the authentication,
+sign in, and sign up screens.</p>
 </div>
 
 
@@ -318,9 +501,186 @@ meant to be shown in the diagnosis tab.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>return (
-  &lt;DiagnosisNavigator />
-)</code></pre>
+    <pre class="prettyprint"><code>return (  &lt;AuthNavigator />)</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="clearContactedIDs"><span class="type-signature">(constant) </span>clearContactedIDs<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the CLEAR_CONTACTED_IDS action.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="clearNotificationHistory"><span class="type-signature">(constant) </span>clearNotificationHistory<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the CLEAR_NOTIFICATION_HISTORY action.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="deleteAccount"><span class="type-signature">(constant) </span>deleteAccount<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>This thunk contacts the authentication API and attempts
+to delete the user's account.
+If the request was successful the actionCreator dispatches the UNAUTHENTICATE
+action and deletes the userAuth data from async storage.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(deleteAccount())</code></pre>
 
 
 
@@ -384,9 +744,278 @@ meant to be shown in the home tab.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>return (
-  &lt;HomeNavigator />
-)</code></pre>
+    <pre class="prettyprint"><code>return (  &lt;HomeNavigator />)</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="login"><span class="type-signature">(constant) </span>login<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>This action creator contacts the authentication API and attempts
+to login the user based on the provided username and password.
+If the login was successful the actionCreator dispatches the authenticate
+actionCreator and passes it the authentication data for the user given from
+the server response.
+It also updates the userAuth async storage with latest auth data.</p>
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(login("username", "password"))</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="logout"><span class="type-signature">(constant) </span>logout<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>This thunk contacts the authentication API and attempts
+to logout the user.
+If the request was successful the actionCreator dispatches the UNAUTHENTICATE
+action and deletes the userAuth data from async storage.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(logout())</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="NewsNavigator"><span class="type-signature">(constant) </span>NewsNavigator<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>The NewsNavigator represents the news tab
+in the bottom tab navigator. It manages all the screens
+meant to be shown in the news tab.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>return (  &lt;NewsNavigator />)</code></pre>
 
 
 
@@ -450,9 +1079,316 @@ meant to be shown in the notifications tab.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>return (
-  &lt;NotificationsNavigator />
-)</code></pre>
+    <pre class="prettyprint"><code>return (  &lt;NotificationsNavigator />)</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="QRNavigator"><span class="type-signature">(constant) </span>QRNavigator<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>The QRNavigator represents the camera tab
+in the bottom tab navigator. It manages all the screens
+meant to be shown in the QR tab.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>return (  &lt;QRNavigator />)</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="refresh"><span class="type-signature">(constant) </span>refresh<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the REFRESH_TOKENS action.
+This is called to set the redux state after the user successfully
+refreshes their tokens</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="refreshTokens"><span class="type-signature">(constant) </span>refreshTokens<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>This thunk contacts the authentication API and attempts
+to refresh the user's access and refresh tokens.
+If the request was successful the thunk calls the refresh
+actionCreator and updates the userAuth data in async storage with
+the latest user auth data.
+It also posts the users device token to the authentication API on
+a successful refresh request.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(deleteAccount())</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="setContactIDs"><span class="type-signature">(constant) </span>setContactIDs<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the SET_CONTACT_IDS action along with the
+provided contactedIDs payload.
+This is used to set the contactedIDs at application start.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="setDeviceToken"><span class="type-signature">(constant) </span>setDeviceToken<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the SET_DEVICE_TOKEN action.
+This is called to set the redux state after the user obtains a device token
+from APNs or FCM in the PushNotificationManager.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
 
 
 
@@ -522,6 +1458,65 @@ This is what lets us display the user navigator.</p>
 
         
             
+<h4 class="name" id="setNotificationHistory"><span class="type-signature">(constant) </span>setNotificationHistory<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the SET_NOTIFICATION_HISTORY action along with the
+provided notificationHistory payload.
+This is used to set the notification history at application start.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="SettingsNavigator"><span class="type-signature">(constant) </span>SettingsNavigator<span class="type-signature"></span></h4>
 
 
@@ -580,9 +1575,207 @@ meant to be shown in the settings tab.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>return (
-  &lt;SettingsNavigator />
-)</code></pre>
+    <pre class="prettyprint"><code>return (  &lt;SettingsNavigator />)</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="signup"><span class="type-signature">(constant) </span>signup<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>This action creator contacts the authentication API and attempts
+to register the user.
+If the registration was successful the actionCreator dispatches the authenticate
+actionCreator and passes it the authentication data for the user given from
+the server response.
+It also updates the userAuth async storage with latest auth data.</p>
+</div>
+
+
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>username</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>password</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>await dispatch(signup("username", "password"))</code></pre>
+
+
+
+        
+            
+<h4 class="name" id="storeTempID"><span class="type-signature">(constant) </span>storeTempID<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the ADD_TEMP_ID action along with the
+provided tempID payload.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
 
 
 
@@ -727,6 +1920,123 @@ authentication API.</p>
 
         
             
+<h4 class="name" id="updateContact"><span class="type-signature">(constant) </span>updateContact<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>Handles creating the UPDATE_CONTACT action.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="updateNotificationHistory"><span class="type-signature">(constant) </span>updateNotificationHistory<span class="type-signature"></span></h4>
+
+
+
+
+<div class="description">
+    <p>A thunk that creates the UPDATE_NOTIFICATION_HISTORY action along with the
+provided matchedContacts payload.
+It also updates the notificationHistory async storage key with the newly
+updated notificationHistory redux state.</p>
+</div>
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id="UserNavigator"><span class="type-signature">(constant) </span>UserNavigator<span class="type-signature"></span></h4>
 
 
@@ -785,9 +2095,7 @@ tabs respective navigators.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>return (
-  &lt;UserNavigator />
-)</code></pre>
+    <pre class="prettyprint"><code>return (  &lt;UserNavigator />)</code></pre>
 
 
 
@@ -885,9 +2193,7 @@ with a Redux Provider.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>return (
-  &lt;App />
-)</code></pre>
+    <pre class="prettyprint"><code>return (  &lt;App />)</code></pre>
 
 
 
@@ -979,101 +2285,7 @@ component to render.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>return (
-  &lt;AppNavigator />
-)</code></pre>
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="DiagnosisScreen"><span class="type-signature"></span>DiagnosisScreen<span class="signature">()</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>The DiagnosisScreen component houses the UI components
-and handler functions for QR diagnosis code submission
-and navigating the user to testing site website.</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>return (
-  &lt;DiagnosisScreen />
-)</code></pre>
+    <pre class="prettyprint"><code>return (  &lt;AppNavigator />)</code></pre>
 
 
 
@@ -1255,9 +2467,183 @@ push notification history.</p>
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>return (
-  &lt;NotificationsScreen />
-)</code></pre>
+    <pre class="prettyprint"><code>return (  &lt;NotificationsScreen />)</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="QRResultsScreen"><span class="type-signature"></span>QRResultsScreen<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The QRPositiveScreen component houses the UI components</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>return (  &lt;QRPositiveScreen />)</code></pre>
+
+
+
+        
+            
+
+    
+
+    
+    <h4 class="name" id="QRScanningScreen"><span class="type-signature"></span>QRScanningScreen<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The QRScanningScreen component houses the UI components</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>return (  &lt;QRScanningScreen />)</code></pre>
 
 
 
@@ -1446,6 +2832,95 @@ application startup.</p>
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="StateSelectorScreen"><span class="type-signature"></span>StateSelectorScreen<span class="signature">()</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>The StateSelectorScreen component lets users select and search for their
+state and get redirected to news about that state in their native browser.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>return (  &lt;StateSelectorScreen />)</code></pre>
+
+
+
+        
     
 
     
@@ -1461,13 +2936,13 @@ application startup.</p>
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Contact.html">Contact</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addOrUpdateContact">addOrUpdateContact</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppNavigator">AppNavigator</a></li><li><a href="global.html#DiagnosisNavigator">DiagnosisNavigator</a></li><li><a href="global.html#DiagnosisScreen">DiagnosisScreen</a></li><li><a href="global.html#HomeNavigator">HomeNavigator</a></li><li><a href="global.html#HomeScreen">HomeScreen</a></li><li><a href="global.html#NotificationsNavigator">NotificationsNavigator</a></li><li><a href="global.html#NotificationsScreen">NotificationsScreen</a></li><li><a href="global.html#setDidTryAutoLogin">setDidTryAutoLogin</a></li><li><a href="global.html#SettingsNavigator">SettingsNavigator</a></li><li><a href="global.html#SettingsScreen">SettingsScreen</a></li><li><a href="global.html#StartupScreen">StartupScreen</a></li><li><a href="global.html#updateAccessToken">updateAccessToken</a></li><li><a href="global.html#UserNavigator">UserNavigator</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="Contact.html">Contact</a></li><li><a href="Notification.html">Notification</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addFakeContact">addFakeContact</a></li><li><a href="global.html#addNewContact">addNewContact</a></li><li><a href="global.html#addOrUpdateContact">addOrUpdateContact</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AppNavigator">AppNavigator</a></li><li><a href="global.html#authenticate">authenticate</a></li><li><a href="global.html#AuthNavigator">AuthNavigator</a></li><li><a href="global.html#clearContactedIDs">clearContactedIDs</a></li><li><a href="global.html#clearNotificationHistory">clearNotificationHistory</a></li><li><a href="global.html#deleteAccount">deleteAccount</a></li><li><a href="global.html#HomeNavigator">HomeNavigator</a></li><li><a href="global.html#HomeScreen">HomeScreen</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#logout">logout</a></li><li><a href="global.html#NewsNavigator">NewsNavigator</a></li><li><a href="global.html#NotificationsNavigator">NotificationsNavigator</a></li><li><a href="global.html#NotificationsScreen">NotificationsScreen</a></li><li><a href="global.html#QRNavigator">QRNavigator</a></li><li><a href="global.html#QRResultsScreen">QRResultsScreen</a></li><li><a href="global.html#QRScanningScreen">QRScanningScreen</a></li><li><a href="global.html#refresh">refresh</a></li><li><a href="global.html#refreshTokens">refreshTokens</a></li><li><a href="global.html#setContactIDs">setContactIDs</a></li><li><a href="global.html#setDeviceToken">setDeviceToken</a></li><li><a href="global.html#setDidTryAutoLogin">setDidTryAutoLogin</a></li><li><a href="global.html#setNotificationHistory">setNotificationHistory</a></li><li><a href="global.html#SettingsNavigator">SettingsNavigator</a></li><li><a href="global.html#SettingsScreen">SettingsScreen</a></li><li><a href="global.html#signup">signup</a></li><li><a href="global.html#StartupScreen">StartupScreen</a></li><li><a href="global.html#StateSelectorScreen">StateSelectorScreen</a></li><li><a href="global.html#storeTempID">storeTempID</a></li><li><a href="global.html#updateAccessToken">updateAccessToken</a></li><li><a href="global.html#updateContact">updateContact</a></li><li><a href="global.html#updateNotificationHistory">updateNotificationHistory</a></li><li><a href="global.html#UserNavigator">UserNavigator</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Fri Oct 02 2020 23:28:57 GMT-0400 (Eastern Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.6</a> on Tue Dec 08 2020 19:15:49 GMT-0500 (Eastern Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>
