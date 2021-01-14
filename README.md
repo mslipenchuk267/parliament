@@ -1,5 +1,7 @@
 # Parliament - Anonymous Contact Tracing
 
+## NOTE: Repo is now Archived. This was a course project for the Computer Science Capstone at Temple University.
+
 Parliament is a contact tracing app that features maximized anonymity and user authentication at its core.
 This app allows background contact tracing between users and never stores the association between a user and their generated temporary IDs.
 Users are notified of potential exposures only if an infected user volunteers to submit their temporary IDs generated in the last 14 days to the infection database.
